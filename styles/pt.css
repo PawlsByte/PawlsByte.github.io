@@ -1,35 +1,11 @@
 /* CSS File 
   ===================
-  Item Name: Selector - pricing tables and plans
   Author: Charles H
   Version: 2.0
   Copyright 2025
 ===================*/
-/*------------------------------------------------------------------
-  [ Master css file, Table of contents ]
-  
-  01. General css
-  02. Start Pricing plan style 1
-  03. Start Pricing plan style 2
-  04. Start Pricing plan style 3
-  05. Start Pricing plan style 4
-  06. Start Pricing plan style 5
-  07. Start Pricing plan style 6
-  
-------------------------------------------------------------*/
-/*------------------------------------------------------------------
-  # [Color codes]
-  
 
-  01. Design-6 colors
-    - background: linear-gradient(135deg, #fe0000, #fe0000);
-    - background: linear-gradient(135deg, #0000fe, #010080);
-# */
-/*------------------------------------------------------------------
-  [Typography]
-  
-  Body copy:      font-family: 'Lato', sans-serif;
--------------------------------------------------------------------*/
+
 /*==============
   [00] Page General css
 =================*/
@@ -95,7 +71,7 @@ h2 {
   cursor: no-drop; }
 
 
-/* Start Pricing plan style 6 */
+/* Start Price Table */
 .plan-style-6-back, .plan-style-6-active {
   background: linear-gradient(135deg, #4646ff, #01005a) !important; }
 
@@ -285,6 +261,6 @@ h2 {
       -o-transition: all .3s ease-in-out;
       transition: all .3s ease-in-out; }
 
-/* End Pricing plan style 6 */
+/* End Price Table */
 
 /*# sourceMappingURL=pricing-tables.css.map */
