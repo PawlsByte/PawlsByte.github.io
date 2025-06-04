@@ -1,0 +1,42 @@
+﻿@font-face {
+  font-family: 'Asap Condensed';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(s/asapcondensed/v17/pxieypY1o9NHyXh3WvSbGSggdO8nSmlE.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Asap Condensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(s/asapcondensed/v17/pxidypY1o9NHyXh3WvSbGSggdNeL.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Asap Condensed';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(s/asapcondensed/v17/pxieypY1o9NHyXh3WvSbGSggdO9_S2lE.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Asap Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(s/asapcondensed/v17/pxieypY1o9NHyXh3WvSbGSggdO9TTGlE.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Asap Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(s/asapcondensed/v17/pxieypY1o9NHyXh3WvSbGSggdO83TWlE.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Asap Condensed';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(s/asapcondensed/v17/pxieypY1o9NHyXh3WvSbGSggdO8rTmlE.ttf) format('truetype');
+}
