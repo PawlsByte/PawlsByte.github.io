@@ -1,8 +1,7 @@
 /*======================================================
-	Template Name: selector - pricing tables and plans
-	Author: Ashish Maraviya
+	Author: Charles H
 	Version: 2.0
-	Copyright 2020
+	Copyright 2025
 ========================================================*/
 
 /* selector Switcher */
