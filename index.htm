@@ -14,6 +14,8 @@
 		<meta http-equiv="Cache-control" content="public">    
 		<link href="https://www.unitedstatesbd.com" rel="preconnect" crossorigin="">    
 		<link rel="shortcut icon" href="https://www.unitedstatesbd.com/images/unitedstatesbdcom/bizwebsites/2687/favicon.png" type="image/x-icon"> 
+		
+		
 	
 	<!-- Google Tag Manager -->
 	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NWZ3FXKW');</script>
@@ -31,7 +33,18 @@
 	<link href="css2?family=Asap+Condensed:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" async=""> 
 	<link rel="stylesheet" href="npm/bootstrap-icons%401.11.1/font/bootstrap-icons.css">             
 	<link href="styles/webCustomCss.css" rel="stylesheet" type="text/css" media="all">
-	
+	 <!-- Step 2: Paste the CSS and Font links here -->
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style>
+        /* All the game's CSS goes here */
+        body {
+            font-family: 'Permanent Marker', cursive;
+            /* ...and so on... */
+        }
+        canvas {
+            /* ...etc... */
+        }
+    </style>
 	<link rel="stylesheet" href="styles/switcher.css">
 	<link rel="stylesheet" href="styles/pt.css">
 	<link rel="stylesheet" href="styles/PTR.css">
@@ -131,6 +144,11 @@
 		
 <div class="container mt-6 pb-5">
   <div class="row align-items-center flex-row-reverse">
+	<!-- Step 1: Paste the HTML for the game here -->
+    <h1>Mold Spore Zapper!</h1>
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+    </div>
     
 		<!-- Start Price Table-->
       <section class="pp-section">
@@ -251,6 +269,288 @@
 			</div>	
 		</section>
 		<!-- End Price Table-->
+	  <script>
+    // --- Canvas and Context Setup ---
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // --- Game State Manager ---
+    let gameState = 'mainMenu'; // mainMenu, settings, playing, gameOver, gameWon
+
+    // --- Game Settings ---
+    let settings = {
+        particles: true,
+        screenShake: true,
+    };
+
+    // --- Game State & Level Variables ---
+    let score = 0;
+    let player;
+    let waterStream;
+    let projectiles = [];
+    let spores = [];
+    let particles = [];
+    let powerUps = [];
+    let backgroundSpores = [];
+    let mouseTrail = [];
+    let isGameOver = false;
+    let isGameWon = false;
+    let discountCode = '';
+    let mousePos = { x: 0, y: 0 };
+    
+    // --- Screen Shake ---
+    let screenShakeTime = 0;
+    
+    // --- Power-Up State ---
+    let isTripleShotActive = false;
+    let tripleShotTimer = 0;
+    const tripleShotDuration = 600; // 10 seconds at 60fps
+    
+    // --- Leveling System ---
+    let currentLevel = 1;
+    const maxLevel = 10;
+    let sporesZappedThisLevel = 0;
+    let levelTransitioning = false;
+    let levelTransitionTimer = 0;
+
+    const levelConfigs = [
+        {}, // Index 0 is unused
+        { sporesToNextLevel: 15, spawnInterval: 1700, speedMultiplier: 1.0, baseHealth: 1, canMerge: false, powerUpChance: 0.1 },
+        { sporesToNextLevel: 20, spawnInterval: 1500, speedMultiplier: 1.1, baseHealth: 1, canMerge: false, powerUpChance: 0.1 },
+        { sporesToNextLevel: 25, spawnInterval: 1300, speedMultiplier: 1.2, baseHealth: 2, canMerge: false, powerUpChance: 0.15 },
+        { sporesToNextLevel: 30, spawnInterval: 1100, speedMultiplier: 1.3, baseHealth: 2, canMerge: true, powerUpChance: 0.15 },
+        { sporesToNextLevel: 35, spawnInterval: 1000, speedMultiplier: 1.4, baseHealth: 2, canMerge: true, powerUpChance: 0.2 },
+        { sporesToNextLevel: 40, spawnInterval: 900,  speedMultiplier: 1.5, baseHealth: 3, canMerge: true, powerUpChance: 0.2 },
+        { sporesToNextLevel: 45, spawnInterval: 800,  speedMultiplier: 1.6, baseHealth: 3, canMerge: true, powerUpChance: 0.25 },
+        { sporesToNextLevel: 50, spawnInterval: 700,  speedMultiplier: 1.7, baseHealth: 3, canMerge: true, powerUpChance: 0.25 },
+        { sporesToNextLevel: 55, spawnInterval: 600,  speedMultiplier: 1.8, baseHealth: 4, canMerge: true, powerUpChance: 0.3 },
+        { sporesToNextLevel: 60, spawnInterval: 500,  speedMultiplier: 2.0, baseHealth: 4, canMerge: true, powerUpChance: 0.3 },
+    ];
+    let lastSporeSpawnTime = 0;
+    
+    // --- Firing State Variables ---
+    let isFiring = false;
+    let isStreamActive = false;
+    const fireRate = 120;
+    let lastFireTime = 0;
+    let fireButtonDownTime = 0;
+    const streamChargeTime = 2000;
+
+    // --- Image for the mold spore ---
+    const sporeImage = new Image();
+
+    // --- Audio Manager ---
+    const audioManager = {
+        context: new (window.AudioContext || window.webkitAudioContext)(),
+        sprayNode: null, sprayGain: null, isSprayPlaying: false,
+        startSpraySound() { if (!this.context || this.isSprayPlaying) return; this.isSprayPlaying = true; const bufferSize = this.context.sampleRate * 2; const buffer = this.context.createBuffer(1, bufferSize, this.context.sampleRate); const output = buffer.getChannelData(0); for (let i = 0; i < bufferSize; i++) { output[i] = Math.random() * 2 - 1; } this.sprayNode = this.context.createBufferSource(); this.sprayNode.buffer = buffer; this.sprayNode.loop = true; const filterNode = this.context.createBiquadFilter(); filterNode.type = 'bandpass'; filterNode.frequency.value = 10000; filterNode.Q.value = 0.5; this.sprayGain = this.context.createGain(); this.sprayGain.gain.setValueAtTime(0, this.context.currentTime); this.sprayGain.gain.linearRampToValueAtTime(0.15, this.context.currentTime + 0.1); this.sprayNode.connect(filterNode); filterNode.connect(this.sprayGain); this.sprayGain.connect(this.context.destination); this.sprayNode.start(); },
+        stopSpraySound() { if (!this.isSprayPlaying || !this.sprayGain) return; this.isSprayPlaying = false; this.sprayGain.gain.cancelScheduledValues(this.context.currentTime); this.sprayGain.gain.linearRampToValueAtTime(0, this.context.currentTime + 0.1); },
+        playSingleShotSound() { if (!this.context) return; const oscillator = this.context.createOscillator(); const gainNode = this.context.createGain(); oscillator.connect(gainNode); gainNode.connect(this.context.destination); oscillator.type = 'triangle'; gainNode.gain.setValueAtTime(0.2, this.context.currentTime); oscillator.frequency.setValueAtTime(600, this.context.currentTime); oscillator.frequency.exponentialRampToValueAtTime(100, this.context.currentTime + 0.08); gainNode.gain.exponentialRampToValueAtTime(0.001, this.context.currentTime + 0.08); oscillator.start(this.context.currentTime); oscillator.stop(this.context.currentTime + 0.08); },
+        playHitSound() { if (!this.context) return; const thumpOsc = this.context.createOscillator(); const thumpGain = this.context.createGain(); thumpOsc.type = 'sine'; thumpOsc.frequency.setValueAtTime(80, this.context.currentTime); thumpGain.gain.setValueAtTime(0.4, this.context.currentTime); thumpGain.gain.exponentialRampToValueAtTime(0.01, this.context.currentTime + 0.1); thumpOsc.connect(thumpGain); thumpGain.connect(this.context.destination); thumpOsc.start(); thumpOsc.stop(this.context.currentTime + 0.1); const bufferSize = this.context.sampleRate * 0.2; const buffer = this.context.createBuffer(1, bufferSize, this.context.sampleRate); const output = buffer.getChannelData(0); for (let i = 0; i < bufferSize; i++) { output[i] = Math.random() * 2 - 1; } const noiseNode = this.context.createBufferSource(); noiseNode.buffer = buffer; const filterNode = this.context.createBiquadFilter(); filterNode.type = 'highpass'; filterNode.frequency.setValueAtTime(1000, this.context.currentTime); const gainNode = this.context.createGain(); gainNode.gain.setValueAtTime(0.3, this.context.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.001, this.context.currentTime + 0.2); noiseNode.connect(filterNode); filterNode.connect(gainNode); gainNode.connect(this.context.destination); noiseNode.start(); noiseNode.stop(this.context.currentTime + 0.2); }
+    };
+
+    // --- Player Class ---
+    class Player {
+        constructor() { this.width = 70; this.height = 30; this.x = canvas.width / 2 - this.width / 2; this.y = canvas.height - this.height - 10; this.nozzleX = this.x + this.width / 2; this.nozzleY = this.y - 5; }
+        updatePosition(x) { this.x = x; this.nozzleX = this.x + this.width / 2; }
+        draw() { ctx.fillStyle = '#475569'; ctx.fillRect(this.x, this.y, this.width * 0.7, this.height); ctx.fillStyle = '#334155'; ctx.beginPath(); ctx.moveTo(this.x + this.width * 0.7, this.y + 5); ctx.lineTo(this.x + this.width * 0.9, this.y + this.height); ctx.lineTo(this.x + this.width * 0.7, this.y + this.height); ctx.closePath(); ctx.fill(); ctx.fillStyle = '#f59e0b'; ctx.fillRect(this.nozzleX - 4, this.nozzleY - 15, 8, 15); }
+    }
+
+    // --- Water Stream Class ---
+    class WaterStream {
+        constructor() { this.width = 12; this.color = 'rgba(125, 211, 252, 0.7)'; this.wobble = 0; this.wobbleSpeed1 = 0.5; this.wobbleSpeed2 = 0.8; }
+        update(timestamp) { this.wobble = (Math.sin(timestamp * this.wobbleSpeed1) * 3) + (Math.sin(timestamp * this.wobbleSpeed2) * 2); }
+        draw(x, y) { const grad = ctx.createLinearGradient(x - this.width, y, x + this.width, y); grad.addColorStop(0, 'rgba(224, 242, 254, 0.5)'); grad.addColorStop(0.5, 'rgba(125, 211, 252, 0.8)'); grad.addColorStop(1, 'rgba(224, 242, 254, 0.5)'); ctx.fillStyle = grad; ctx.beginPath(); ctx.moveTo(x - this.width / 2 + this.wobble, y); ctx.lineTo(x + this.width / 2 + this.wobble, y); ctx.lineTo(x + this.width / 2 - this.wobble, 0); ctx.lineTo(x - this.width / 2 - this.wobble, 0); ctx.closePath(); ctx.fill(); }
+    }
+    
+    // --- Projectile Class (Bubbles) ---
+    class Projectile {
+        constructor(x, y, angle = 0) { this.radius = 8; this.x = x; this.y = y; this.speed = 10; this.vx = Math.sin(angle) * this.speed; this.vy = -Math.cos(angle) * this.speed; }
+        update() { this.x += this.vx; this.y += this.vy; }
+        draw() { ctx.save(); const grad = ctx.createRadialGradient(this.x - 2, this.y - 2, 1, this.x, this.y, this.radius); grad.addColorStop(0, 'rgba(224, 242, 254, 1)'); grad.addColorStop(1, 'rgba(56, 189, 248, 0.7)'); ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+    }
+
+    // --- Particle Class ---
+    class Particle {
+        constructor(x, y, type, options = {}) {
+            this.x = x; this.y = y; this.type = type; this.life = 1;
+            if (this.type === 'splash' || this.type === 'ripple') { this.radius = Math.random() * 3 + 1; this.color = '#7dd3fc'; this.speed = Math.random() * (options.power || 5) + 3; this.angle = Math.random() * Math.PI * 2; this.vx = Math.cos(this.angle) * this.speed; this.vy = Math.sin(this.angle) * this.speed; this.gravity = 0.1; if (this.type === 'ripple') { this.radius = 1; this.maxRadius = options.power * 10 + 40; this.life = 0.5; } }
+            else if (this.type === 'goo' || this.type === 'drip') { this.width = Math.random() * (options.power || 5) + 3; this.color = '#a3e635'; this.speed = Math.random() * (options.power || 4) + 2; this.angle = Math.random() * Math.PI * 2; this.vx = Math.cos(this.angle) * this.speed; this.vy = Math.sin(this.angle) * this.speed; this.drag = 0.92; this.gravity = 0.1; if(this.type === 'drip') { this.vx = (Math.random() - 0.5) * 2; this.vy = Math.random() * 2; this.life = 2; } }
+            else if (this.type === 'streamDrip') { this.radius = Math.random() * 2 + 1; this.color = 'rgba(203, 228, 252, 0.8)'; this.vx = (options.wobble || 0) * 0.3 + (Math.random() - 0.5) * 2; this.vy = Math.random() * 1 + 0.5; this.gravity = 0.05; }
+            else if (this.type === 'mouseTrail') { this.radius = Math.random() * 2 + 0.5; this.color = `rgba(125, 211, 252, ${Math.random() * 0.5})`; this.vx = (Math.random() - 0.5) * 0.5; this.vy = (Math.random() - 0.5) * 0.5; }
+            else if (this.type === 'bgSpore') { this.radius = Math.random() * 40 + 20; this.color = `rgba(163, 230, 53, ${Math.random() * 0.05 + 0.02})`; this.vx = (Math.random() - 0.5) * 0.2; this.vy = (Math.random() - 0.5) * 0.2; }
+        }
+        update() { this.x += this.vx; this.y += this.vy; if (this.type === 'splash' || this.type === 'streamDrip') this.vy += this.gravity; else if (this.type === 'goo' || this.type === 'drip') { this.vx *= this.drag; this.vy *= this.drag; this.vy += this.gravity; } else if (this.type === 'ripple') this.radius += 2; this.life -= (this.type === 'streamDrip' ? 0.05 : 0.03); }
+        draw() { ctx.save(); ctx.globalAlpha = this.life > 0 ? this.life : 0; if (this.type === 'ripple') { ctx.strokeStyle = `rgba(125, 211, 252, ${this.life})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.stroke(); } else if (this.type === 'goo' || this.type === 'drip') { ctx.strokeStyle = this.color; ctx.lineWidth = this.width; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(this.x, this.y); const endX = this.x - this.vx * 4; const endY = this.y - this.vy * 4; ctx.lineTo(endX, endY); ctx.stroke(); } else { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fill(); } ctx.restore(); }
+    }
+
+    // --- Enemy Spore Class ---
+    class Spore {
+        constructor(config, isPowerUp = false) { this.radius = Math.random() * 10 + 15; this.x = Math.random() * (canvas.width - this.radius * 2) + this.radius; this.y = -this.radius; this.vx = 0; this.vy = (Math.random() * 1.5 + 1) * config.speedMultiplier; this.health = config.baseHealth; this.maxHealth = config.baseHealth; this.isMerged = false; this.isPowerUp = isPowerUp; this.angle = 0; this.rotationSpeed = (Math.random() - 0.5) * 0.05; }
+        update() { this.x += this.vx; this.y += this.vy; this.angle += this.rotationSpeed; }
+        takeDamage(damage = 1) { this.health -= damage; }
+        draw() { ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle); if (this.isMerged) ctx.filter = 'saturate(2) brightness(0.8)'; else if (this.isPowerUp) ctx.filter = `hue-rotate(${Date.now() / 5}deg) drop-shadow(0 0 8px #fff)`; ctx.drawImage(sporeImage, -this.radius, -this.radius, this.radius * 2, this.radius * 2); ctx.filter = 'none'; if (this.health < this.maxHealth && this.maxHealth > 1) { const healthPercent = this.health / this.maxHealth; ctx.fillStyle = '#1e293b'; ctx.fillRect(-this.radius, this.radius + 5, this.radius * 2, 5); ctx.fillStyle = healthPercent > 0.5 ? '#a3e635' : '#f59e0b'; ctx.fillRect(-this.radius, this.radius + 5, this.radius * 2 * healthPercent, 5); } ctx.restore(); }
+    }
+    
+    // --- Power-Up Class ---
+    class PowerUp {
+        constructor(x, y) { this.x = x; this.y = y; this.size = 15; this.type = 'tripleShot'; this.vy = 1; this.angle = 0; }
+        update() { this.y += this.vy; this.angle += 0.1; }
+        draw() { ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle); ctx.fillStyle = '#f0abfc'; ctx.font = 'bold 30px Bangers, cursive'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.shadowColor = '#e879f9'; ctx.shadowBlur = 15; ctx.fillText('P', 0, 0); ctx.restore(); }
+    }
+    
+    function createExplosion(x, y, power) {
+        if (!settings.particles) return;
+        const particleCount = Math.floor(power * 15);
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle(x, y, 'splash', { power }));
+            particles.push(new Particle(x, y, 'goo', { power }));
+            if (i % 3 === 0) particles.push(new Particle(x, y, 'drip', { power }));
+        }
+        particles.push(new Particle(x, y, 'ripple', { power }));
+    }
+
+    // --- Menu Button Class ---
+    class Button {
+        constructor(y, width, height, text, action) {
+            Object.assign(this, { y, width, height, text, action });
+            this.isHovered = false;
+            this.scale = 1;
+        }
+        update() {
+            const x = canvas.width / 2 - this.width / 2;
+            const isHover = mousePos.x > x && mousePos.x < x + this.width &&
+                            mousePos.y > this.y && mousePos.y < this.y + this.height;
+            this.isHovered = isHover;
+            this.scale = this.isHovered ? 1.1 : 1;
+        }
+        draw() {
+            const x = canvas.width / 2 - this.width / 2;
+            ctx.save();
+            ctx.translate(x + this.width / 2, this.y + this.height / 2);
+            ctx.scale(this.scale, this.scale);
+            ctx.fillStyle = this.isHovered ? 'rgba(190, 242, 100, 0.9)' : 'rgba(163, 230, 53, 0.7)';
+            ctx.strokeStyle = '#e0f2e9';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.roundRect(-this.width / 2, -this.height / 2, this.width, this.height, 15);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = '#1e2d20';
+            ctx.font = '30px Bangers, cursive';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(this.text, 0, 0);
+            ctx.restore();
+        }
+    }
+
+    const mainMenuButtons = [
+        new Button(250, 250, 60, 'Play', () => { gameState = 'playing'; initGame(); }),
+        new Button(330, 250, 60, 'Settings', () => { gameState = 'settings'; }),
+        new Button(410, 250, 60, 'Quit', () => { window.location.href = 'https://www.americlean9111.com'; })
+    ];
+
+    const settingsMenuButtons = [
+        new Button(250, 400, 60, 'Particles: ON', () => { settings.particles = !settings.particles; settingsMenuButtons[0].text = `Particles: ${settings.particles ? 'ON' : 'OFF'}`; }),
+        new Button(330, 400, 60, 'Screen Shake: ON', () => { settings.screenShake = !settings.screenShake; settingsMenuButtons[1].text = `Screen Shake: ${settings.screenShake ? 'ON' : 'OFF'}`; }),
+        new Button(450, 250, 60, 'Back', () => { gameState = 'mainMenu'; })
+    ];
+
+    function handleParticles(arr) { if(!settings.particles) { arr.length = 0; return; } for (let i = arr.length - 1; i >= 0; i--) { arr[i].update(); arr[i].draw(); if (arr[i].life <= 0) arr.splice(i, 1); } }
+    function handleProjectiles() { for (let i = projectiles.length - 1; i >= 0; i--) { projectiles[i].update(); projectiles[i].draw(); if (projectiles[i].y + projectiles[i].radius < 0) projectiles.splice(i, 1); } }
+    function handleSpores(timestamp) { const config = levelConfigs[currentLevel]; if (!isGameWon && !isGameOver && timestamp - lastSporeSpawnTime > config.spawnInterval) { const isPowerUp = Math.random() < config.powerUpChance; spores.push(new Spore(config, isPowerUp)); lastSporeSpawnTime = timestamp; } for (let i = spores.length - 1; i >= 0; i--) { spores[i].update(); spores[i].draw(); if (spores[i].y - spores[i].radius > canvas.height) { isGameOver = true; gameState = 'gameOver'; stopFiring(); } } }
+    function handlePowerUps() { for (let i = powerUps.length - 1; i >= 0; i--) { powerUps[i].update(); powerUps[i].draw(); const dx = powerUps[i].x - player.nozzleX; const dy = powerUps[i].y - player.y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < powerUps[i].size + player.height) { isTripleShotActive = true; tripleShotTimer = tripleShotDuration; powerUps.splice(i, 1); } else if (powerUps[i].y > canvas.height) powerUps.splice(i, 1); } }
+    function handleSporePhysics() { for (let i = 0; i < spores.length; i++) { for (let j = i + 1; j < spores.length; j++) { const sporeA = spores[i]; const sporeB = spores[j]; const dx = sporeB.x - sporeA.x; const dy = sporeB.y - sporeA.y; const distance = Math.sqrt(dx*dx + dy*dy); const minDistance = sporeA.radius + sporeB.radius; if (distance < minDistance) { const config = levelConfigs[currentLevel]; if (config.canMerge && !sporeA.isPowerUp && !sporeB.isPowerUp) { sporeA.health += sporeB.health; sporeA.maxHealth += sporeB.maxHealth; sporeA.radius = Math.min(sporeA.radius + sporeB.radius * 0.5, 60); sporeA.isMerged = true; spores.splice(j, 1); j--; continue; } const angle = Math.atan2(dy, dx); const v1 = { x: sporeA.vx, y: sporeA.vy }; const v2 = { x: sporeB.vx, y: sporeB.vy }; const m1 = sporeA.radius; const m2 = sporeB.radius; sporeA.vx = (v1.x * (m1 - m2) + (2 * m2 * v2.x)) / (m1 + m2); sporeA.vy = (v1.y * (m1 - m2) + (2 * m2 * v2.y)) / (m1 + m2); sporeB.vx = (v2.x * (m2 - m1) + (2 * m1 * v1.x)) / (m1 + m2); sporeB.vy = (v2.y * (m2 - m1) + (2 * m1 * v1.y)) / (m1 + m2); const overlap = minDistance - distance; sporeA.x -= Math.cos(angle) * (overlap / 2); sporeA.y -= Math.sin(angle) * (overlap / 2); sporeB.x += Math.cos(angle) * (overlap / 2); sporeB.y += Math.sin(angle) * (overlap / 2); } } } }
+    function handleCollisions() { for (let i = projectiles.length - 1; i >= 0; i--) { for (let j = spores.length - 1; j >= 0; j--) { const projectile = projectiles[i]; const spore = spores[j]; if (!projectile || !spore) continue; const dx = projectile.x - spore.x; const dy = projectile.y - spore.y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < projectile.radius + spore.radius) { spore.takeDamage(); if (spore.health <= 0) { if (spore.isPowerUp) powerUps.push(new PowerUp(spore.x, spore.y)); if (spore.isMerged) screenShakeTime = 15; audioManager.playHitSound(); createExplosion(spore.x, spore.y, spore.maxHealth); spores.splice(j, 1); sporesZappedThisLevel++; score += 10; checkForLevelUp(); } projectiles.splice(i, 1); break; } } } if (isStreamActive) { for (let i = spores.length - 1; i >= 0; i--) { const spore = spores[i]; const streamLeft = player.nozzleX - waterStream.width / 2; const streamRight = player.nozzleX + waterStream.width / 2; if (spore.x + spore.radius > streamLeft && spore.x - spore.radius < streamRight && spore.y + spore.radius > 0 && spore.y - spore.radius < player.nozzleY) { spore.vy -= 0.1; spore.takeDamage(0.1); if (spore.health <= 0) { if (spore.isPowerUp) powerUps.push(new PowerUp(spore.x, spore.y)); if (spore.isMerged) screenShakeTime = 15; audioManager.playHitSound(); createExplosion(spore.x, spore.y, spore.maxHealth); spores.splice(i, 1); sporesZappedThisLevel++; score += 10; checkForLevelUp(); } } } } }
+    function checkForLevelUp() { if (isGameWon) return; const config = levelConfigs[currentLevel]; if (sporesZappedThisLevel >= config.sporesToNextLevel) { if (currentLevel < maxLevel) { currentLevel++; sporesZappedThisLevel = 0; levelTransitioning = true; levelTransitionTimer = 180; } else { isGameWon = true; gameState = 'gameWon'; stopFiring(); discountCode = generateDiscountCode(); } } }
+    function handleFiring(timestamp) { if (!isFiring) return; const holdDuration = timestamp - fireButtonDownTime; if (holdDuration < streamChargeTime) { isStreamActive = false; if(audioManager.isSprayPlaying) audioManager.stopSpraySound(); if (timestamp - lastFireTime > fireRate) { if (isTripleShotActive) { projectiles.push(new Projectile(player.nozzleX, player.nozzleY, 0)); projectiles.push(new Projectile(player.nozzleX, player.nozzleY, 0.2)); projectiles.push(new Projectile(player.nozzleX, player.nozzleY, -0.2)); } else { projectiles.push(new Projectile(player.nozzleX, player.nozzleY)); } audioManager.playSingleShotSound(); lastFireTime = timestamp; } } else { isStreamActive = true; if(!audioManager.isSprayPlaying) audioManager.startSpraySound(); if(Math.random() < 0.5) { const dripX = player.nozzleX + (Math.random() - 0.5) * waterStream.width; const dripY = Math.random() * player.nozzleY; particles.push(new Particle(dripX, dripY, 'streamDrip', { wobble: waterStream.wobble })); } } }
+    function drawUI() { ctx.fillStyle = '#e0f2e9'; ctx.font = '24px "Permanent Marker", cursive'; ctx.textAlign = 'left'; ctx.fillText(`Score: ${score}`, 20, 40); ctx.textAlign = 'right'; ctx.fillText(`Level: ${currentLevel}`, canvas.width - 20, 40); const config = levelConfigs[currentLevel]; const progress = sporesZappedThisLevel / config.sporesToNextLevel; const barWidth = canvas.width * 0.4; const barX = canvas.width / 2 - barWidth / 2; ctx.strokeStyle = '#a3e635'; ctx.lineWidth = 2; ctx.strokeRect(barX, 20, barWidth, 20); ctx.fillStyle = 'rgba(163, 230, 53, 0.7)'; ctx.fillRect(barX, 20, barWidth * progress, 20); if (isTripleShotActive) { tripleShotTimer--; const powerUpProgress = tripleShotTimer / tripleShotDuration; const powerUpBarX = canvas.width / 2 - barWidth / 2; ctx.fillStyle = '#e879f9'; ctx.fillRect(powerUpBarX, 50, barWidth * powerUpProgress, 10); if (tripleShotTimer <= 0) isTripleShotActive = false; } }
+    function drawLevelTransition() { if (!levelTransitioning) return; levelTransitionTimer--; const alpha = Math.min(1, levelTransitionTimer / 60); ctx.fillStyle = `rgba(224, 242, 233, ${alpha})`; ctx.font = 'bold 100px Bangers, cursive'; ctx.textAlign = 'center'; ctx.fillText(`Level ${currentLevel}`, canvas.width / 2, canvas.height / 2); if (levelTransitionTimer <= 0) levelTransitioning = false; }
+    function drawGameOverScreen() { ctx.fillStyle = 'rgba(30, 45, 32, 0.85)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#e0f2e9'; ctx.font = 'bold 80px Bangers, cursive'; ctx.textAlign = 'center'; ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 40); ctx.font = '30px "Permanent Marker", cursive'; ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 20); ctx.font = '20px "Permanent Marker", cursive'; ctx.fillText('Press F5 to Play Again', canvas.width / 2, canvas.height / 2 + 70); }
+    function drawWinScreen() { ctx.fillStyle = 'rgba(14, 116, 144, 0.85)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = 'white'; ctx.font = 'bold 70px Bangers, cursive'; ctx.textAlign = 'center'; ctx.fillText('YOU WIN!', canvas.width / 2, canvas.height / 2 - 120); ctx.font = '24px "Permanent Marker", cursive'; ctx.fillText("Congratulations! You survived the outbreak! But they'll be back...", canvas.width / 2, canvas.height / 2 - 70); ctx.font = 'bold 28px "Permanent Marker", cursive'; ctx.fillText('Your Discount Code:', canvas.width / 2, canvas.height / 2 - 10); ctx.fillStyle = '#fef08a'; ctx.font = 'bold 40px "Courier New", Courier, monospace'; ctx.fillText(discountCode, canvas.width / 2, canvas.height / 2 + 40); ctx.fillStyle = 'white'; ctx.font = 'bold 32px "Permanent Marker", cursive'; ctx.fillText('10% Off Your Next Cleaning!', canvas.width / 2, canvas.height / 2 + 90); ctx.font = '20px "Permanent Marker", cursive'; ctx.fillText('Press F5 to Play Again', canvas.width / 2, canvas.height / 2 + 140); }
+    function generateDiscountCode() { const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; let code = 'ZAP-'; for (let i = 0; i < 5; i++) { code += chars.charAt(Math.floor(Math.random() * chars.length)); } return code; }
+    function drawMainMenu() { ctx.fillStyle = 'rgba(30, 45, 32, 0.85)'; ctx.fillRect(0, 0, canvas.width, canvas.height); mainMenuButtons.forEach(button => { button.update(); button.draw(); }); ctx.fillStyle = '#e0f2e9'; ctx.font = '18px "Permanent Marker", cursive'; ctx.textAlign = 'center'; ctx.fillText("Move/Touch to Aim & Hold to Shoot!", canvas.width / 2, canvas.height - 30); }
+    function drawSettingsMenu() { ctx.fillStyle = 'rgba(30, 45, 32, 0.85)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#e0f2e9'; ctx.font = '50px Bangers, cursive'; ctx.textAlign = 'center'; ctx.fillText('Settings', canvas.width / 2, 150); settingsMenuButtons.forEach(button => { button.update(); button.draw(); }); }
+
+    // --- Main Game Loop ---
+    function gameLoop(timestamp) {
+        resizeCanvas();
+        ctx.save();
+        if (settings.screenShake && screenShakeTime > 0) { screenShakeTime--; const shakeX = (Math.random() - 0.5) * 10; const shakeY = (Math.random() - 0.5) * 10; ctx.translate(shakeX, shakeY); }
+        ctx.clearRect(-20, -20, canvas.width + 40, canvas.height + 40);
+        handleParticles(backgroundSpores);
+        handleParticles(mouseTrail);
+        switch(gameState) {
+            case 'mainMenu': drawMainMenu(); break;
+            case 'settings': drawSettingsMenu(); break;
+            case 'playing': handleFiring(timestamp); handleSpores(timestamp); handleSporePhysics(); player.draw(); if (isStreamActive) { waterStream.update(timestamp); waterStream.draw(player.nozzleX, player.nozzleY); } handleProjectiles(); handleParticles(particles); handlePowerUps(); handleCollisions(); drawUI(); drawLevelTransition(); break;
+            case 'gameOver': drawGameOverScreen(); break;
+            case 'gameWon': drawWinScreen(); break;
+        }
+        ctx.restore();
+        requestAnimationFrame(gameLoop);
+    }
+
+    // --- Input Handling & Game State ---
+    function startFiring(timestamp) { if (isFiring || gameState !== 'playing') return; if (audioManager.context.state === 'suspended') { audioManager.context.resume(); } isFiring = true; fireButtonDownTime = timestamp; if (isTripleShotActive) { projectiles.push(new Projectile(player.nozzleX, player.nozzleY, 0)); projectiles.push(new Projectile(player.nozzleX, player.nozzleY, 0.2)); projectiles.push(new Projectile(player.nozzleX, player.nozzleY, -0.2)); } else { projectiles.push(new Projectile(player.nozzleX, player.nozzleY)); } audioManager.playSingleShotSound(); lastFireTime = timestamp; }
+    function stopFiring() { if (!isFiring) return; isFiring = false; isStreamActive = false; audioManager.stopSpraySound(); }
+    
+    function getEventCoordinates(e) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        let clientX, clientY;
+        if (e.touches && e.touches.length) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY };
+    }
+
+    function handleMenuClick(e) { const coords = getEventCoordinates(e); let buttons = gameState === 'mainMenu' ? mainMenuButtons : settingsMenuButtons; buttons.forEach(button => { const btnX = canvas.width / 2 - button.width / 2; if (coords.x > btnX && coords.x < btnX + button.width && coords.y > button.y && coords.y < button.y + button.height) { button.action(); } }); }
+    
+    // Desktop Events
+    window.addEventListener('keydown', (e) => { if (e.key === ' ' && !e.repeat) { startFiring(performance.now()); } });
+    window.addEventListener('keyup', (e) => { if (e.key === ' ') { stopFiring(); } });
+    canvas.addEventListener('mousedown', (e) => { if (gameState === 'playing') { startFiring(performance.now()); } else { handleMenuClick(e); } });
+    canvas.addEventListener('mouseup', (e) => { stopFiring(); });
+    canvas.addEventListener('mouseleave', (e) => { stopFiring(); });
+    canvas.addEventListener('mousemove', (e) => { mousePos = getEventCoordinates(e); mouseTrail.push(new Particle(mousePos.x, mousePos.y, 'mouseTrail')); if (gameState !== 'playing') return; let targetX = mousePos.x - player.width / 2; if (targetX < 0) targetX = 0; if (targetX + player.width > canvas.width) targetX = canvas.width - player.width; player.updatePosition(targetX); });
+    
+    // Mobile Touch Events
+    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); if (gameState === 'playing') { startFiring(performance.now()); } else { handleMenuClick(e); } }, { passive: false });
+    canvas.addEventListener('touchend', (e) => { e.preventDefault(); stopFiring(); }, { passive: false });
+    canvas.addEventListener('touchcancel', (e) => { e.preventDefault(); stopFiring(); }, { passive: false });
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); mousePos = getEventCoordinates(e); mouseTrail.push(new Particle(mousePos.x, mousePos.y, 'mouseTrail')); if (gameState !== 'playing') return; let targetX = mousePos.x - player.width / 2; if (targetX < 0) targetX = 0; if (targetX + player.width > canvas.width) targetX = canvas.width - player.width; player.updatePosition(targetX); }, { passive: false });
+    
+    // --- Responsive Canvas Sizing ---
+    function resizeCanvas() {
+        const { clientWidth, clientHeight } = canvas.parentElement;
+        const aspect = 4 / 3;
+        let newWidth = clientWidth;
+        let newHeight = newWidth / aspect;
+        if (newHeight > clientHeight) {
+            newHeight = clientHeight;
+            newWidth = newHeight * aspect;
+        }
+        if (canvas.width !== newWidth || canvas.height !== newHeight) {
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+        }
+    }
+    
+    // --- Initialize and Start Game ---
+    function initGame() { score = 0; currentLevel = 1; sporesZappedThisLevel = 0; spores = []; projectiles = []; particles = []; powerUps = []; isGameOver = false; isGameWon = false; isTripleShotActive = false; player = new Player(); waterStream = new WaterStream(); }
+    function initialLoad() { for (let i = 0; i < 20; i++) backgroundSpores.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height, 'bgSpore')); requestAnimationFrame(gameLoop); }
+    sporeImage.onload = () => { initialLoad(); };
+    sporeImage.onerror = () => { console.error("Failed to load spore image."); };
+    sporeImage.src = 'https://cdn-icons-png.freepik.com/256/4166/4166976.png';
+
+</script>
 	  
 	 
 		<script src="js/modernizr.js"></script>
