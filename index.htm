@@ -36,13 +36,43 @@
 	 <!-- Step 2: Paste the CSS and Font links here -->
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
-        /* All the game's CSS goes here */
         body {
             font-family: 'Permanent Marker', cursive;
-            /* ...and so on... */
+            background: radial-gradient(circle, #3a5a40 0%, #1e2d20 100%);
+            color: #e0f2e9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            overflow: hidden;
+        }
+        /* Container for the game to control its size and centering */
+        #game-container {
+            width: 100%;
+            max-width: 800px; /* Game's max width */
+            margin: auto;
         }
         canvas {
-            /* ...etc... */
+            background: radial-gradient(circle, #475569 0%, #2c3e50 100%);
+            border: 6px solid #a3e635;
+            border-radius: 25px;
+            box-shadow: 0 0 20px #a3e635, 0 0 40px #a3e635, inset 0 0 15px #000;
+            cursor: none;
+            /* Responsive sizing */
+            width: 100%;
+            display: block;
+            aspect-ratio: 4 / 3;
+            touch-action: none; /* Prevents default touch actions like scrolling */
+        }
+        h1 {
+            font-family: 'Bangers', cursive;
+            font-size: 4rem;
+            color: #a3e635;
+            text-shadow: 3px 3px 0px #000, -3px -3px 0px #000, 3px -3px 0px #000, -3px 3px 0px #000;
+            margin-bottom: 10px;
         }
     </style>
 	<link rel="stylesheet" href="styles/switcher.css">
@@ -269,6 +299,7 @@
 			</div>	
 		</section>
 		<!-- End Price Table-->
+	  
 	  <script>
     // --- Canvas and Context Setup ---
     const canvas = document.getElementById('gameCanvas');
