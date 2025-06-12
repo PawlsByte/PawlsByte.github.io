@@ -544,7 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const nav = document.querySelector('nav.container');
         const homeLink = document.querySelector('#main-nav a.nav-item'); 
 
-        if (!logo || !navAccent || !nav || !homeLink || window.innerWidth < 1024) {
+        if (!logo || !navAccent || !nav || !homeLink || window.innerWidth < 720) {
             if(navAccent) navAccent.style.clipPath = ''; 
             document.querySelectorAll('#main-nav .nav-item').forEach(link => {
                 link.classList.remove('on-blue');
