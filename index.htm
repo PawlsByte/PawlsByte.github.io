@@ -646,34 +646,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Simple Markdown to HTML converter
         const markdownToHtml = (md) => {
+            // This is a basic parser. For more complex needs, a library like 'marked.js' would be better.
             let html = md
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
-                .replace(/### (.*)/g, '<h3 class="text-xl font-bold mt-4 mb-2">$1</h3>') // h3
-                .replace(/\n\s?\*\s/g, '<li>') // Unordered list items
-                .replace(/\n\s?[0-9]+\.\s/g, '<li>'); // Ordered list items
+                .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold mt-4 mb-2">$1</h3>')
+                .replace(/^\* (.*$)/gim, '<li>$1</li>')
+                .replace(/^(\d+)\. (.*$)/gim, '<li>$2</li>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
             
-            html = html.replace(/(<li>.*)+/g, (match) => { // Wrap lists
-                const listType = match.includes('1.') ? 'ol' : 'ul';
-                return `<${listType}>${match.replace(/\n/g, '').replace(/[0-9]+\.\s/g, '')}</${listType}>`;
+            // Wrap list items in <ul> or <ol>
+            html = html.replace(/<br><li>/g, '<li>');
+            html = html.replace(/(<li>.*<\/li>)/g, (match) => {
+                if (match.includes('Step')) { // A crude way to guess if it's an ordered list
+                    return `<ol class="list-decimal list-inside">${match}</ol>`;
+                }
+                return `<ul class="list-disc list-inside">${match}</ul>`;
             });
-            html = html.replace(/<\/li><li>/g, '</li><li class="mb-2">'); // Add margin to list items
-            html = html.replace(/\n/g, '<br>'); // New lines
+            html = html.replace(/<\/li><br>/g, '</li>');
 
-            // Basic cleanup for list tags
-            html = html.replace(/<br><ul>/g, '<ul>').replace(/<\/ul><br>/g, '</ul>');
-            html = html.replace(/<br><ol>/g, '<ol>').replace(/<\/ol><br>/g, '</ol>');
-            
             return html;
         };
 
         stainForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // --- IMPORTANT: ADD YOUR API KEY HERE ---
+            // You must get your own API key from Google AI Studio for the live site.
+            // The AI assistant will not work without it.
+            const apiKey = "AIzaSyACYMIuHwUBp4UHo3_xlkrBhrludI3svpE"; // <--- PASTE YOUR GOOGLE GEMINI API KEY HERE
+
+            if (!apiKey) {
+                resultWrapper.classList.remove('hidden');
+                resultDiv.innerHTML = `<p class="text-red-600 font-bold text-center">AI Assistant is not configured. An API key is required.</p>`;
+                console.error("Gemini API Key is missing. Please add it to the script in index.htm.");
+                return;
+            }
+
             const stain = stainInput.value.trim();
             const surface = surfaceInput.value.trim();
 
             if (!stain || !surface) {
-                // In a real app, you'd use a styled modal, not an alert.
-                // For this environment, we'll keep it simple.
                 resultWrapper.classList.remove('hidden');
                 resultDiv.innerHTML = `<p class="text-yellow-600 font-bold">Please describe both the stain and the surface.</p>`;
                 return;
@@ -690,13 +702,16 @@ document.addEventListener('DOMContentLoaded', () => {
             **The Problem:** I've spilled ${stain} on my ${surface}.
 
             Please provide the following in your response, using Markdown for formatting:
-            1. ### Disclaimer: A brief warning that results may vary and professional help is recommended for valuable items.
-            2. ### You Will Need: A bulleted list of simple household items needed for cleaning.
-            3. ### Step-by-Step Instructions: A numbered list of clear, easy-to-follow steps for a DIY cleaning attempt.
-            4. ### When to Call AmeriClean: A short paragraph explaining when it's best to stop and call for professional help (e.g., if the stain spreads, if the material is delicate, etc.). Keep the tone helpful and not overly sales-y.`;
+            ### Disclaimer
+            A brief warning that results may vary and professional help is recommended for valuable items.
+            ### You Will Need
+            A bulleted list of simple household items needed for cleaning.
+            ### Step-by-Step Instructions
+            A numbered list of clear, easy-to-follow steps for a DIY cleaning attempt.
+            ### When to Call AmeriClean
+            A short paragraph explaining when it's best to stop and call for professional help (e.g., if the stain spreads, if the material is delicate, etc.). Keep the tone helpful and not overly sales-y.`;
 
             try {
-                const apiKey = ""; // Canvas will handle the API Key
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
                 
                 const response = await fetch(apiUrl, {
