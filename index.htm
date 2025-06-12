@@ -89,6 +89,68 @@
         .plan-list li { padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb; color: #4b5563; }
         .plan-list li:last-child { border-bottom: none; }
         
+        /* --- Custom Pricing Table Gradients --- */
+        .plan-blue-gradient {
+            background-image: linear-gradient(to top right, #0052D4, #4364F7, #6FB1FC);
+            color: white;
+        }
+        .plan-red-gradient {
+            background-image: linear-gradient(to top right, #c31432, #ff4e50);
+            color: white;
+        }
+
+        /* Overrides for text inside gradient panels */
+        .plan-blue-gradient .plan-title, .plan-red-gradient .plan-title,
+        .plan-blue-gradient .plan-price .price, .plan-red-gradient .plan-price .price {
+            color: #ffffff;
+        }
+
+        .plan-blue-gradient .plan-list li, .plan-red-gradient .plan-list li {
+            color: #f0f9ff; /* Using a very light off-white for better readability */
+            border-bottom-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .plan-blue-gradient .plan-price .price span, .plan-red-gradient .plan-price .price span {
+            color: #e0f2fe;
+        }
+
+        /* Adjust labels for contrast on gradients */
+        .plan-blue-gradient .plan-label-front {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #1e40af;
+        }
+        .plan-red-gradient .plan-label-back {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #991b1b;
+        }
+
+        /* Adjust buttons for contrast on gradients */
+        .plan-blue-gradient .plan-button {
+            background-color: #ffffff;
+            color: #1d4ed8;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .plan-blue-gradient .plan-button:hover {
+            background-color: #f0f9ff;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.2);
+        }
+
+        .plan-red-gradient .plan-button {
+            background-color: #ffffff;
+            color: #b91c1c;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .plan-red-gradient .plan-button:hover {
+            background-color: #fee2e2;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.2);
+        }
+        
+        .plan-blue-gradient .tooltip-hover-text, .plan-red-gradient .tooltip-hover-text {
+            border-bottom: 1px dashed #d1d5db;
+        }
+
         /* Tooltip Styles */
         .tooltip-info { position: relative; cursor: help; }
         .tooltip-hover-text { border-bottom: 1px dashed #6b7280; }
@@ -277,7 +339,7 @@
                     <div class="plan-flipper-container">
                         <div class="plan-flipper">
                             <div class="plan-card plan-front">
-                                <div class="plan-style-6">
+                                <div class="plan-style-6 plan-blue-gradient">
                                     <div class="plan-header">
                                         <span class="plan-label plan-label-front">Popular</span>
                                         <h3 class="plan-title">Monthly</h3>
@@ -302,7 +364,7 @@
                                 </div>
                             </div>
                             <div class="plan-card plan-back">
-                                <div class="plan-style-6">
+                                <div class="plan-style-6 plan-red-gradient">
                                     <div class="plan-header">
                                         <span class="plan-label plan-label-back">Best Value</span>
                                         <h3 class="plan-title">Yearly</h3>
