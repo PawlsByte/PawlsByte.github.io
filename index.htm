@@ -90,64 +90,41 @@
         .plan-list li:last-child { border-bottom: none; }
         
         /* --- Custom Pricing Table Gradients --- */
-        .plan-blue-gradient {
+        .plan-style-6.plan-blue-gradient {
             background-image: linear-gradient(to top right, #0052D4, #4364F7, #6FB1FC);
             color: white;
         }
-        .plan-red-gradient {
+        .plan-style-6.plan-red-gradient {
             background-image: linear-gradient(to top right, #c31432, #ff4e50);
             color: white;
         }
 
         /* Overrides for text inside gradient panels */
-        .plan-blue-gradient .plan-title, .plan-red-gradient .plan-title,
-        .plan-blue-gradient .plan-price .price, .plan-red-gradient .plan-price .price {
+        .plan-style-6.plan-blue-gradient .plan-title, .plan-style-6.plan-red-gradient .plan-title,
+        .plan-style-6.plan-blue-gradient .plan-price .price, .plan-style-6.plan-red-gradient .plan-price .price {
             color: #ffffff;
         }
 
-        .plan-blue-gradient .plan-list li, .plan-red-gradient .plan-list li {
+        .plan-style-6.plan-blue-gradient .plan-list li, .plan-style-6.plan-red-gradient .plan-list li {
             color: #f0f9ff; /* Using a very light off-white for better readability */
             border-bottom-color: rgba(255, 255, 255, 0.25);
         }
 
-        .plan-blue-gradient .plan-price .price span, .plan-red-gradient .plan-price .price span {
+        .plan-style-6.plan-blue-gradient .plan-price .price span, .plan-style-6.plan-red-gradient .plan-price .price span {
             color: #e0f2fe;
         }
 
         /* Adjust labels for contrast on gradients */
-        .plan-blue-gradient .plan-label-front {
+        .plan-style-6.plan-blue-gradient .plan-label-front {
             background-color: rgba(255, 255, 255, 0.9);
             color: #1e40af;
         }
-        .plan-red-gradient .plan-label-back {
+        .plan-style-6.plan-red-gradient .plan-label-back {
             background-color: rgba(255, 255, 255, 0.9);
             color: #991b1b;
         }
-
-        /* Adjust buttons for contrast on gradients */
-        .plan-blue-gradient .plan-button {
-            background-color: #ffffff;
-            color: #1d4ed8;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        .plan-blue-gradient .plan-button:hover {
-            background-color: #f0f9ff;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.2);
-        }
-
-        .plan-red-gradient .plan-button {
-            background-color: #ffffff;
-            color: #b91c1c;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        .plan-red-gradient .plan-button:hover {
-            background-color: #fee2e2;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.2);
-        }
         
-        .plan-blue-gradient .tooltip-hover-text, .plan-red-gradient .tooltip-hover-text {
+        .plan-style-6.plan-blue-gradient .tooltip-hover-text, .plan-style-6.plan-red-gradient .tooltip-hover-text {
             border-bottom: 1px dashed #d1d5db;
         }
 
@@ -160,8 +137,103 @@
 
         .plan-price .price { font-size: 3.5rem; font-weight: 800; color: #111827; line-height: 1; }
         .plan-price .price span { font-size: 1.5rem; font-weight: 600; color: #6b7280; }
+        
+        /* Base button style */
         .plan-bottom .plan-button { display: inline-block; width: 100%; margin-top: 1.5rem; padding: 1rem; border-radius: 0.5rem; background-color: #2563eb; color: white; font-weight: 700; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); }
         .plan-bottom .plan-button:hover { background-color: #1d4ed8; transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); }
+
+        /* Adjust buttons for contrast on gradients - INCREASED SPECIFICITY */
+        .plan-style-6.plan-blue-gradient .plan-button {
+            background-color: #ffffff;
+            color: #1d4ed8;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .plan-style-6.plan-blue-gradient .plan-button:hover {
+            background-color: #f0f9ff;
+            color: #1d4ed8;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.2);
+        }
+
+        .plan-style-6.plan-red-gradient .plan-button {
+            background-color: #ffffff;
+            color: #1d4ed8; /* Blue text */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .plan-style-6.plan-red-gradient .plan-button:hover {
+            background-color: #f0f9ff; /* Light blue background */
+            color: #1d4ed8;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.2);
+        }
+
+
+        /* --- AI Stain Assistant Styles --- */
+        .stain-assistant-section {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+        #stain-assistant-form .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        #stain-assistant-form .form-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+        }
+        #stain-assistant-form .submit-button {
+            background-color: #16a34a; /* green-600 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        #stain-assistant-form .submit-button:hover {
+            background-color: #15803d; /* green-700 */
+            transform: translateY(-2px);
+        }
+         #stain-assistant-form .submit-button:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+        #stain-result {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            min-height: 100px;
+        }
+         /* Simple spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #16a34a;
+            animation: spin 1s ease infinite;
+            margin: 2rem auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+         /* Markdown styling */
+        #stain-result h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; margin-top: 1rem; }
+        #stain-result p { margin-bottom: 1rem; }
+        #stain-result ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
+        #stain-result ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
+        #stain-result li { margin-bottom: 0.5rem; }
+        #stain-result strong { font-weight: 700; }
+        #stain-result em { font-style: italic; }
 
         /* --- Original Style Recreation --- */
         .bg-charcoal { background-color: #343a40; }
@@ -186,6 +258,7 @@
         }
 
         /* Dropdown Styles */
+
         .dropdown {
             position: relative;
         }
@@ -391,6 +464,41 @@
                 </div>
             </div>
         </section>
+
+        <!-- AI Stain Removal Assistant Section -->
+        <section class="stain-assistant-section animated-section">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center mb-12">
+                    <h2 class="text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900">✨ AI Stain Removal Assistant</h2>
+                    <p class="mt-4 text-lg text-gray-600">Spill something? Don't panic! Describe the stain and where it is, and our AI assistant will give you instant cleaning tips.</p>
+                </div>
+
+                <div class="max-w-2xl mx-auto">
+                    <form id="stain-assistant-form" class="space-y-4">
+                        <div>
+                            <label for="stain-description" class="block text-lg font-semibold text-gray-700 mb-2">What did you spill?</label>
+                            <input type="text" id="stain-description" name="stain-description" class="form-input" placeholder="e.g., Red wine, coffee, mud" required>
+                        </div>
+                        <div>
+                            <label for="surface-description" class="block text-lg font-semibold text-gray-700 mb-2">What did you spill it on?</label>
+                            <input type="text" id="surface-description" name="surface-description" class="form-input" placeholder="e.g., White carpet, kitchen countertop, couch cushion" required>
+                        </div>
+                        <div class="text-center pt-4">
+                            <button type="submit" id="stain-submit-button" class="submit-button w-full sm:w-auto">
+                                <i class="bi bi-magic mr-2"></i>Get Cleaning Tips
+                            </button>
+                        </div>
+                    </form>
+
+                    <div id="stain-result-wrapper" class="hidden">
+                        <div id="stain-result">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
     
     <footer>
@@ -523,6 +631,102 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- AI Stain Assistant Logic ---
+    const stainForm = document.getElementById('stain-assistant-form');
+    if (stainForm) {
+        const stainInput = document.getElementById('stain-description');
+        const surfaceInput = document.getElementById('surface-description');
+        const submitButton = document.getElementById('stain-submit-button');
+        const resultWrapper = document.getElementById('stain-result-wrapper');
+        const resultDiv = document.getElementById('stain-result');
+
+        // Simple Markdown to HTML converter
+        const markdownToHtml = (md) => {
+            let html = md
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+                .replace(/### (.*)/g, '<h3 class="text-xl font-bold mt-4 mb-2">$1</h3>') // h3
+                .replace(/\n\s?\*\s/g, '<li>') // Unordered list items
+                .replace(/\n\s?[0-9]+\.\s/g, '<li>'); // Ordered list items
+            
+            html = html.replace(/(\n<li>.*)+/g, (match) => `<ul>${match.replace(/\n/g, '')}</ul>`); // Wrap lists
+            html = html.replace(/<\/li><li>/g, '</li><li class="mb-2">'); // Add margin to list items
+            html = html.replace(/\n/g, '<br>'); // New lines
+
+            // Basic cleanup for list tags
+            html = html.replace(/<br><ul>/g, '<ul>').replace(/<\/ul><br>/g, '</ul>');
+            
+            return html;
+        };
+
+        stainForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const stain = stainInput.value.trim();
+            const surface = surfaceInput.value.trim();
+
+            if (!stain || !surface) {
+                // In a real app, you'd use a styled modal, not an alert.
+                // For this environment, we'll keep it simple.
+                resultWrapper.classList.remove('hidden');
+                resultDiv.innerHTML = `<p class="text-yellow-600 font-bold">Please describe both the stain and the surface.</p>`;
+                return;
+            }
+
+            // Show loading spinner and disable button
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="bi bi-hourglass-split mr-2"></i>Getting Advice...';
+            resultWrapper.classList.remove('hidden');
+            resultDiv.innerHTML = '<div class="spinner"></div>';
+
+            const prompt = `As an AI expert from AmeriClean, a top-rated cleaning and restoration company in Billings, Montana, please provide a helpful guide for the following situation.
+
+            **The Problem:** I've spilled ${stain} on my ${surface}.
+
+            Please provide the following in your response, using Markdown for formatting:
+            1. ### Disclaimer: A brief warning that results may vary and professional help is recommended for valuable items.
+            2. ### You Will Need: A bulleted list of simple household items needed for cleaning.
+            3. ### Step-by-Step Instructions: A numbered list of clear, easy-to-follow steps for a DIY cleaning attempt.
+            4. ### When to Call AmeriClean: A short paragraph explaining when it's best to stop and call for professional help (e.g., if the stain spreads, if the material is delicate, etc.). Keep the tone helpful and not overly sales-y.`;
+
+            try {
+                const apiKey = ""; // Canvas will handle the API Key
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{
+                            role: "user",
+                            parts: [{ text: prompt }]
+                        }]
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts[0]) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    resultDiv.innerHTML = markdownToHtml(text);
+                } else {
+                    throw new Error("No content received from API or unexpected format.");
+                }
+
+            } catch (error) {
+                console.error("Gemini API call failed:", error);
+                resultDiv.innerHTML = `<p class="text-red-600 font-bold">Oops! We couldn't get cleaning advice at the moment. Please try again later or call us directly at (406) 256-9111 for immediate assistance.</p>`;
+            } finally {
+                // Re-enable button
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="bi bi-magic mr-2"></i>Get Cleaning Tips';
+            }
+        });
+    }
+
 
     // --- Navbar Slanted Background Logic ---
     const adjustNavAccent = () => {
