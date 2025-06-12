@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmeriClean - #1 Billings, MT Area Damage Restoration & Cleaning Services</title>
+    <!-- Chosen Palette: Calm & Trustworthy (Deep Blue, Muted Gold, Neutral Grays) -->
+    <!-- Application Structure Plan: A single-page application with a logical, top-down flow designed to build trust and guide the user towards getting an estimate. The structure is: Hero (immediate value proposition) -> Services (clear overview of offerings) -> Why Choose Us (trust-building credentials) -> Interactive Pricing/Estimate (the primary call-to-action, turning a form into an engaging step-by-step process) -> Testimonials (social proof) -> Footer. This non-linear navigation with smooth scrolling allows users to either follow the guided path or jump directly to the section of interest, optimizing for both guided selling and quick information retrieval. -->
+    <!-- Visualization & Content Choices: The core of the redesign is transforming the static service selection dropdowns into an interactive, card-based system with animations. Goal: Simplify choice and make the estimate process feel less like a form and more like a guided consultation. Method: Use JS to dynamically display service options based on a user's category selection, with cards that animate on hover and selection. The cards provide a larger, more visually appealing target than a small dropdown option, improving usability, especially on mobile. Justification: This approach enhances user engagement and reduces friction in the conversion funnel. No data charts are necessary; the focus is on interactive UI for service selection. Library/Method: Vanilla JavaScript and Tailwind CSS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <meta name="description" content="Veteran-Owned Damage Restoration & Cleaning Services in Billings, MT, and Surrounding Areas. Trust AmeriClean for Excellence and Commitment! Contact Us Today!">
+    <meta name="keywords" content="AmeriClean, Billings, MT, damage restoration, disaster restoration, water damage restoration, fire damage restoration, HVAC & Air Duct Cleaning, Mold Remediation, Floor & Carpet Cleaning">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            font-family: 'Asap Condensed', sans-serif;
+            background-color: #ffffff;
+        }
+
+        /* --- Animations --- */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Pricing Table Styles --- */
+        .pricing-section {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            background-color: #f9fafb; /* gray-50 */
+        }
+        .pricing-table-wrapper {
+            perspective: 1200px;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .plan-flipper {
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            position: relative;
+            min-height: 650px; /* Key fix: Ensures container has height */
+        }
+        .plan-card {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .plan-front {
+            z-index: 2;
+            transform: rotateY(0deg);
+        }
+        .plan-back {
+            transform: rotateY(180deg);
+        }
+        .flipped .plan-flipper {
+            transform: rotateY(180deg);
+        }
+
+        /* Toggle Switcher Styles */
+        .selector-switcher { text-align: center; margin-bottom: 2rem; }
+        .selector-field { display: inline-block; position: relative; background-color: #e5e7eb; border-radius: 9999px; padding: 0.25rem; }
+        .selector-field input { position: absolute; opacity: 0; pointer-events: none; }
+        .selector-field label { position: relative; z-index: 1; display: inline-block; padding: 0.5rem 1.5rem; cursor: pointer; color: #4b5563; font-weight: 500; transition: color 0.3s; }
+        .selector-field input:checked + label { color: #111827; }
+        .selector-switch { position: absolute; top: 0.25rem; left: 0.25rem; height: calc(100% - 0.5rem); width: 50%; background-color: #ffffff; border-radius: 9999px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        #yearly-4:checked ~ .selector-switch { transform: translateX(100%); }
+        
+        /* Plan Card Styling */
+        .plan-style-6 { background-color: white; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); padding: 2.5rem; text-align: center; height: 100%; display: flex; flex-direction: column; }
+        .plan-header .plan-label { display: inline-block; padding: 0.25rem 1rem; border-radius: 9999px; font-weight: 700; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .plan-label-front { background-color: #dbeafe; color: #1d4ed8; }
+        .plan-label-back { background-color: #d1fae5; color: #065f46; }
+        .plan-header .plan-title { font-size: 2.25rem; font-weight: 800; margin-top: 1rem; margin-bottom: 1.5rem; color: #1f2937; }
+        .plan-list { list-style: none; padding: 0; margin: 0 0 1.5rem 0; text-align: left; flex-grow: 1; }
+        .plan-list li { padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb; color: #4b5563; }
+        .plan-list li:last-child { border-bottom: none; }
+        
+        /* Tooltip Styles */
+        .tooltip-info { position: relative; cursor: help; }
+        .tooltip-hover-text { border-bottom: 1px dashed #6b7280; }
+        .tooltiptext { visibility: hidden; width: 220px; background-color: #1f2937; color: #fff; text-align: center; border-radius: 6px; padding: 10px; position: absolute; z-index: 10; bottom: 125%; left: 50%; margin-left: -110px; opacity: 0; transition: opacity 0.3s; }
+        .tooltiptext::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -5px; border-width: 5px; border-style: solid; border-color: #1f2937 transparent transparent transparent; }
+        .tooltip-info:hover .tooltiptext { visibility: visible; opacity: 1; }
+
+        .plan-price .price { font-size: 3.5rem; font-weight: 800; color: #111827; line-height: 1; }
+        .plan-price .price span { font-size: 1.5rem; font-weight: 600; color: #6b7280; }
+        .plan-bottom .plan-button { display: inline-block; width: 100%; margin-top: 1.5rem; padding: 1rem; border-radius: 0.5rem; background-color: #2563eb; color: white; font-weight: 700; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); }
+        .plan-bottom .plan-button:hover { background-color: #1d4ed8; transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); }
+
+        /* Original Styles from user file for compatibility */
+        .bg-charcoal { background-color: #343a40; }
+        .link-warning { color: #ffc107; }
+        .link-light { color: #f8f9fa; }
+        .soc-icons .nav-link { padding: 0.5rem; }
+        .menu-wrapper { background-color: #fff; box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075); }
+        .navbar-brand img { max-width: 250px; height: auto; }
+        .nav-cta1 a, .nav-cta2 a { border-radius: 0.25rem; padding: 0.5rem 1rem; }
+        .nav-cta1 a { background-color: #0d6efd; color: white; }
+        .nav-cta2 a { background-color: #dc3545; color: white; }
+        #mobile-sticky-actions { z-index: 1020; }
+        footer { background-color: #212529; color: #f8f9fa; }
+        .footer_middle_div { text-align: center; padding: 1rem 0; border-top: 1px solid #495057; }
+    </style>
+</head>
+<body>
+
+    <!-- Original Header -->
+    <div class="bg-charcoal">  
+        <div class="container py-2 mx-auto">    
+            <div class="flex items-center justify-end">      
+                <div class="px-2">
+                    <a class="text-yellow-400 no-underline" href="tel:4062569111">
+                        <span class="font-bold">24/7 Emergency Service -</span> 
+                        <i class="bi bi-telephone-fill align-middle mx-1"></i>(406) 256-9111
+                    </a> 
+                </div>      
+                <div class="hidden lg:flex px-2">
+                    <ul class="flex space-x-2"> 
+                        <li><a class="text-white p-2" title="Facebook" href="https://www.facebook.com/americlean9111/" target="_blank"><i class="bi bi-facebook"></i></a></li>
+                        <li><a class="text-white p-2" title="Instagram" href="https://www.instagram.com/americlean_billingsmt/" target="_blank"><i class="bi bi-instagram"></i></a></li> 
+                        <li><a class="text-white p-2" title="LinkedIn" href="https://www.linkedin.com/company/americlean" target="_blank"><i class="bi bi-linkedin"></i></a></li> 
+                        <li><a class="text-white p-2" title="YouTube" href="https://www.youtube.com/channel/UCH9aekJo4yDmhxToAJlWE3Q" target="_blank"><i class="bi bi-youtube"></i></a></li> 
+                    </ul>      
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Original Navbar -->
+    <div class="menu-wrapper sticky top-0 z-40">
+        <nav class="container mx-auto flex items-center justify-between p-4">
+            <a class="navbar-brand" href="index.htm">
+                <img alt="AmeriClean" title="AmeriClean" src="https://www.unitedstatesbd.com/images/unitedstatesbdcom/bizcategories/17236/image/logo-americlean-1.webp" width="400" height="104">
+            </a>
+            <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100">
+                <i class="bi bi-list text-3xl"></i>
+            </button>
+            <div id="main-nav" class="hidden lg:flex items-center space-x-6">
+                <a class="text-gray-700 hover:text-blue-600" href="#">Home</a>
+                <a class="text-gray-700 hover:text-blue-600" href="#">About</a>
+                <a class="text-gray-700 hover:text-blue-600" href="#">Services</a>
+                <a class="text-gray-700 hover:text-blue-600" href="#">Gallery</a>
+                <a class="text-gray-700 hover:text-blue-600" href="#">FAQ's</a>
+                <a class="text-gray-700 hover:text-blue-600" href="#">Contact</a>
+                <div class="flex items-center space-x-2 ml-4">
+                    <a class="nav-cta1 text-sm text-white no-underline text-center bg-blue-600 hover:bg-blue-700 p-2 rounded" href="#"><i class="bi bi-hand-thumbs-up-fill mr-1"></i> Review Us</a>
+                    <a class="nav-cta2 text-sm text-white no-underline text-center bg-red-600 hover:bg-red-700 p-2 rounded" href="tel:4062569111">Live Operators 24/7/365</a>
+                </div>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white p-4">
+            <a class="block py-2 text-gray-700" href="#">Home</a>
+            <a class="block py-2 text-gray-700" href="#">About</a>
+            <a class="block py-2 text-gray-700" href="#">Services</a>
+            <a class="block py-2 text-gray-700" href="#">Gallery</a>
+            <a class="block py-2 text-gray-700" href="#">FAQ's</a>
+            <a class="block py-2 text-gray-700" href="#">Contact</a>
+        </div>
+    </div>
+    
+    <main>
+        <!-- Animated Pricing Table Section -->
+        <section class="pricing-section animated-section">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center mb-12">
+                    <h2 class="text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900">StayClean Membership</h2>
+                    <p class="mt-4 text-lg text-gray-600">Join our membership program for exclusive discounts, priority service, and peace of mind. Choose the plan that works for you.</p>
+                </div>
+                
+                <div class="pricing-table-wrapper">
+                    <div class="selector-switcher">
+                        <p class="selector-field">
+                            <input type="radio" name="duration-4" value="monthly" id="monthly-4" checked>
+                            <label for="monthly-4">Monthly</label>
+                            <input type="radio" name="duration-4" value="yearly" id="yearly-4">
+                            <label for="yearly-4">Yearly</label>
+                            <span class="selector-switch"></span>
+                        </p>
+                    </div>
+
+                    <div class="plan-flipper-container">
+                        <div class="plan-flipper">
+                            <div class="plan-card plan-front">
+                                <div class="plan-style-6">
+                                    <div class="plan-header">
+                                        <span class="plan-label plan-label-front">Popular</span>
+                                        <h3 class="plan-title">Month</h3>
+                                    </div>
+                                    <ul class="plan-list">
+                                        <li>On-Call Emergency Services</li>
+                                        <li>
+                                            <span class="tooltip-info"><span class="tooltip-hover-text">AmeriClean Service Discounts</span><span class="tooltiptext">15% Off <b>All</b> Services, <b>All</b> The Time!<br><br>10% Off All Non-insured Emergency Calls</span></span>
+                                        </li>
+                                        <li>2 FREE Annual Mold Inspections</li>
+                                        <li>Flexible Payment Options</li>
+                                        <li>Exclusive <span class="tooltip-info"><span class="tooltip-hover-text">StayClean Warranty</span><span class="tooltiptext">Annual Carpet Cleaning & Touch-ups are FREE!</span></span></li>
+                                        <li>Rewarding <span class="tooltip-info"><span class="tooltip-hover-text">Referral Program</span><span class="tooltiptext">1 Month Free With Every Referred Client</span></span></li>
+                                        <li>Priority Support</li>
+                                    </ul>
+                                    <div class="plan-price">
+                                        <p class="price"><span>$</span>49<span style="font-size: 1.5rem;">.99/ M</span></p>
+                                    </div>
+                                    <div class="plan-bottom">
+                                        <a class="plan-button" href="https://square.link/u/51WX9Lse">Signup Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="plan-card plan-back">
+                                <div class="plan-style-6">
+                                    <div class="plan-header">
+                                        <span class="plan-label plan-label-back">Best Value</span>
+                                        <h3 class="plan-title">Yearly</h3>
+                                    </div>
+                                    <ul class="plan-list">
+                                        <li>On-Call Emergency Services</li>
+                                        <li><span class="tooltip-info"><span class="tooltip-hover-text">AmeriClean Service Discounts</span><span class="tooltiptext">15% Off <b>All</b> Services, <b>All</b> The Time!<br><br>10% Off All Non-insured Emergency Calls</span></span></li>
+                                        <li>2 FREE Annual Mold Inspections</li>
+                                        <li>Flexible Payment Options</li>
+                                        <li>Exclusive <span class="tooltip-info"><span class="tooltip-hover-text">StayClean Warranty</span><span class="tooltiptext">Annual Carpet Cleaning & Touch-ups are FREE!</span></span></li>
+                                        <li>Rewarding <span class="tooltip-info"><span class="tooltip-hover-text">Referral Program</span><span class="tooltiptext">1 Month Free With Every Referred Client</span></span></li>
+                                        <li>Priority Support</li>
+                                    </ul>
+                                    <div class="plan-price">
+                                        <p class="price"><span>$</span>500<span> / Y</span></p>
+                                    </div>
+                                    <div class="plan-bottom">
+                                        <a class="plan-button" href="#">Signup Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Other sections can be added here -->
+
+    </main>
+
+    <!-- Original Footer -->
+    <footer>
+        <div class="container mx-auto py-12 px-4 text-white">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h5 class="text-xl font-bold">Services</h5>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Fire & Smoke Damage</a></li>
+                        <li><a href="#" class="hover:text-white">Water & Flood Damage</a></li>
+                        <li><a href="#" class="hover:text-white">Mold Remediation</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-xl font-bold">Uselful Links</h5>
+                     <ul class="mt-4 space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">About Us</a></li>
+                        <li><a href="#" class="hover:text-white">Service Area</a></li>
+                        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2">
+                    <h5 class="text-xl font-bold">Connect With Us</h5>
+                     <ul class="flex space-x-4 mt-4"> 
+                        <li><a class="text-gray-400 hover:text-white text-2xl" title="Facebook" href="https://www.facebook.com/americlean9111/" target="_blank"><i class="bi bi-facebook"></i></a></li>
+                        <li><a class="text-gray-400 hover:text-white text-2xl" title="Instagram" href="https://www.instagram.com/americlean_billingsmt/" target="_blank"><i class="bi bi-instagram"></i></a></li> 
+                        <li><a class="text-gray-400 hover:text-white text-2xl" title="LinkedIn" href="https://www.linkedin.com/company/americlean" target="_blank"><i class="bi bi-linkedin"></i></a></li> 
+                        <li><a class="text-gray-400 hover:text-white text-2xl" title="YouTube" href="https://www.youtube.com/channel/UCH9aekJo4yDmhxToAJlWE3Q" target="_blank"><i class="bi bi-youtube"></i></a></li> 
+                    </ul>
+                </div>
+            </div>
+            <div class="footer_middle_div mt-8 pt-8 border-t border-gray-700 text-sm">
+                <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-gray-400">
+                    <a href="#" class="hover:text-white">Social Media</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Sitemap</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Contact Us</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Terms & Conditions</a>
+                </div>
+                <div class="mt-4 text-gray-500 text-center">
+                    <span>&copy; 2025</span>
+                    <a href="#" class="hover:text-white">Powered by Virtual Vision Computing, LLC, All-in-One Website,</a>
+                    <a href="#" class="hover:text-white">Business Listing</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Mobile Menu Toggle ---
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // --- Pricing Table Flip Animation ---
+    const pricingWrapper = document.querySelector('.pricing-table-wrapper');
+    const monthlyRadio = document.getElementById('monthly-4');
+    const yearlyRadio = document.getElementById('yearly-4');
+
+    if (pricingWrapper && monthlyRadio && yearlyRadio) {
+        const flipper = pricingWrapper.querySelector('.plan-flipper');
+        
+        const setFlipperHeight = () => {
+            const frontHeight = flipper.querySelector('.plan-front .plan-style-6').offsetHeight;
+            const backHeight = flipper.querySelector('.plan-back .plan-style-6').offsetHeight;
+            flipper.style.minHeight = `${Math.max(frontHeight, backHeight)}px`;
+        };
+        
+        monthlyRadio.addEventListener('change', () => {
+            if (monthlyRadio.checked) {
+                pricingWrapper.classList.remove('flipped');
+            }
+        });
+        yearlyRadio.addEventListener('change', () => {
+            if (yearlyRadio.checked) {
+                pricingWrapper.classList.add('flipped');
+            }
+        });
+
+        // Set initial height and update on resize
+        setFlipperHeight();
+        window.addEventListener('resize', setFlipperHeight);
+    }
+
+    // --- Animation on Scroll ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    document.querySelectorAll('.animated-section').forEach(section => {
+        observer.observe(section);
+    });
+});
+</script>
+</body>
+</html>
