@@ -140,7 +140,11 @@
         
         /* Base button style */
         .plan-bottom .plan-button { display: inline-block; width: 100%; margin-top: 1.5rem; padding: 1rem; border-radius: 0.5rem; background-color: #2563eb; color: white; font-weight: 700; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); }
-        .plan-bottom .plan-button:hover { background-color: #1d4ed8; transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); }
+        .plan-bottom .plan-button:hover { 
+            background-color: #1d4ed8; 
+            transform: translateY(-5px) scale(1.02); 
+            box-shadow: 0 12px 20px -5px rgba(37, 99, 235, 0.4); 
+        }
 
         /* Adjust buttons for contrast on gradients - INCREASED SPECIFICITY */
         .plan-style-6.plan-blue-gradient .plan-button {
@@ -151,8 +155,8 @@
         .plan-style-6.plan-blue-gradient .plan-button:hover {
             background-color: #f0f9ff;
             color: #1d4ed8;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.25);
         }
 
         .plan-style-6.plan-red-gradient .plan-button {
@@ -163,8 +167,8 @@
         .plan-style-6.plan-red-gradient .plan-button:hover {
             background-color: #f0f9ff; /* Light blue background */
             color: #1d4ed8;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.25);
         }
 
 
@@ -258,7 +262,6 @@
         }
 
         /* Dropdown Styles */
-
         .dropdown {
             position: relative;
         }
@@ -455,7 +458,7 @@
                                         <p class="price"><span>$</span>500<span> / Y</span></p>
                                     </div>
                                     <div class="plan-bottom">
-                                        <a class="plan-button" href="#">Signup Now</a>
+                                        <a class="plan-button" href="https://square.link/u/tJEgN1Vl">Signup Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -649,12 +652,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 .replace(/\n\s?\*\s/g, '<li>') // Unordered list items
                 .replace(/\n\s?[0-9]+\.\s/g, '<li>'); // Ordered list items
             
-            html = html.replace(/(\n<li>.*)+/g, (match) => `<ul>${match.replace(/\n/g, '')}</ul>`); // Wrap lists
+            html = html.replace(/(<li>.*)+/g, (match) => { // Wrap lists
+                const listType = match.includes('1.') ? 'ol' : 'ul';
+                return `<${listType}>${match.replace(/\n/g, '').replace(/[0-9]+\.\s/g, '')}</${listType}>`;
+            });
             html = html.replace(/<\/li><li>/g, '</li><li class="mb-2">'); // Add margin to list items
             html = html.replace(/\n/g, '<br>'); // New lines
 
             // Basic cleanup for list tags
             html = html.replace(/<br><ul>/g, '<ul>').replace(/<\/ul><br>/g, '</ul>');
+            html = html.replace(/<br><ol>/g, '<ol>').replace(/<\/ol><br>/g, '</ol>');
             
             return html;
         };
@@ -852,4 +859,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 </body>
-</html>
+</ht
