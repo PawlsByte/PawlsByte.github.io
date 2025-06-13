@@ -18,7 +18,17 @@
     <style>
         body {
             font-family: 'Asap Condensed', sans-serif;
-            background-color: #ffffff;
+            background-color: #4a5568; /* A dark gray fallback */
+        }
+
+        #page-background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
         }
 
         /* --- Animations --- */
@@ -42,7 +52,10 @@
         .pricing-section {
             padding-top: 5rem;
             padding-bottom: 8rem; /* Increased padding for button overlap */
-            background-color: #f9fafb; /* gray-50 */
+            background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
         }
         .pricing-table-wrapper {
             perspective: 1500px;
@@ -109,10 +122,10 @@
 
         /* --- Richer, Saturated Gradient Colors --- */
         .plan-blue-gradient {
-            background-image: linear-gradient(135deg, #0f2c57 0%, #005bea 100%);
+            background-image: linear-gradient(to bottom, #005bea, #0f2c57);
         }
         .plan-red-gradient {
-            background-image: linear-gradient(135deg, #9f0d20 0%, #e52d27 100%);
+            background-image: linear-gradient(to bottom, #e52d27, #9f0d20);
         }
 
         /* Overrides for text and layout inside gradient panels */
@@ -225,8 +238,19 @@
 
         /* --- Original Style Recreation --- */
         .bg-charcoal { background-color: #343a40; }
-        .menu-wrapper { background-color: #fff; box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075); position: relative; }
-        footer { background-color: #212529; color: #f8f9fa; }
+        .menu-wrapper { 
+            background-color: rgba(255, 255, 255, 0.85); 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
+            position: relative; 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        footer { 
+            background-color: rgba(33, 37, 41, 0.9);
+            color: #f8f9fa;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
         .footer-middle-div { text-align: center; padding: 1rem 0; border-top: 1px solid #495057; }
         .nav-background-accent { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background-color: #1565c0; clip-path: polygon(45% 0, 100% 0, 100% 100%, 40% 100%); z-index: 1; }
         .dropdown { position: relative; }
@@ -238,15 +262,21 @@
         .active-nav-link { color: #000000 !important; font-weight: 800; }
         .active-nav-link.on-blue { color: #dbeafe !important; }
         @media (max-width: 1023px) { .nav-background-accent { display: none; } }
-        .stats-bar { background-color: #1565c0; }
+        .stats-bar { 
+            background-color: rgba(21, 101, 192, 0.8);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
         .stat-item { transition: transform 0.3s ease-in-out; }
         .stat-item:hover { transform: scale(1.1) translateY(-8px); }
     </style>
 </head>
 <body>
-
+    <video autoplay loop muted playsinline id="page-background-video">
+        <source src="https://pawlsbyte.github.io/FinalComp2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     <header>
-        <!-- Top Bar -->
         <div class="bg-charcoal text-sm">  
             <div class="container py-2 mx-auto px-4">    
                 <div class="flex items-center justify-end">      
@@ -267,7 +297,6 @@
                 </div>
             </div>
         </div>
-        <!-- Navbar -->
         <div class="menu-wrapper sticky top-0 z-40">
             <div id="nav-accent" class="nav-background-accent"></div>
             <nav class="container mx-auto flex items-center justify-between p-4 lg:px-8 relative z-10">
@@ -324,12 +353,11 @@
     </header>
     
     <main>
-        <!-- Animated Pricing Table Section -->
         <section class="pricing-section animated-section">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center mb-12">
-                    <h2 class="text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900">StayClean Membership</h2>
-                    <p class="mt-4 text-lg text-gray-600">Join our membership program for exclusive discounts, priority service, and peace of mind. Choose the plan that works for you.</p>
+                    <h2 class="text-4xl lg:text-5xl font-extrabold tracking-tight text-white" style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">StayClean Membership</h2>
+                    <p class="mt-4 text-lg text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">Join our membership program for exclusive discounts, priority service, and peace of mind. Choose the plan that works for you.</p>
                 </div>
                 
                 <div class="pricing-table-wrapper">
@@ -397,6 +425,7 @@
                     </div>
                 </div>
             </div>
+
         </section>
 
         
@@ -499,7 +528,7 @@
                         <a href="#" class="hover:text-white">Terms & Conditions</a>
                     </div>
                     <div class="mt-4 text-gray-500 text-center text-xs">
-                        <span>&copy; 2025 </span>
+                        <span>© 2025 </span>
                         <a href="#" class="hover:text-white">Powered by Virtual Vision Computing, LLC, All-in-One Website, </a>
                         <a href="#" class="hover:text-white">Business Listing</a>
                     </div>
