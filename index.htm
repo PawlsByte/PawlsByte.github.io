@@ -71,26 +71,35 @@
             transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-            opacity: 1;
         }
         
         .plan-front {
             transform: rotateY(0deg);
+            opacity: 1;
+            z-index: 2;
         }
 
         .plan-back {
             transform: rotateY(180deg);
             opacity: 0;
+            z-index: 1;
         }
         
         .flipped .plan-front {
             transform: rotateY(-180deg);
             opacity: 0;
+            z-index: 1;
         }
 
         .flipped .plan-back {
             transform: rotateY(0deg);
             opacity: 1;
+            z-index: 2;
+        }
+
+        /* Corrected Hover Animations */
+        .plan-style-6:hover {
+            animation: wobble 0.6s ease-in-out;
         }
 
         /* Toggle Switcher Styles */
@@ -374,53 +383,51 @@
                     </div>
 
                     <div class="plan-flipper-container">
-                        <div class="plan-flipper">
-                            <div class="plan-card plan-front">
-                                <div class="plan-style-6 plan-blue-gradient">
-                                    <div class="plan-header">
-                                        <span class="plan-label">Popular</span>
-                                        <h3 class="plan-title">Monthly</h3>
-                                    </div>
-                                    <div class="plan-price">
-                                        <p class="price"><span>$</span>49<span style="font-size: 1.5rem;">.99/ M</span></p>
-                                    </div>
-                                    <ul class="plan-list">
-                                        <li>On-Call Emergency Services</li>
-                                        <li>
-                                            <span class="tooltip-info"><span class="tooltip-hover-text">AmeriClean Service Discounts</span><span class="tooltiptext">15% Off <b>All</b> Services, <b>All</b> The Time!<br><br>10% Off All Non-insured Emergency Calls</span></span>
-                                        </li>
-                                        <li>2 FREE Annual Mold Inspections</li>
-                                        <li>Flexible Payment Options</li>
-                                        <li>Exclusive <span class="tooltip-info"><span class="tooltip-hover-text">StayClean Warranty</span><span class="tooltiptext">Annual Carpet Cleaning & Touch-ups are FREE!</span></span></li>
-                                        <li>Rewarding <span class="tooltip-info"><span class="tooltip-hover-text">Referral Program</span><span class="tooltiptext">1 Month Free With Every Referred Client</span></span></li>
-                                        <li>Priority Support</li>
-                                    </ul>
-                                    <div class="plan-bottom">
-                                        <a class="plan-button" href="https://square.link/u/51WX9Lse">Signup Now</a>
-                                    </div>
+                        <div class="plan-card plan-front">
+                            <div class="plan-style-6 plan-blue-gradient">
+                                <div class="plan-header">
+                                    <span class="plan-label">Popular</span>
+                                    <h3 class="plan-title">Monthly</h3>
+                                </div>
+                                <div class="plan-price">
+                                    <p class="price"><span>$</span>49<span style="font-size: 1.5rem;">.99/ M</span></p>
+                                </div>
+                                <ul class="plan-list">
+                                    <li>On-Call Emergency Services</li>
+                                    <li>
+                                        <span class="tooltip-info"><span class="tooltip-hover-text">AmeriClean Service Discounts</span><span class="tooltiptext">15% Off <b>All</b> Services, <b>All</b> The Time!<br><br>10% Off All Non-insured Emergency Calls</span></span>
+                                    </li>
+                                    <li>2 FREE Annual Mold Inspections</li>
+                                    <li>Flexible Payment Options</li>
+                                    <li>Exclusive <span class="tooltip-info"><span class="tooltip-hover-text">StayClean Warranty</span><span class="tooltiptext">Annual Carpet Cleaning & Touch-ups are FREE!</span></span></li>
+                                    <li>Rewarding <span class="tooltip-info"><span class="tooltip-hover-text">Referral Program</span><span class="tooltiptext">1 Month Free With Every Referred Client</span></span></li>
+                                    <li>Priority Support</li>
+                                </ul>
+                                <div class="plan-bottom">
+                                    <a class="plan-button" href="https://square.link/u/51WX9Lse">Signup Now</a>
                                 </div>
                             </div>
-                            <div class="plan-card plan-back">
-                                <div class="plan-style-6 plan-red-gradient">
-                                    <div class="plan-header">
-                                        <span class="plan-label">Best Value</span>
-                                        <h3 class="plan-title">Yearly</h3>
-                                    </div>
-                                     <div class="plan-price">
-                                        <p class="price"><span>$</span>500<span> / Y</span></p>
-                                    </div>
-                                    <ul class="plan-list">
-                                        <li>On-Call Emergency Services</li>
-                                        <li><span class="tooltip-info"><span class="tooltip-hover-text">AmeriClean Service Discounts</span><span class="tooltiptext">15% Off <b>All</b> Cleaning Services, <b>All</b> The Time!<br><br>10% Off All Non-insured Emergency Calls</span></span></li>
-                                        <li>2 FREE Annual Mold Inspections</li>
-                                        <li>Flexible Payment Options</li>
-                                        <li>Exclusive <span class="tooltip-info"><span class="tooltip-hover-text">StayClean Warranty</span><span class="tooltiptext">Annual Carpet Cleaning & Touch-ups are FREE!</span></span></li>
-                                        <li>Rewarding <span class="tooltip-info"><span class="tooltip-hover-text">Referral Program</span><span class="tooltiptext">1 Month Free With Every Referred Client</span></span></li>
-                                        <li>Priority Support</li>
-                                    </ul>
-                                     <div class="plan-bottom">
-                                        <a class="plan-button" href="https://square.link/u/tJEgN1Vl">Signup Now</a>
-                                    </div>
+                        </div>
+                        <div class="plan-card plan-back">
+                            <div class="plan-style-6 plan-red-gradient">
+                                <div class="plan-header">
+                                    <span class="plan-label">Best Value</span>
+                                    <h3 class="plan-title">Yearly</h3>
+                                </div>
+                                 <div class="plan-price">
+                                    <p class="price"><span>$</span>500<span> / Y</span></p>
+                                </div>
+                                <ul class="plan-list">
+                                    <li>On-Call Emergency Services</li>
+                                    <li><span class="tooltip-info"><span class="tooltip-hover-text">AmeriClean Service Discounts</span><span class="tooltiptext">15% Off <b>All</b> Cleaning Services, <b>All</b> The Time!<br><br>10% Off All Non-insured Emergency Calls</span></span></li>
+                                    <li>2 FREE Annual Mold Inspections</li>
+                                    <li>Flexible Payment Options</li>
+                                    <li>Exclusive <span class="tooltip-info"><span class="tooltip-hover-text">StayClean Warranty</span><span class="tooltiptext">Annual Carpet Cleaning & Touch-ups are FREE!</span></span></li>
+                                    <li>Rewarding <span class="tooltip-info"><span class="tooltip-hover-text">Referral Program</span><span class="tooltiptext">1 Month Free With Every Referred Client</span></span></li>
+                                    <li>Priority Support</li>
+                                </ul>
+                                 <div class="plan-bottom">
+                                    <a class="plan-button" href="https://square.link/u/tJEgN1Vl">Signup Now</a>
                                 </div>
                             </div>
                         </div>
@@ -553,16 +560,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pricingWrapper) {
         const monthlyRadio = document.getElementById('monthly-4');
         const yearlyRadio = document.getElementById('yearly-4');
-        const flipper = pricingWrapper.querySelector('.plan-flipper-container'); // Corrected selector
+        const flipperContainer = pricingWrapper.querySelector('.plan-flipper-container');
         
         monthlyRadio.addEventListener('change', () => {
             if (monthlyRadio.checked) {
-                flipper.classList.remove('flipped');
+                flipperContainer.classList.remove('flipped');
             }
         });
         yearlyRadio.addEventListener('change', () => {
             if (yearlyRadio.checked) {
-                flipper.classList.add('flipped');
+                flipperContainer.classList.add('flipped');
             }
         });
     }
