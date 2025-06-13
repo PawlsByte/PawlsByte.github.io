@@ -51,64 +51,61 @@
         /* --- Pricing Table Styles --- */
         .pricing-section {
             padding-top: 5rem;
-            padding-bottom: 8rem; /* Increased padding for button overlap */
-            background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 8rem; 
         }
         .pricing-table-wrapper {
-            perspective: 1500px;
             max-width: 450px;
             margin-left: auto;
             margin-right: auto;
             position: relative;
         }
-        .plan-flipper {
-            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
-            transform-style: preserve-3d;
+       .plan-flipper-container {
+            perspective: 1500px;
             position: relative;
-            min-height: 650px; 
+            min-height: 650px;
         }
         .plan-card {
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-        }
-        
-        /* Corrected Hover Animations */
-        .plan-card:hover .plan-style-6 {
-            animation: wobble 0.6s ease-in-out;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            opacity: 1;
         }
         
         .plan-front {
-            z-index: 2;
             transform: rotateY(0deg);
         }
+
         .plan-back {
             transform: rotateY(180deg);
+            opacity: 0;
         }
-        .flipped .plan-flipper {
-            transform: rotateY(180deg);
+        
+        .flipped .plan-front {
+            transform: rotateY(-180deg);
+            opacity: 0;
+        }
+
+        .flipped .plan-back {
+            transform: rotateY(0deg);
+            opacity: 1;
         }
 
         /* Toggle Switcher Styles */
         .selector-switcher { text-align: center; margin-bottom: 2rem; }
-        .selector-field { display: inline-block; position: relative; background-color: #e5e7eb; border-radius: 9999px; padding: 0.25rem; }
+        .selector-field { display: inline-block; position: relative; background-color: rgba(229, 231, 235, 0.7); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border-radius: 9999px; padding: 0.25rem; }
         .selector-field input { position: absolute; opacity: 0; pointer-events: none; }
-        .selector-field label { position: relative; z-index: 1; display: inline-block; padding: 0.5rem 1.5rem; cursor: pointer; color: #4b5563; font-weight: 500; transition: color 0.3s; }
-        .selector-field input:checked + label { color: #111827; }
+        .selector-field label { position: relative; z-index: 1; display: inline-block; padding: 0.5rem 1.5rem; cursor: pointer; color: #1f2937; font-weight: 600; transition: color 0.3s; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .selector-field input:checked + label { color: #000000; }
         .selector-switch { position: absolute; top: 0.25rem; left: 0.25rem; height: calc(100% - 0.5rem); width: 50%; background-color: #ffffff; border-radius: 9999px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         #yearly-4:checked ~ .selector-switch { transform: translateX(100%); }
         
-        /* Plan Card Styling */
+        /* --- Plan Card Styling (Glassmorphism) --- */
         .plan-style-6 { 
             border-radius: 1.5rem; 
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             padding: 2.5rem; 
             text-align: center; 
             height: 100%; 
@@ -116,17 +113,22 @@
             flex-direction: column; 
             color: white;
             position: relative;
-            padding-bottom: 4rem; /* More space for the overlapped button */
-            transition: transform 0.4s ease; /* Add transition for the content itself */
+            padding-bottom: 4rem; 
+            
+            /* Glassmorphism Properties */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
-        /* --- Richer, Saturated Gradient Colors --- */
+        /* --- Glass Colors --- */
         .plan-blue-gradient {
-            background-image: linear-gradient(to bottom, #005bea, #0f2c57);
+            background-color: rgba(15, 44, 87, 0.55);
         }
         .plan-red-gradient {
-            background-image: linear-gradient(to bottom, #e52d27, #9f0d20);
+            background-color: rgba(159, 13, 32, 0.55);
         }
+
 
         /* Overrides for text and layout inside gradient panels */
         .plan-style-6 .plan-header {
@@ -138,15 +140,15 @@
         .plan-style-6 .plan-bottom {
             flex-shrink: 0;
             position: absolute;
-            bottom: -2.5rem; /* Overlap effect */
+            bottom: -2.5rem; 
             left: 50%;
             transform: translateX(-50%);
-            width: calc(100% - 5rem); /* Match padding */
+            width: calc(100% - 5rem); 
         }
         
         .plan-style-6 .plan-title {
-            font-size: 3.5rem; /* Increased size */
-            font-weight: 800;  /* Increased boldness */
+            font-size: 3.5rem; 
+            font-weight: 800;  
             color: #ffffff;
             text-shadow: 0 2px 4px rgba(0,0,0,0.25);
         }
@@ -551,20 +553,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pricingWrapper) {
         const monthlyRadio = document.getElementById('monthly-4');
         const yearlyRadio = document.getElementById('yearly-4');
+        const flipper = pricingWrapper.querySelector('.plan-flipper-container'); // Corrected selector
+        
         monthlyRadio.addEventListener('change', () => {
             if (monthlyRadio.checked) {
-                pricingWrapper.classList.remove('flipped');
+                flipper.classList.remove('flipped');
             }
         });
         yearlyRadio.addEventListener('change', () => {
             if (yearlyRadio.checked) {
-                pricingWrapper.classList.add('flipped');
+                flipper.classList.add('flipped');
             }
         });
     }
-
-    
-
 
     // --- Navbar Slanted Background Logic ---
     const adjustNavAccent = () => {
@@ -573,15 +574,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const nav = document.querySelector('nav.container');
         const homeLink = document.querySelector('#main-nav a.nav-item'); 
 
-        if (!logo || !navAccent || !nav || !homeLink || window.innerWidth < 720) {
+        if (!logo || !navAccent || !nav || !homeLink || window.innerWidth < 1024) { 
             if(navAccent) navAccent.style.clipPath = ''; 
             document.querySelectorAll('#main-nav .nav-item').forEach(link => {
-                link.classList.remove('on-blue');
-                link.style.color = '';
-                 if (link.textContent.trim() === 'Home') {
+                link.classList.remove('on-blue', 'active-nav-link');
+                link.style.color = ''; 
+                 if (link.href && link.href.endsWith('americlean9111.com/')) { 
                     link.classList.add('active-nav-link');
-                 } else {
-                    link.classList.remove('active-nav-link');
                  }
             });
             return;
@@ -596,17 +595,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const midpoint = logoRight + (homeLeft - logoRight) / 2 + 10;
         
-        const slantWidth = 60; // Increased angle
+        const slantWidth = 60; 
         const slantWidthPercent = (slantWidth / nav.offsetWidth) * 100;
         
-        // Vertically flipped slant
         const topPointX = midpoint - (slantWidth / 2);
         const topPointPercent = (topPointX / nav.offsetWidth) * 100;
         const bottomPointPercent = topPointPercent - slantWidthPercent; 
 
         navAccent.style.clipPath = `polygon(${topPointPercent}% 0, 100% 0, 100% 100%, ${bottomPointPercent}% 100%)`;
         
-        const navItems = document.querySelectorAll('#main-nav .nav-item');
+        const navItems = document.querySelectorAll('#main-nav > a.nav-item, #main-nav > .dropdown > button');
         navItems.forEach((link) => {
             const linkRect = link.getBoundingClientRect();
             const linkCenter = linkRect.left + linkRect.width / 2;
@@ -618,11 +616,15 @@ document.addEventListener('DOMContentLoaded', () => {
                  link.classList.add('on-blue');
                  link.style.color = 'white';
             } else {
-                 link.style.color = '#1f2937'; // gray-800
+                 link.style.color = '#1f2937'; 
             }
             
-            if (link.textContent.trim() === 'Home') {
-                link.classList.add('active-nav-link');
+            if (link.href && link.href.endsWith('americlean9111.com/')) {
+                 if (linkCenter <= accentStartPoint) {
+                    link.classList.add('active-nav-link');
+                 } else {
+                     link.classList.add('active-nav-link', 'on-blue');
+                 }
             }
         });
     };
@@ -633,12 +635,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 const counters = entry.target.querySelectorAll('.counter');
                 counters.forEach(counter => {
-                    let start = 0;
                     const target = +counter.getAttribute('data-target');
-                    const duration = 2000; // 2 seconds
-                    const frameRate = 60;
-                    const totalFrames = Math.round(duration / (1000 / frameRate));
-                    const increment = target / totalFrames;
+                    if (counter.animated) return; 
+                    counter.animated = true;
+                    
+                    let start = 0;
+                    const duration = 2000;
+                    const increment = target / (duration / 16);
 
                     const updateCount = () => {
                         start += increment;
@@ -646,12 +649,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             counter.innerText = Math.ceil(start).toLocaleString();
                             requestAnimationFrame(updateCount);
                         } else {
-                            counter.innerText = target.toLocaleString();
+                            counter.innerText = target.toLocaleString() + (counter.innerText.includes('+') ? '+' : '');
                         }
                     };
                     updateCount();
                 });
-                observer.unobserve(entry.target); // Animate only once
+                observer.unobserve(entry.target);
             }
         });
     };
@@ -668,10 +671,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- General Animation on Scroll ---
-    const sectionObserver = new IntersectionObserver((entries) => {
+    const sectionObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
             }
         });
     }, {
@@ -685,7 +689,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial and resize adjustments
     window.addEventListener('resize', adjustNavAccent);
     // Use a small timeout to ensure images are loaded before calculating positions
-    setTimeout(adjustNavAccent, 100);
+    setTimeout(adjustNavAccent, 150);
 
 });
 </script>
