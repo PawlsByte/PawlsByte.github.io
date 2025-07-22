@@ -1,710 +1,418 @@
-﻿<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AmeriClean - #1 Billings, MT Area Damage Restoration & Cleaning Services</title>
-    
-    <meta name="description" content="Veteran-Owned Damage Restoration & Cleaning Services in Billings, MT, and Surrounding Areas. Trust AmeriClean for Excellence and Commitment! Contact Us Today!">
-    <meta name="keywords" content="AmeriClean, Billings, MT, damage restoration, disaster restoration, water damage restoration, fire damage restoration, HVAC & Air Duct Cleaning, Mold Remediation, Floor & Carpet Cleaning">
-    
+    <title>Alpha-Omega Marketing Strategy Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony Neutrals -->
+    <!-- Application Structure Plan: A tabbed dashboard interface is used to organize the complex report into logical, digestible sections: "Marketing Playbook," "Trust & Reputation," "Financial Investment," and "SWOT & Strategy." This structure allows the user (AmeriClean leadership) to focus on one strategic area at a time (e.g., lead generation vs. brand trust) without being overwhelmed by a long, scrolling page. The flow moves from understanding the competitor's actions, to their financial backing, to the final strategic recommendations, creating a clear narrative path for decision-making. -->
+    <!-- Visualization & Content Choices: Report Info: PPC Budget -> Goal: Compare -> Viz: Interactive Bar Chart -> Interaction: Buttons to switch between "Conservative," "Moderate," "Aggressive" scenarios -> Justification: Makes the financial threat tangible and explorable -> Library: Chart.js. Report Info: Trust Signals -> Goal: Organize -> Viz: HTML Matrix -> Interaction: Hover effects (implicit) -> Justification: Visually demonstrates the comprehensive deployment of trust signals across channels. Report Info: B2B Pipeline -> Goal: Organize -> Viz: HTML/CSS Flow Diagram -> Interaction: Static visual -> Justification: Simplifies the complex relationship-based marketing strategy into an easy-to-understand process flow. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        body {
-            font-family: 'Asap Condensed', sans-serif;
-            background-color: #4a5568; /* A dark gray fallback */
+        body { font-family: 'Inter', sans-serif; }
+        .tab-active { 
+            border-bottom-color: #0369a1; /* sky-700 */
+            color: #0c4a6e; /* sky-900 */
+            font-weight: 600;
         }
-
-        #page-background-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            z-index: -1;
+        .tab-inactive {
+            border-bottom-color: transparent;
+            color: #475569; /* slate-600 */
         }
-
-        /* --- Animations --- */
-        .animated-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .animated-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @keyframes wobble {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-2deg); }
-            75% { transform: rotate(2deg); }
-        }
-
-        /* --- Pricing Table Styles --- */
-        .pricing-section {
-            padding-top: 5rem;
-            padding-bottom: 8rem; 
-        }
-        .pricing-table-wrapper {
-            max-width: 450px;
+        .content-active { display: block; }
+        .content-inactive { display: none; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            position: relative;
+            height: 300px;
+            max-height: 400px;
         }
-       .plan-flipper-container {
-            perspective: 1500px;
-            position: relative;
-            min-height: 650px;
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
         }
-        .plan-card {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-        
-        .plan-front {
-            transform: rotateY(0deg);
-            opacity: 1;
-            z-index: 2;
-        }
-
-        .plan-back {
-            transform: rotateY(180deg);
-            opacity: 0;
-            z-index: 1;
-        }
-        
-        .flipped .plan-front {
-            transform: rotateY(-180deg);
-            opacity: 0;
-            z-index: 1;
-        }
-
-        .flipped .plan-back {
-            transform: rotateY(0deg);
-            opacity: 1;
-            z-index: 2;
-        }
-
-        /* Corrected Hover Animations */
-        .plan-style-6:hover {
-            animation: wobble 0.6s ease-in-out;
-        }
-
-        /* Toggle Switcher Styles */
-        .selector-switcher { text-align: center; margin-bottom: 2rem; }
-        .selector-field { display: inline-block; position: relative; background-color: rgba(229, 231, 235, 0.7); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border-radius: 9999px; padding: 0.25rem; }
-        .selector-field input { position: absolute; opacity: 0; pointer-events: none; }
-        .selector-field label { position: relative; z-index: 1; display: inline-block; padding: 0.5rem 1.5rem; cursor: pointer; color: #1f2937; font-weight: 600; transition: color 0.3s; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .selector-field input:checked + label { color: #000000; }
-        .selector-switch { position: absolute; top: 0.25rem; left: 0.25rem; height: calc(100% - 0.5rem); width: 50%; background-color: #ffffff; border-radius: 9999px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        #yearly-4:checked ~ .selector-switch { transform: translateX(100%); }
-        
-        /* --- Plan Card Styling (Glassmorphism) --- */
-        .plan-style-6 { 
-            border-radius: 1.5rem; 
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            padding: 2.5rem; 
-            text-align: center; 
-            height: 100%; 
-            display: flex; 
-            flex-direction: column; 
+        .scenario-btn-active {
+            background-color: #0369a1; /* sky-700 */
             color: white;
-            position: relative;
-            padding-bottom: 4rem; 
-            
-            /* Glassmorphism Properties */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            font-weight: 600;
         }
-
-        /* --- Glass Colors --- */
-        .plan-blue-gradient {
-            background-color: rgba(15, 44, 87, 0.55);
+        .scenario-btn-inactive {
+            background-color: #e2e8f0; /* slate-200 */
+            color: #475569; /* slate-600 */
         }
-        .plan-red-gradient {
-            background-color: rgba(159, 13, 32, 0.55);
-        }
-
-
-        /* Overrides for text and layout inside gradient panels */
-        .plan-style-6 .plan-header {
-             flex-shrink: 0;
-        }
-        .plan-style-6 .plan-list {
-            flex-grow: 1;
-        }
-        .plan-style-6 .plan-bottom {
-            flex-shrink: 0;
-            position: absolute;
-            bottom: -2.5rem; 
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 5rem); 
-        }
-        
-        .plan-style-6 .plan-title {
-            font-size: 3.5rem; 
-            font-weight: 800;  
-            color: #ffffff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.25);
-        }
-        
-        .plan-style-6 .plan-price .price {
-            color: #ffffff;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-        }
-
-        .plan-style-6 .plan-list li {
-            color: #f0f9ff;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-            padding: 0.75rem 0;
-        }
-         .plan-style-6 .plan-list li:last-child {
-            border-bottom: none;
-        }
-
-        .plan-style-6 .plan-price .price span {
-            color: #e0f2fe;
-            opacity: 0.8;
-        }
-
-        /* Adjust labels for contrast on gradients */
-        .plan-header .plan-label { 
-            display: inline-block; 
-            padding: 0.25rem 1rem; 
-            border-radius: 9999px; 
-            font-weight: 700; 
-            font-size: 0.875rem; 
-            text-transform: uppercase; 
-            letter-spacing: 0.05em;
-            margin-bottom: 1.5rem;
-        }
-        .plan-style-6 .plan-label {
-            background-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .plan-blue-gradient .plan-label { color: #1e40af; }
-        .plan-red-gradient .plan-label { color: #991b1b; }
-        
-        .plan-style-6 .tooltip-hover-text {
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.7);
-        }
-
-        /* Tooltip Styles */
-        .tooltip-info { position: relative; cursor: help; }
-        .tooltiptext { visibility: hidden; width: 220px; background-color: #1f2937; color: #fff; text-align: center; border-radius: 6px; padding: 10px; position: absolute; z-index: 10; bottom: 125%; left: 50%; margin-left: -110px; opacity: 0; transition: opacity 0.3s; }
-        .tooltiptext::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -5px; border-width: 5px; border-style: solid; border-color: #1f2937 transparent transparent transparent; }
-        .tooltip-info:hover .tooltiptext { visibility: visible; opacity: 1; }
-
-        .plan-price {
-            margin-bottom: 1.5rem;
-        }
-        .plan-price .price { font-size: 2.5rem; font-weight: 800; line-height: 1; }
-        
-        /* Button style */
-        .plan-bottom .plan-button { 
-            display: inline-block; 
-            width: 100%; 
-            padding: 1.25rem; 
-            border-radius: 1rem; 
-            font-weight: 800; 
-            text-decoration: none; 
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            background-color: #ffffff;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            font-size: 1.25rem;
-            text-transform: uppercase;
-        }
-        .plan-bottom .plan-button:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.4);
-        }
-        .plan-blue-gradient .plan-button {
-             color: #1d4ed8;
-        }
-         .plan-red-gradient .plan-button {
-             color: #c01a2c;
-        }
-        .plan-blue-gradient .plan-button:hover {
-            background-color: #f0f9ff;
-        }
-        .plan-red-gradient .plan-button:hover {
-            background-color: #fff1f2;
-        }
-
-        
-
-        /* --- Original Style Recreation --- */
-        .bg-charcoal { background-color: #343a40; }
-        .menu-wrapper { 
-            background-color: rgba(255, 255, 255, 0.85); 
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
-            position: relative; 
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        footer { 
-            background-color: rgba(33, 37, 41, .5);
-            color: #f8f9fa;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-        }
-        .footer-middle-div { text-align: center; padding: 1rem 0; border-top: 1px solid #495057; }
-        .nav-background-accent { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background-color: #1565c0; clip-path: polygon(45% 0, 100% 0, 100% 100%, 40% 100%); z-index: 1; }
-        .dropdown { position: relative; }
-        .dropdown .dropdown-menu { opacity: 0; visibility: hidden; transform: translateY(10px) scale(0.95); transition: all 0.2s ease-in-out; position: absolute; z-index: 50; }
-        .dropdown:hover .dropdown-menu, .dropdown:focus-within .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
-        .nav-item { padding: 0.5rem; border-radius: 0.375rem; }
-        .nav-item:hover { color: #1e3a8a !important; }
-        .nav-item:hover i { color: #1e3a8a !important; }
-        .active-nav-link { color: #000000 !important; font-weight: 800; }
-        .active-nav-link.on-blue { color: #dbeafe !important; }
-        @media (max-width: 1023px) { .nav-background-accent { display: none; } }
-        .stats-bar { 
-            background-color: rgba(21, 101, 192, 0.8);
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(2px);
-        }
-        .stat-item { transition: transform 0.3s ease-in-out; }
-        .stat-item:hover { transform: scale(1.1) translateY(-8px); }
     </style>
 </head>
-<body>
-    <video autoplay loop muted playsinline id="page-background-video">
-        <source src="Finalcomp2.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <header>
-        <div class="bg-charcoal text-sm">  
-            <div class="container py-2 mx-auto px-4">    
-                <div class="flex items-center justify-end">      
-                    <div class="px-2">
-                        <a class="text-yellow-400 no-underline hover:text-yellow-300" href="tel:4062569111">
-                            <span class="font-bold">24/7 Emergency Service -</span> 
-                            <i class="bi bi-telephone-fill align-middle mx-1"></i>(406) 256-9111
-                        </a> 
-                    </div>      
-                    <div class="hidden lg:flex px-2">
-                        <ul class="flex space-x-1"> 
-                            <li><a class="text-white hover:text-gray-300 p-2" title="Facebook" href="https://www.facebook.com/americlean9111/" target="_blank"><i class="bi bi-facebook"></i></a></li>
-                            <li><a class="text-white hover:text-gray-300 p-2" title="Instagram" href="https://www.instagram.com/americlean_billingsmt/" target="_blank"><i class="bi bi-instagram"></i></a></li> 
-                            <li><a class="text-white hover:text-gray-300 p-2" title="LinkedIn" href="https://www.linkedin.com/company/americlean" target="_blank"><i class="bi bi-linkedin"></i></a></li> 
-                            <li><a class="text-white hover:text-gray-300 p-2" title="YouTube" href="https://www.youtube.com/channel/UCH9aekJo4yDmhxToAJlWE3Q" target="_blank"><i class="bi bi-youtube"></i></a></li> 
-                        </ul>      
-                    </div>
-                </div>
+<body class="bg-stone-50 text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-sky-900">Competitive Analysis: Alpha-Omega</h1>
+            <p class="text-slate-600 mt-2 max-w-3xl mx-auto">An interactive dashboard summarizing the marketing strategy, financial investment, and competitive posture of Alpha-Omega Disaster Restoration.</p>
+        </header>
+
+        <main>
+            <div class="border-b border-slate-300 mb-8">
+                <nav class="-mb-px flex justify-center space-x-4 md:space-x-8" aria-label="Tabs">
+                    <button id="tab-playbook" class="whitespace-nowrap py-4 px-1 border-b-2 text-sm md:text-base font-medium transition-colors duration-200">Marketing Playbook</button>
+                    <button id="tab-trust" class="whitespace-nowrap py-4 px-1 border-b-2 text-sm md:text-base font-medium transition-colors duration-200">Trust & Reputation</button>
+                    <button id="tab-financial" class="whitespace-nowrap py-4 px-1 border-b-2 text-sm md:text-base font-medium transition-colors duration-200">Financial Investment</button>
+                    <button id="tab-strategy" class="whitespace-nowrap py-4 px-1 border-b-2 text-sm md:text-base font-medium transition-colors duration-200">SWOT & Our Strategy</button>
+                </nav>
             </div>
-        </div>
-        <div class="menu-wrapper sticky top-0 z-40">
-            <div id="nav-accent" class="nav-background-accent"></div>
-            <nav class="container mx-auto flex items-center justify-between p-4 lg:px-8 relative z-10">
-                <a id="logo" class="flex-shrink-0" href="index.htm">
-                    <img alt="AmeriClean" title="AmeriClean" src="https://www.unitedstatesbd.com/images/unitedstatesbdcom/bizcategories/17236/image/logo-americlean-1.webp" class="h-16 md:h-20 w-auto">
-                </a>
-                <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100">
-                    <i class="bi bi-list text-3xl"></i>
-                </button>
-                <div id="main-nav" class="hidden lg:flex items-center space-x-2 pl-8">
-                    <a class="nav-item font-semibold" href="https://www.americlean9111.com/">Home</a>
-                    <div class="dropdown">
-                        <button class="nav-item nav-link-button flex items-center gap-1 font-semibold" aria-haspopup="true">
-                            About <i class="bi bi-chevron-down text-xs"></i>
-                        </button>
-                        <div class="dropdown-menu absolute bg-white rounded-md shadow-lg py-1 mt-2 w-48">
-                            <a href="https://www.americlean9111.com/about-us" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Who We Are</a>
-                            <a href="https://www.americlean9111.com/meet-the-team" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Meet The Owners</a>
-                            <a href="https://www.americlean9111.com/service-area" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Service Area</a>
-                            <a href="https://www.americlean9111.com/reviews" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reviews</a>
-                        </div>
-                    </div>
-                     <div class="dropdown">
-                        <button class="nav-item nav-link-button flex items-center gap-1 font-semibold" aria-haspopup="true">
-                            Services <i class="bi bi-chevron-down text-xs"></i>
-                        </button>
-                        <div class="dropdown-menu absolute bg-white rounded-md shadow-lg py-1 mt-2 w-56">
-                            <a href="https://www.americlean9111.com/hvac-air-duct-cleaning" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">HVAC & Air Duct Cleaning</a>
-                            <a href="https://www.americlean9111.com/water-damage-restoration" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Water & Flood Damage</a>
-                            <a href="https://www.americlean9111.com/mold-damage-restoration-remediation" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mold Remediation</a>
-                            <a href="https://www.americlean9111.com/floor-carpet-cleaning" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Floor & Carpet Cleaning</a>
-                            <a href="https://www.americlean9111.com/biohazard-cleanup" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Biohazard & Decontamination</a>
-                            <a href="https://www.americlean9111.com/fire-damage-restoration" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Fire & Smoke Damage</a>
-                        </div>
-                    </div>
-                    <a class="nav-item font-semibold" href="https://www.americlean9111.com/photo-gallery">Gallery</a>
-                    <a class="nav-item font-semibold" href="https://www.americlean9111.com/frequently-asked-questions">FAQ's</a>
-                    <a class="nav-item font-semibold" href="https://www.americlean9111.com/contact-us">Contact</a>
-                    <div class="flex items-center space-x-2 ml-4">
-                        <a class="text-sm no-underline text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded whitespace-nowrap" href="https://search.google.com/local/writereview?placeid=ChIJ6WyYQUJjSFMRYuld4U8h-1E"><i class="bi bi-hand-thumbs-up-fill mr-1"></i> Review Us</a>
-						<a class="text-sm no-underline text-center bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-3 rounded" href="https://pawlsbyte.github.io/">Membership</a>
-                    </div>
-                </div>
-            </nav>
-            <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-200">
-                <a class="block py-2 px-4 text-gray-700 hover:bg-gray-50" href="https://www.americlean9111.com/">Home</a>
-                <a class="block py-2 px-4 text-gray-700 hover:bg-gray-50" href="https://www.americlean9111.com/about-us">About</a>
-                <a class="block py-2 px-4 text-gray-700 hover:bg-gray-50" href="https://www.americlean9111.com/services">Services</a>
-                <a class="block py-2 px-4 text-gray-700 hover:bg-gray-50" href="https://www.americlean9111.com/photo-gallery">Gallery</a>
-                <a class="block py-2 px-4 text-gray-700 hover:bg-gray-50" href="https://www.americlean9111.com/frequently-asked-questions">FAQ's</a>
-                <a class="block py-2 px-4 text-gray-700 hover:bg-gray-50" href="https://www.americlean9111.com/contact-us">Contact</a>
-            </div>
-        </div>
-    </header>
-    
-    <main>
-        <section class="pricing-section animated-section">
-            <div class="container mx-auto px-4">
-                <div class="max-w-3xl mx-auto text-center mb-12">
-                    <h2 class="text-4xl lg:text-5xl font-extrabold tracking-tight text-white" style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">StayClean Membership</h2>
-                    <p class="mt-4 text-lg text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">Join our membership program for exclusive discounts, priority service, and peace of mind. Choose the plan that works for you.</p>
-                </div>
-               
-                <div class="pricing-table-wrapper">
-                    <div class="selector-switcher">
-                        <p class="selector-field">
-                            <input type="radio" name="duration-4" value="monthly" id="monthly-4" checked>
-                            <label for="monthly-4">Monthly</label>
-                            <input type="radio" name="duration-4" value="yearly" id="yearly-4">
-                            <label for="yearly-4">Yearly</label>
-                            <span class="selector-switch"></span>
-                        </p>
+
+            <div id="content-playbook" class="space-y-12">
+                <section>
+                    <div class="text-center mb-8">
+                        <h2 class="text-2xl font-bold text-sky-800">The Marketing Playbook</h2>
+                        <p class="text-slate-600 mt-1 max-w-2xl mx-auto">This section deconstructs how Alpha-Omega generates leads and builds its brand. Their strategy is a sophisticated mix of digital dominance, B2B partnerships, and carefully crafted messaging.</p>
                     </div>
 
-                    <div class="plan-flipper-container">
-                        <div class="plan-card plan-front">
-                            <div class="plan-style-6 plan-blue-gradient">
-                                <div class="plan-header">
-                                    <span class="plan-label">Popular</span>
-                                    <h3 class="plan-title">Monthly</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                            <h3 class="font-bold text-lg text-sky-800">Digital Dominance</h3>
+                            <p class="text-sm text-slate-600 mt-2">Alpha-Omega uses a "surround sound" approach to own the digital landscape, leveraging two distinct websites to maximize search engine visibility and capture leads from multiple angles.</p>
+                            <div class="mt-4 space-y-3">
+                                <div class="flex items-start space-x-3">
+                                    <span class="text-sky-600 mt-1">&#10140;</span>
+                                    <div>
+                                        <h4 class="font-semibold">Dual-Website SEO</h4>
+                                        <p class="text-xs text-slate-500">One site for "local feel" (`alphaomegapros.com`) and another for "corporate power" (`fleetdamagerestoration.com`) to rank for more keywords and push competitors down.</p>
+                                    </div>
                                 </div>
-                                <div class="plan-price">
-                                    <p class="price"><span>$</span>49<span style="font-size: 1.5rem;">.99/ M</span></p>
+                                <div class="flex items-start space-x-3">
+                                    <span class="text-sky-600 mt-1">&#10140;</span>
+                                    <div>
+                                        <h4 class="font-semibold">Content Marketing</h4>
+                                        <p class="text-xs text-slate-500">Creates hyper-specific articles (e.g., "Dishwasher Overflow Cleanup") to attract high-intent customers searching for immediate solutions.</p>
+                                    </div>
                                 </div>
-                                <ul class="plan-list">
-                                    <li>Same Day Response</li>
-                                    <li>
-                                        <span class="tooltip-info"><span class="tooltip-hover-text">AmeriClean Service Discounts</span><span class="tooltiptext">15% Off <b>All</b> Cleaning Services, <b>All</b> The Time!<br><br>10% Off All Non-insured Emergency Calls</span></span>
-                                    </li>
-                                    <li>2 FREE Annual Mold Inspections</li>
-                                    <li>
-                                        <span class="tooltip-info"><span class="tooltip-hover-text">Access To Jim's Database</span><span class="tooltiptext">Database of Industry-Standard, Globally Distributed Content <br><br> Authored by Our Founder – An Internationally Recognized Expert</span></span>
-                                    </li>
-                                    <li>Exclusive <span class="tooltip-info"><span class="tooltip-hover-text">StayClean Warranty</span><span class="tooltiptext">Annual Carpet Cleaning & Touch-ups are FREE!</span></span></li>
-                                    <li>Rewarding <span class="tooltip-info"><span class="tooltip-hover-text">Referral Program</span><span class="tooltiptext">1 Month Free With Every Referred Client</span></span></li>
-                                    <li>Member Only Support</li>
-                                </ul>
-                                <div class="plan-bottom">
-                                    <a class="plan-button" href="https://square.link/u/51WX9Lse">Signup Now</a>
+                                <div class="flex items-start space-x-3">
+                                    <span class="text-sky-600 mt-1">&#10140;</span>
+                                    <div>
+                                        <h4 class="font-semibold">Paid Advertising (PPC)</h4>
+                                        <p class="text-xs text-slate-500">Actively runs Google Ads campaigns, confirmed by their "google-ads-phone-verification" page, to generate immediate leads for high-value keywords.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="plan-card plan-back">
-                            <div class="plan-style-6 plan-red-gradient">
-                                <div class="plan-header">
-                                    <span class="plan-label">Best Value</span>
-                                    <h3 class="plan-title">Yearly</h3>
+
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                            <h3 class="font-bold text-lg text-sky-800">High-Value B2B Channels</h3>
+                            <p class="text-sm text-slate-600 mt-2">They bypass traditional advertising by building direct relationships with the gatekeepers of high-value restoration jobs: insurance professionals and property managers.</p>
+                             <div class="mt-4 space-y-3">
+                                <div class="flex items-start space-x-3">
+                                    <span class="text-amber-600 mt-1">&#9733;</span>
+                                    <div>
+                                        <h4 class="font-semibold">Insurance Agent Pipeline</h4>
+                                        <p class="text-xs text-slate-500">Offers Continuing Education (CE) classes to agents, building loyalty and becoming their go-to referral partner.</p>
+                                    </div>
                                 </div>
-                                 <div class="plan-price">
-                                    <p class="price"> <span>$</span>499<span style="font-size: 1.5rem;">.99/ Y</span>
+                                <div class="flex items-start space-x-3">
+                                    <span class="text-amber-600 mt-1">&#9733;</span>
+                                    <div>
+                                        <h4 class="font-semibold">Property Manager Pipeline</h4>
+                                        <p class="text-xs text-slate-500">Sponsors the Yellowstone Property Managers Association (YPMA) and offers members free use of their conference room to build relationships.</p>
+                                    </div>
                                 </div>
-                                <ul class="plan-list">
-                                    <li>Same Day Response</li>
-                                    <li>
-                                        <span class="tooltip-info"><span class="tooltip-hover-text">AmeriClean Service Discounts</span><span class="tooltiptext">15% Off <b>All</b> Cleaning Services, <b>All</b> The Time!<br><br>10% Off All Non-insured Emergency Calls</span></span>
-                                    </li>
-                                    <li>2 FREE Annual Mold Inspections</li>
-                                    <li>
-                                        <span class="tooltip-info"><span class="tooltip-hover-text">Access To Jim's Database</span><span class="tooltiptext">Database of Industry-Standard, Globally Distributed Content <br><br> Authored by Our Founder – An Internationally Recognized Expert</span></span>
-                                    </li>
-                                    <li>Exclusive <span class="tooltip-info"><span class="tooltip-hover-text">StayClean Warranty</span><span class="tooltiptext">Annual Carpet Cleaning & Touch-ups are FREE!</span></span></li>
-                                    <li>Rewarding <span class="tooltip-info"><span class="tooltip-hover-text">Referral Program</span><span class="tooltiptext">1 Month Free With Every Referred Client</span></span></li>
-                                    <li>Member Only Support</li>
-                                </ul>
-                                 <div class="plan-bottom">
-                                    <a class="plan-button" href="https://square.link/u/tJEgN1Vl">Signup Now</a>
+                                 <div class="flex items-start space-x-3">
+                                    <span class="text-amber-600 mt-1">&#9733;</span>
+                                    <div>
+                                        <h4 class="font-semibold">Niche Market Penetration</h4>
+                                        <p class="text-xs text-slate-500">Holds DEQ certification for Meth Cleanup, a high-margin service with low competition, enhancing their expert status.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 md:col-span-2 lg:col-span-1">
+                            <h3 class="font-bold text-lg text-sky-800">Core Messaging Themes</h3>
+                            <p class="text-sm text-slate-600 mt-2">Their communication consistently hits on four key themes to address customer needs and anxieties during a crisis.</p>
+                            <div class="mt-4 space-y-3">
+                                <p class="text-sm p-2 bg-slate-100 rounded"><strong>Urgency & Speed:</strong> "24/7 Emergency Response... on site within 2 hours."</p>
+                                <p class="text-sm p-2 bg-slate-100 rounded"><strong>Expertise & Capability:</strong> "IICRC Certified," "50 years combined experience."</p>
+                                <p class="text-sm p-2 bg-slate-100 rounded"><strong>Empathy & Trust:</strong> "We empathize with our customers... your stories matter."</p>
+                                <p class="text-sm p-2 bg-slate-100 rounded"><strong>Insurance Facilitation:</strong> "Direct Insurance Billing... we work with all insurances."</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div id="content-trust" class="space-y-12">
+                 <section>
+                    <div class="text-center mb-8">
+                        <h2 class="text-2xl font-bold text-sky-800">The Architecture of Trust</h2>
+                        <p class="text-slate-600 mt-1 max-w-2xl mx-auto">This section reveals how Alpha-Omega converts traffic into customers. They build overwhelming credibility through systematic social proof and the constant display of official trust signals.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                            <h3 class="font-bold text-lg text-sky-800">Systematic Social Proof</h3>
+                            <p class="text-sm text-slate-600 mt-2">They have built a "review moat" that is a significant competitive advantage. This is not luck; it's the result of a deliberate, systematic process of soliciting and curating customer feedback.</p>
+                            <div class="mt-4 grid grid-cols-2 gap-4 text-center">
+                                <div class="bg-sky-50 p-4 rounded-lg">
+                                    <p class="text-3xl font-bold text-sky-800">199+</p>
+                                    <p class="text-sm text-slate-600">Total Positive Reviews</p>
+                                </div>
+                                <div class="bg-sky-50 p-4 rounded-lg">
+                                    <p class="text-3xl font-bold text-sky-800">4.9+</p>
+                                    <p class="text-sm text-slate-600">Average Star Rating</p>
+                                </div>
+                            </div>
+                             <p class="text-xs text-slate-500 mt-4">Their process is confirmed: "We send a job completion survey to each customer after project completion." This structured approach creates a virtuous cycle of more reviews leading to more business.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                            <h3 class="font-bold text-lg text-sky-800">Pervasive Trust Signals</h3>
+                            <p class="text-sm text-slate-600 mt-2">Beyond reviews, they strategically deploy official certifications and guarantees across all marketing to reduce customer anxiety and signal reliability.</p>
+                            <div class="mt-4 space-y-2">
+                                <div class="flex items-center justify-between bg-slate-100 p-2 rounded">
+                                    <span class="font-semibold text-sm">IICRC Certification</span>
+                                    <span class="text-green-600 font-bold text-lg">&#10003;</span>
+                                </div>
+                                <div class="flex items-center justify-between bg-slate-100 p-2 rounded">
+                                    <span class="font-semibold text-sm">BBB A+ Rating</span>
+                                    <span class="text-green-600 font-bold text-lg">&#10003;</span>
+                                </div>
+                                <div class="flex items-center justify-between bg-amber-100 p-2 rounded ring-2 ring-amber-400">
+                                    <span class="font-bold text-sm text-amber-800">5-Year Workmanship Warranty</span>
+                                    <span class="text-amber-600 font-bold text-lg">&#9733;</span>
+                                </div>
+                                <div class="flex items-center justify-between bg-slate-100 p-2 rounded">
+                                    <span class="font-semibold text-sm">FLEET Response National Partner</span>
+                                    <span class="text-green-600 font-bold text-lg">&#10003;</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
 
-        </section>
+            <div id="content-financial" class="space-y-12">
+                <section>
+                    <div class="text-center mb-8">
+                        <h2 class="text-2xl font-bold text-sky-800">Estimated Financial Investment</h2>
+                        <p class="text-slate-600 mt-1 max-w-2xl mx-auto">This interactive chart visualizes Alpha-Omega's estimated monthly Pay-Per-Click (PPC) ad spend. This demonstrates the significant financial barrier they've created in the paid search market. Select a scenario to see how their budget might scale.</p>
+                    </div>
 
-       
-
-    </main>
-    
-    <footer>
-        <section class="stats-bar animated-section">
-            <div class="container mx-auto px-4 py-8 text-white">
-                <div class="flex flex-col md:flex-row justify-around text-center">
-                    <div class="stat-item p-4">
-                        <p class="text-4xl font-extrabold"><span class="counter" data-target="45">0</span>+</p>
-                        <p class="text-lg font-semibold">Years of Experience</p>
-                    </div>
-                    <div class="stat-item p-4">
-                        <p class="text-4xl font-extrabold"><span class="counter" data-target="10000">0</span>+</p>
-                        <p class="text-lg font-semibold">Happy Customers</p>
-                    </div>
-                    <div class="stat-item p-4">
-                        <p class="text-4xl font-extrabold"><span class="counter" data-target="10000">0</span>+</p>
-                        <p class="text-lg font-semibold">Projects Completed</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="bg-gray-800">
-            <div class="container mx-auto pt-6 px-4">
-                <div class="flex flex-wrap justify-center items-center bg-white p-3 rounded-lg text-gray-800 shadow-lg">
-                    <div class="w-full lg:w-auto lg:flex-1 p-2 text-center lg:text-left">
-                         <a class="inline-block" href="index.htm" title="Return to Home"> 
-                            <img alt="AmeriClean" title="AmeriClean" src="https://www.unitedstatesbd.com/images/unitedstatesbdcom/bizcategories/17236/image/logo-americlean-1.webp" loading="lazy" class="h-20 mx-auto lg:mx-0">
-                         </a>
-                    </div>
-                    <div class="w-full sm:w-1/2 lg:w-auto p-2">
-                        <div class="flex items-center justify-center">
-                            <i class="bi bi-geo-alt-fill text-blue-600 text-2xl"></i>
-                            <div class="pl-2">
-                                <h3 class="text-lg font-bold mb-0">Office</h3> 
-                                <a class="no-underline text-gray-600 hover:text-blue-600" href="https://maps.app.goo.gl/UsNJGave9hLibZFj6" target="_blank">
-                                    <span class="block">1119 Maggie Lane</span> 
-                                    <span>Billings</span>, <span>MT</span> <span>59101</span>
-                                </a>
-                            </div>
+                    <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm border border-slate-200">
+                        <div class="flex justify-center space-x-2 mb-4">
+                            <button id="btn-conservative" class="px-3 py-1 text-sm rounded-md transition-colors duration-200">Conservative</button>
+                            <button id="btn-moderate" class="px-3 py-1 text-sm rounded-md transition-colors duration-200">Moderate</button>
+                            <button id="btn-aggressive" class="px-3 py-1 text-sm rounded-md transition-colors duration-200">Aggressive</button>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="ppcSpendChart"></canvas>
                         </div>
                     </div>
-                    <div class="w-full sm:w-1/2 lg:w-auto p-2">
-                         <div class="flex items-center justify-center">
-                            <i class="bi bi-telephone-fill text-blue-600 text-2xl"></i>
-                            <div class="pl-2">
-                                 <h4 class="text-lg font-bold mb-0">24/7 Emergency Number</h4> 
-                                 <a class="no-underline text-gray-600 hover:text-blue-600" href="tel:4062569111">(406) 256-9111</a>
-                            </div>
+                </section>
+            </div>
+
+            <div id="content-strategy" class="space-y-12">
+                <section>
+                    <div class="text-center mb-8">
+                        <h2 class="text-2xl font-bold text-sky-800">SWOT Analysis & Our Strategic Path Forward</h2>
+                        <p class="text-slate-600 mt-1 max-w-2xl mx-auto">Here we synthesize Alpha-Omega's position to identify their weaknesses and our opportunities. Below are actionable recommendations for AmeriClean to compete effectively.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                        <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
+                            <h3 class="font-bold text-green-800">Strengths</h3>
+                            <ul class="list-disc list-inside text-sm text-green-900 mt-2 space-y-1">
+                                <li>Hybrid "Local/National" Brand</li>
+                                <li>Superior Financial & Marketing Resources</li>
+                                <li>Dominant Digital Presence (SEO/PPC)</li>
+                                <li>Overwhelming Social Proof (Reviews)</li>
+                                <li>Powerful 5-Year Warranty</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-50 border border-red-200 p-4 rounded-lg">
+                            <h3 class="font-bold text-red-800">Weaknesses</h3>
+                            <ul class="list-disc list-inside text-sm text-red-900 mt-2 space-y-1">
+                                <li>Potentially Higher Price Point</li>
+                                <li><strong>Negligible Organic Social Media Presence</strong></li>
+                                <li>"Local" Identity is Potentially Inauthentic</li>
+                                <li>Corporate feel may alienate some customers</li>
+                            </ul>
+                        </div>
+                        <div class="bg-sky-50 border border-sky-200 p-4 rounded-lg">
+                            <h3 class="font-bold text-sky-800">Opportunities (For Us)</h3>
+                            <ul class="list-disc list-inside text-sm text-sky-900 mt-2 space-y-1">
+                                <li><strong>Aggressively market "Veteran-Owned" USP</strong></li>
+                                <li>Exploit their social media gap</li>
+                                <li>Emphasize our true local roots & longer history</li>
+                                <li>Build our own B2B outreach program</li>
+                            </ul>
+                        </div>
+                        <div class="bg-amber-50 border border-amber-200 p-4 rounded-lg">
+                            <h3 class="font-bold text-amber-800">Threats</h3>
+                            <ul class="list-disc list-inside text-sm text-amber-900 mt-2 space-y-1">
+                                <li>Superior marketing budget could dominate PPC</li>
+                                <li>Entrenched B2B relationships are hard to break</li>
+                                <li>Massive review count creates a credibility gap</li>
+                            </ul>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="container mx-auto pb-12 px-4 text-white">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-6">
-                    <div>
-                        <h5 class="text-xl font-bold">Services</h5>
-                        <ul class="mt-4 space-y-2 text-gray-400">
-                            <li><a href="#" class="hover:text-white">Fire & Smoke Damage</a></li>
-                            <li><a href="#" class="hover:text-white">Water & Flood Damage</a></li>
-                            <li><a href="#" class="hover:text-white">Mold Remediation</a></li>
-                            <li><a href="#" class="hover:text-white">Floor & Carpet Cleaning</a></li>
-                            <li><a href="#" class="hover:text-white">Biohazard & Decontamination</a></li>
-                            <li><a href="#" class="hover:text-white">HVAC Cleaning</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5 class="text-xl font-bold">Useful Links</h5>
-                         <ul class="mt-4 space-y-2 text-gray-400">
-                            <li><a href="#" class="hover:text-white">About Us</a></li>
-                            <li><a href="#" class="hover:text-white">Service Area</a></li>
-                            <li><a href="#" class="hover:text-white">Photo Gallery</a></li>
-                            <li><a href="#" class="hover:text-white">Contact Us</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-span-1 md:col-span-2">
-                        <h5 class="text-xl font-bold">Connect With Us</h5>
-                         <ul class="flex space-x-4 mt-4"> 
-                            <li><a class="text-gray-400 hover:text-white text-2xl" title="Facebook" href="https://www.facebook.com/americlean9111/" target="_blank"><i class="bi bi-facebook"></i></a></li>
-                            <li><a class="text-gray-400 hover:text-white text-2xl" title="Instagram" href="https://www.instagram.com/americlean_billingsmt/" target="_blank"><i class="bi bi-instagram"></i></a></li> 
-                            <li><a class="text-gray-400 hover:text-white text-2xl" title="LinkedIn" href="https://www.linkedin.com/company/americlean" target="_blank"><i class="bi bi-linkedin"></i></a></li> 
-                            <li><a class="text-gray-400 hover:text-white text-2xl" title="YouTube" href="https://www.youtube.com/channel/UCH9aekJo4yDmhxToAJlWE3Q" target="_blank"><i class="bi bi-youtube"></i></a></li> 
-                        </ul>
-                    </div>
-                </div>
-                <div class="footer-middle-div mt-8 pt-8 border-t border-gray-700 text-sm">
-                    <div class="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-gray-400">
-                        <a href="#" class="hover:text-white">Social Media</a>
-                        <span class="text-gray-600">|</span>
-                        <a href="#" class="hover:text-white">Sitemap</a>
-                        <span class="text-gray-600">|</span>
-                        <a href="#" class="hover:text-white">Contact Us</a>
-                        <span class="text-gray-600">|</span>
-                        <a href="#" class="hover:text-white">Privacy Policy</a>
-                        <span class="text-gray-600">|</span>
-                        <a href="#" class="hover:text-white">Terms & Conditions</a>
-                    </div>
-                    <div class="mt-4 text-gray-500 text-center text-xs">
-                        <span>© 2025 </span>
-                        <a href="#" class="hover:text-white">Powered by Virtual Vision Computing, LLC, All-in-One Website, </a>
-                        <a href="#" class="hover:text-white">Business Listing</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // --- Mobile Menu Toggle ---
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-    });
-
-    // --- Pricing Table Flip Animation ---
-    const pricingWrapper = document.querySelector('.pricing-table-wrapper');
-    if (pricingWrapper) {
-        const monthlyRadio = document.getElementById('monthly-4');
-        const yearlyRadio = document.getElementById('yearly-4');
-        const flipperContainer = pricingWrapper.querySelector('.plan-flipper-container');
-        
-        monthlyRadio.addEventListener('change', () => {
-            if (monthlyRadio.checked) {
-                flipperContainer.classList.remove('flipped');
-            }
-        });
-        yearlyRadio.addEventListener('change', () => {
-            if (yearlyRadio.checked) {
-                flipperContainer.classList.add('flipped');
-            }
-        });
-    }
-
-    // --- Navbar Slanted Background Logic ---
-    const adjustNavAccent = () => {
-        const logo = document.getElementById('logo');
-        const navAccent = document.getElementById('nav-accent');
-        const nav = document.querySelector('nav.container');
-        const homeLink = document.querySelector('#main-nav a.nav-item'); 
-
-        if (!logo || !navAccent || !nav || !homeLink || window.innerWidth < 1024) { 
-            if(navAccent) navAccent.style.clipPath = ''; 
-            document.querySelectorAll('#main-nav .nav-item').forEach(link => {
-                link.classList.remove('on-blue', 'active-nav-link');
-                link.style.color = ''; 
-                 if (link.href && link.href.endsWith('americlean9111.com/')) { 
-                    link.classList.add('active-nav-link');
-                 }
-            });
-            return;
-        }
-
-        const logoRect = logo.getBoundingClientRect();
-        const navRect = nav.getBoundingClientRect();
-        const homeLinkRect = homeLink.getBoundingClientRect();
-
-        const logoRight = logoRect.right - navRect.left;
-        const homeLeft = homeLinkRect.left - navRect.left;
-
-        const midpoint = logoRight + (homeLeft - logoRight) / 2 + 10;
-        
-        const slantWidth = 60; 
-        const slantWidthPercent = (slantWidth / nav.offsetWidth) * 100;
-        
-        const topPointX = midpoint - (slantWidth / 2);
-        const topPointPercent = (topPointX / nav.offsetWidth) * 100;
-        const bottomPointPercent = topPointPercent - slantWidthPercent; 
-
-        navAccent.style.clipPath = `polygon(${topPointPercent}% 0, 100% 0, 100% 100%, ${bottomPointPercent}% 100%)`;
-        
-        const navItems = document.querySelectorAll('#main-nav > a.nav-item, #main-nav > .dropdown > button');
-        navItems.forEach((link) => {
-            const linkRect = link.getBoundingClientRect();
-            const linkCenter = linkRect.left + linkRect.width / 2;
-            const accentStartPoint = (topPointPercent / 100) * nav.offsetWidth + navRect.left;
-            
-            link.classList.remove('on-blue', 'active-nav-link');
-
-            if (linkCenter > accentStartPoint) {
-                 link.classList.add('on-blue');
-                 link.style.color = 'white';
-            } else {
-                 link.style.color = '#1f2937'; 
-            }
-            
-            if (link.href && link.href.endsWith('americlean9111.com/')) {
-                 if (linkCenter <= accentStartPoint) {
-                    link.classList.add('active-nav-link');
-                 } else {
-                     link.classList.add('active-nav-link', 'on-blue');
-                 }
-            }
-        });
-    };
-    
-    // --- Counter Animation Logic ---
-    const animateCounters = (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counters = entry.target.querySelectorAll('.counter');
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-target');
-                    if (counter.animated) return; 
-                    counter.animated = true;
                     
-                    let start = 0;
-                    const duration = 2000;
-                    const increment = target / (duration / 16);
+                    <div>
+                        <h3 class="text-xl font-bold text-center text-sky-800 mb-6">Actionable Recommendations for AmeriClean</h3>
+                        <div class="max-w-4xl mx-auto space-y-4">
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
+                                <h4 class="font-bold">1. Center Brand on "Veteran-Owned"</h4>
+                                <p class="text-sm text-slate-600 mt-1">This is our most powerful, inimitable asset. It must be the central theme of all marketing. Redesign website, logo, and vehicle wraps to feature this prominently. It communicates integrity, discipline, and trust.</p>
+                            </div>
+                             <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
+                                <h4 class="font-bold">2. Adopt an Asymmetric Digital Strategy</h4>
+                                <p class="text-sm text-slate-600 mt-1">Don't fight a dollar-for-dollar ad war. Dominate the channel they neglect: **Organic Social Media**. Use Facebook/Instagram to tell authentic local stories, introduce the team, and post video testimonials. This builds a genuine community connection that a corporate entity cannot replicate.</p>
+                            </div>
+                             <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
+                                <h4 class="font-bold">3. Weaponize Our Reputation & Experience</h4>
+                                <p class="text-sm text-slate-600 mt-1">We have "45 Years of Experience." Prove it. Launch a systematic review generation campaign to dramatically increase our Google review count. Create a robust "Project Gallery" with high-quality before/after photos and video testimonials.</p>
+                            </div>
+                             <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
+                                <h4 class="font-bold">4. Build Our Own B2B Pipeline</h4>
+                                <p class="text-sm text-slate-600 mt-1">Join the YPMA and engage with insurance agents. Develop a "Lunch & Learn" presentation framed around our veteran-owned principles of integrity and unwavering service. Position ourselves as a partner who makes their job easier.</p>
+                            </div>
+                             <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
+                                <h4 class="font-bold">5. Address the Warranty Gap</h4>
+                                <p class="text-sm text-slate-600 mt-1">Their 5-year warranty is a powerful closing tool. We must have a competitive response. The strongest move is to match it. If not, we must clearly articulate why our superior experience makes it unnecessary. Ignoring it is a disadvantage.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
 
-                    const updateCount = () => {
-                        start += increment;
-                        if (start < target) {
-                            counter.innerText = Math.ceil(start).toLocaleString();
-                            requestAnimationFrame(updateCount);
-                        } else {
-                            counter.innerText = target.toLocaleString() + (counter.innerText.includes('+') ? '+' : '');
-                        }
-                    };
-                    updateCount();
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = {
+                playbook: { btn: document.getElementById('tab-playbook'), content: document.getElementById('content-playbook') },
+                trust: { btn: document.getElementById('tab-trust'), content: document.getElementById('content-trust') },
+                financial: { btn: document.getElementById('tab-financial'), content: document.getElementById('content-financial') },
+                strategy: { btn: document.getElementById('tab-strategy'), content: document.getElementById('content-strategy') }
+            };
+
+            function switchTab(activeTabKey) {
+                Object.keys(tabs).forEach(key => {
+                    const is_active = key === activeTabKey;
+                    tabs[key].btn.classList.toggle('tab-active', is_active);
+                    tabs[key].btn.classList.toggle('tab-inactive', !is_active);
+                    tabs[key].content.classList.toggle('content-active', is_active);
+                    tabs[key].content.classList.toggle('content-inactive', !is_active);
                 });
-                observer.unobserve(entry.target);
             }
-        });
-    };
 
-    const counterObserver = new IntersectionObserver(animateCounters, {
-        root: null,
-        threshold: 0.5
-    });
+            Object.keys(tabs).forEach(key => {
+                tabs[key].btn.addEventListener('click', () => switchTab(key));
+            });
 
-    const statsBar = document.querySelector('.stats-bar');
-    if(statsBar) {
-        counterObserver.observe(statsBar);
-    }
+            switchTab('playbook');
 
+            const ppcData = {
+                labels: ['Water Damage', 'Fire & Smoke', 'Mold Remediation'],
+                conservative: {
+                    data: [2000, 1250, 750],
+                    backgroundColor: 'rgba(56, 189, 248, 0.6)',
+                    borderColor: 'rgba(2, 132, 199, 1)',
+                },
+                moderate: {
+                    data: [4250, 3000, 1250],
+                    backgroundColor: 'rgba(251, 191, 36, 0.6)',
+                    borderColor: 'rgba(217, 119, 6, 1)',
+                },
+                aggressive: {
+                    data: [7500, 5000, 2500],
+                    backgroundColor: 'rgba(239, 68, 68, 0.6)',
+                    borderColor: 'rgba(185, 28, 28, 1)',
+                },
+            };
 
-    // --- General Animation on Scroll ---
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
+            const scenarioButtons = {
+                conservative: document.getElementById('btn-conservative'),
+                moderate: document.getElementById('btn-moderate'),
+                aggressive: document.getElementById('btn-aggressive'),
+            };
+
+            const ctx = document.getElementById('ppcSpendChart').getContext('2d');
+            const ppcSpendChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ppcData.labels,
+                    datasets: [{
+                        label: 'Estimated Monthly Spend ($)',
+                        data: ppcData.conservative.data,
+                        backgroundColor: ppcData.conservative.backgroundColor,
+                        borderColor: ppcData.conservative.borderColor,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.x);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            function updateChart(scenario) {
+                const { data, backgroundColor, borderColor } = ppcData[scenario];
+                ppcSpendChart.data.datasets[0].data = data;
+                ppcSpendChart.data.datasets[0].backgroundColor = backgroundColor;
+                ppcSpendChart.data.datasets[0].borderColor = borderColor;
+                ppcSpendChart.update();
+
+                Object.keys(scenarioButtons).forEach(key => {
+                    const isActive = key === scenario;
+                    scenarioButtons[key].classList.toggle('scenario-btn-active', isActive);
+                    scenarioButtons[key].classList.toggle('scenario-btn-inactive', !isActive);
+                });
             }
+
+            Object.keys(scenarioButtons).forEach(key => {
+                scenarioButtons[key].addEventListener('click', () => updateChart(key));
+            });
+
+            updateChart('conservative');
         });
-    }, {
-        threshold: 0.1
-    });
+    </script>
 
-    document.querySelectorAll('.animated-section').forEach(section => {
-        sectionObserver.observe(section);
-    });
-
-    // Initial and resize adjustments
-    window.addEventListener('resize', adjustNavAccent);
-    // Use a small timeout to ensure images are loaded before calculating positions
-    setTimeout(adjustNavAccent, 150);
-
-});
-</script>
 </body>
 </html>
