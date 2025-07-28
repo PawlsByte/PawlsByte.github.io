@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  role      String   @default("learner")
+  profile   Json?
+  attempts  ExamAttempt[]
+  reviews   FlashcardReview[]
+  tasks     StudyTask[]
+  createdAt DateTime @default(now())
+}
+
+model Domain {
+  id            String     @id @default(uuid())
+  name          String
+  weightPercent Int
+  objectives    Objective[]
+}
+
+model Objective {
+  id            String   @id @default(uuid())
+  domainId      String
+  code          String   @unique
+  description   String
+  weightPercent Int      @default(0)
+  domain        Domain   @relation(fields: [domainId], references: [id])
+  items         Item[]
+  cards         Flashcard[]
+}
+
+model Item {
+  id            String   @id @default(uuid())
+  objectiveId   String
+  stem          String
+  options       Json
+  correct       Json
+  itemType      String
+  difficulty    String
+  media         Json?
+  references    Json?
+  createdAt     DateTime @default(now())
+  objective     Objective @relation(fields: [objectiveId], references: [id])
+  examItems     ExamItem[]
+  responses     ItemResponse[]
+}
+
+model ExamForm {
+  id               String   @id @default(uuid())
+  label            String
+  blueprintWeights Json
+  items            ExamItem[]
+}
+
+model ExamItem {
+  id         String   @id @default(uuid())
+  examFormId String
+  itemId     String
+  order      Int
+  examForm   ExamForm @relation(fields: [examFormId], references: [id])
+  item       Item     @relation(fields: [itemId], references: [id])
+}
+
+model ExamAttempt {
+  id           String   @id @default(uuid())
+  userId       String
+  examFormId   String
+  startedAt    DateTime @default(now())
+  submittedAt  DateTime?
+  timeLimitSec Int
+  metrics      Json?
+  user         User     @relation(fields: [userId], references: [id])
+  form         ExamForm @relation(fields: [examFormId], references: [id])
+  responses    ItemResponse[]
+}
+
+model ItemResponse {
+  id            String   @id @default(uuid())
+  examAttemptId String
+  itemId        String
+  answer        Json
+  correct       Boolean
+  responseMs    Int
+  attempt       ExamAttempt @relation(fields: [examAttemptId], references: [id])
+  item          Item        @relation(fields: [itemId], references: [id])
+}
+
+model Flashcard {
+  id           String   @id @default(uuid())
+  objectiveId  String
+  prompt       String
+  answer       String
+  media        Json?
+  objective    Objective @relation(fields: [objectiveId], references: [id])
+  reviews      FlashcardReview[]
+}
+
+model FlashcardReview {
+  id           String   @id @default(uuid())
+  userId       String
+  flashcardId  String
+  ease         Int
+  intervalDays Int
+  dueAt        DateTime
+  user         User      @relation(fields: [userId], references: [id])
+  card         Flashcard @relation(fields: [flashcardId], references: [id])
+}
+
+model StudyTask {
+  id      String  @id @default(uuid())
+  userId  String
+  type    String
+  payload Json
+  status  String  @default("pending")
+  user    User    @relation(fields: [userId], references: [id])
+}

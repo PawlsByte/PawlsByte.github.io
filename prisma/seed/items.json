@@ -1,0 +1,95 @@
+[
+  {
+    "objective_code": "DOM5.OBJ1",
+    "item_type": "single",
+    "difficulty": "Medium",
+    "stem": "A negative air machine discharge during duct cleaning should be handled how?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Vented to nearest return grille"
+      },
+      {
+        "id": "B",
+        "text": "Exhausted through sealed path with HEPA filtration"
+      },
+      {
+        "id": "C",
+        "text": "Bypassed outdoors without filtration"
+      },
+      {
+        "id": "D",
+        "text": "Routed to supply diffuser to maximize dilution"
+      }
+    ],
+    "correct": [
+      "B"
+    ],
+    "rationale": {
+      "B": "Controls contaminants via capture and filtration before discharge.",
+      "A": "Return grilles are not controlled discharges.",
+      "C": "Unfiltered exhaust risks contamination.",
+      "D": "Supply path redistributes debris."
+    }
+  },
+  {
+    "objective_code": "DOM6.OBJ2",
+    "item_type": "single",
+    "difficulty": "Easy",
+    "stem": "Before servicing a fan section, which control is critical?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Open the economizer"
+      },
+      {
+        "id": "B",
+        "text": "Lockout/Tagout electrical supply"
+      },
+      {
+        "id": "C",
+        "text": "Cover sharp edges"
+      },
+      {
+        "id": "D",
+        "text": "Increase static pressure"
+      }
+    ],
+    "correct": [
+      "B"
+    ],
+    "rationale": {
+      "B": "LOTO prevents unexpected energization."
+    }
+  },
+  {
+    "objective_code": "DOM2.OBJ3",
+    "item_type": "calc",
+    "difficulty": "Medium",
+    "stem": "A containment zone is 1,800 ft\u00b3 and target ACH is 6. What minimum CFM is required?",
+    "options": [
+      {
+        "id": "A",
+        "text": "90"
+      },
+      {
+        "id": "B",
+        "text": "180"
+      },
+      {
+        "id": "C",
+        "text": "360"
+      },
+      {
+        "id": "D",
+        "text": "600"
+      }
+    ],
+    "correct": [
+      "B"
+    ],
+    "rationale": {
+      "B": "CFM = ACH\u00d7Volume/60 = 6\u00d71800/60 = 180."
+    }
+  }
+]

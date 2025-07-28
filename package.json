@@ -1,0 +1,28 @@
+{
+  "name": "ascs-mastery",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "seed": "ts-node scripts/seed.ts"
+  },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "recharts": "2.12.7"
+  },
+  "devDependencies": {
+    "typescript": "5.5.4",
+    "prisma": "5.16.1",
+    "@prisma/client": "5.16.1",
+    "ts-node": "10.9.2",
+    "tailwindcss": "3.4.7",
+    "postcss": "8.4.39",
+    "autoprefixer": "10.4.19"
+  }
+}

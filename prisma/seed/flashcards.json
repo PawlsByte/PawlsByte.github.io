@@ -1,0 +1,17 @@
+[
+  {
+    "objective_code": "DOM5.OBJ1",
+    "prompt": "Define source removal in HVAC cleaning.",
+    "answer": "Physical removal of contaminants via agitation + collection under controlled containment (HEPA)."
+  },
+  {
+    "objective_code": "DOM2.OBJ4",
+    "prompt": "What does MERV represent?",
+    "answer": "A rating of filter efficiency by particle size range."
+  },
+  {
+    "objective_code": "DOM6.OBJ2",
+    "prompt": "Why is LOTO required before servicing fans?",
+    "answer": "Prevents unexpected energization and injury."
+  }
+]
