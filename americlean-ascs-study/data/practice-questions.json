@@ -1,0 +1,57 @@
+[
+  {
+    "question": "What does a negative air machine accomplish during duct cleaning?",
+    "options": [
+      "Increases airflow to occupied spaces",
+      "Creates pressure to contain contaminants",
+      "Adds moisture for debris removal",
+      "Eliminates the need for protective equipment"
+    ],
+    "answer": 1,
+    "hint": "Think about how we keep dust from escaping the work area."
+  },
+  {
+    "question": "Which document outlines the industry standard for HVAC cleaning?",
+    "options": [
+      "ASHRAE Handbook",
+      "ACR, The NADCA Standard",
+      "EPA Clean Air Act",
+      "International Mechanical Code"
+    ],
+    "answer": 1,
+    "hint": "It is published by NADCA and referenced throughout training materials."
+  },
+  {
+    "question": "Before starting any cleaning procedure, what should be done first to ensure system safety?",
+    "options": [
+      "Open supply registers",
+      "Secure the area with caution tape",
+      "Shut down the HVAC system",
+      "Spray disinfectant into returns"
+    ],
+    "answer": 2,
+    "hint": "No mechanical components should be running while you work."
+  },
+  {
+    "question": "What is the recommended method for verifying cleanliness after duct cleaning?",
+    "options": [
+      "Visual inspection",
+      "Chemical swab testing",
+      "Airflow measurement",
+      "Customer testimonial"
+    ],
+    "answer": 0,
+    "hint": "Look inside the ducts to ensure debris removal."
+  },
+  {
+    "question": "HEPA filters capture particles down to what size?",
+    "options": [
+      "1 micron",
+      "0.3 microns",
+      "5 microns",
+      "0.03 microns"
+    ],
+    "answer": 1,
+    "hint": "It's the standard rating for high-efficiency filters."
+  }
+]
