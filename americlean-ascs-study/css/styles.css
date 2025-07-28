@@ -1,9 +1,10 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   background-color: #ffffff;
   color: #1e1e1e;
   margin: 0;
   padding: 0;
+  transition: background 0.3s, color 0.3s;
 }
 header {
   background: #002f5f;
@@ -12,9 +13,18 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+}
+header h1 {
+  margin: 0 1rem;
+}
+header nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 0.5rem;
 }
 #logo {
-  height: 60px;
+  height: 50px;
 }
 .start-btn {
   display: inline-block;
@@ -25,7 +35,16 @@ header {
   border-radius: 5px;
   margin-top: 1rem;
 }
+main {
+  padding: 2rem;
+}
+ul {
+  padding-left: 1.25rem;
+}
 .dark-mode {
   background-color: #121212;
   color: #f1f1f1;
+}
+.dark-mode header {
+  background: #1f1f1f;
 }
