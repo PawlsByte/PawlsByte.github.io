@@ -1,0 +1,24 @@
+[
+  {
+    "question": "What is the purpose of a return duct?",
+    "options": [
+      "Deliver air to rooms",
+      "Bring air back to the system",
+      "Vent air to the outside",
+      "Provide combustion air"
+    ],
+    "answer": 1,
+    "explanation": "Return ducts pull used air from rooms and return it to the HVAC system for reconditioning."
+  },
+  {
+    "question": "Which filter type is most effective at trapping fine particles?",
+    "options": [
+      "Mesh Filter",
+      "Carbon Filter",
+      "HEPA Filter",
+      "Foam Filter"
+    ],
+    "answer": 2,
+    "explanation": "HEPA filters are designed to trap 99.97% of particles 0.3 microns in size."
+  }
+]
