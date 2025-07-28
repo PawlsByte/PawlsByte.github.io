@@ -1,0 +1,6 @@
+// Cloudflare Wrangler configuration
+{
+  "name": "ascs-ai-tutor",
+  "main": "worker.js",
+  "compatibility_date": "2025-07-01"
+}

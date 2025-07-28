@@ -46,7 +46,7 @@ const { title = "NADCA ASCS Prep" } = Astro.props;
     </div>
     <script type="module">
       const btn = document.getElementById('openChat');
-      const TUTOR_URL = 'https://YOUR_WORKER_SUBDOMAIN.workers.dev'; // Cloudflare Worker endpoint (POST)
+      const TUTOR_URL = import.meta.env.PUBLIC_TUTOR_URL || 'https://ascs-ai-tutor.americlean.workers.dev'; // Cloudflare Worker endpoint (POST)
       let open = false;
       btn.addEventListener('click', async () => {
         open = !open;

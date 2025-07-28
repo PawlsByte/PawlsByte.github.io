@@ -1,0 +1,71 @@
+name: Deploy Worker & Astro to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy_worker:
+    name: Deploy Cloudflare Worker (AI Tutor Proxy)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set OPENAI_API_KEY secret on Worker
+        working-directory: ai-proxy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          npm -g i wrangler@latest
+          # Pipe secret non-interactively
+          printf "%s" "$OPENAI_API_KEY" | wrangler secret put OPENAI_API_KEY --yes
+
+      - name: Deploy Worker with Wrangler Action
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          workingDirectory: ai-proxy
+          command: deploy
+
+  build_and_pages:
+    name: Build Astro & Deploy to GitHub Pages
+    needs: deploy_worker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Configure PUBLIC_TUTOR_URL (.env.production)
+        run: |
+          echo "PUBLIC_TUTOR_URL=https://ascs-ai-tutor.americlean.workers.dev" > .env.production
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
