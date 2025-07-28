@@ -1,0 +1,46 @@
+---
+import Layout from "../Layout.astro";
+import DomainBreakdownChart from "../components/DomainBreakdownChart.jsx";
+const domainData = [
+  { domain: "I", weight: 5, score: 0 },
+  { domain: "II", weight: 15, score: 0 },
+  { domain: "III", weight: 12, score: 0 },
+  { domain: "IV", weight: 12, score: 0 },
+  { domain: "V", weight: 42, score: 0 },
+  { domain: "VI", weight: 6, score: 0 },
+  { domain: "VII", weight: 8, score: 0 }
+];
+---
+<Layout title="NADCA ASCS Prep">
+  <section class="hero">
+    <div>
+      <h1>Master the NADCA ASCS Exam</h1>
+      <p>Interactive modules, flashcards, full-length exams, detailed analytics, and an AI tutor — mapped to the official exam blueprint.</p>
+      <p><a class="btn" href="/ASCS/ascs/">Start ASCS Track</a></p>
+      <div class="badge">Project site build · Astro · GitHub Pages</div>
+    </div>
+    <img src="/ASCS/img/hero-hvac.jpg" alt="Illustration of HVAC system cleaning" />
+  </section>
+  <h2>Your Progress</h2>
+  <div class="card">
+    <DomainBreakdownChart data={domainData} />
+  </div>
+  <h2>Quick Links</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Full Exam Simulator</h3>
+      <p>150 questions · 3.5 hours · domain-weighted.</p>
+      <a class="btn" href="/ASCS/ascs/exam">Take a mock exam</a>
+    </div>
+    <div class="card">
+      <h3>Flashcards</h3>
+      <p>Acronyms, terms, and standards at your fingertips.</p>
+      <a class="btn" href="/ASCS/ascs/flashcards">Review flashcards</a>
+    </div>
+    <div class="card">
+      <h3>Resources</h3>
+      <p>ACR 2021, EPA mold guide, NAIMA AH-122, SMACNA, and more.</p>
+      <a class="btn" href="/ASCS/resources/">Open library</a>
+    </div>
+  </div>
+</Layout>

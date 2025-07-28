@@ -1,0 +1,218 @@
+[
+  {
+    "id": "D6-001",
+    "domain": "D6",
+    "stem": "Sample D6 question 1: placeholder stem.",
+    "choices": [
+      "Choice A",
+      "Choice B",
+      "Choice C",
+      "Choice D"
+    ],
+    "answer": 1,
+    "explanation": "Brief explanation. Replace with vetted content and cite ACR/EPA/NAIMA/SMACNA as applicable.",
+    "sources": [
+      {
+        "ref": "ACR 2021"
+      }
+    ]
+  },
+  {
+    "id": "D6-002",
+    "domain": "D6",
+    "stem": "Sample D6 question 2: placeholder stem.",
+    "choices": [
+      "Choice A",
+      "Choice B",
+      "Choice C",
+      "Choice D"
+    ],
+    "answer": 1,
+    "explanation": "Brief explanation. Replace with vetted content and cite ACR/EPA/NAIMA/SMACNA as applicable.",
+    "sources": [
+      {
+        "ref": "ACR 2021"
+      }
+    ]
+  },
+  {
+    "id": "D6-003",
+    "domain": "D6",
+    "stem": "Sample D6 question 3: placeholder stem.",
+    "choices": [
+      "Choice A",
+      "Choice B",
+      "Choice C",
+      "Choice D"
+    ],
+    "answer": 1,
+    "explanation": "Brief explanation. Replace with vetted content and cite ACR/EPA/NAIMA/SMACNA as applicable.",
+    "sources": [
+      {
+        "ref": "ACR 2021"
+      }
+    ]
+  },
+  {
+    "id": "D6-004",
+    "domain": "D6",
+    "stem": "Sample D6 question 4: placeholder stem.",
+    "choices": [
+      "Choice A",
+      "Choice B",
+      "Choice C",
+      "Choice D"
+    ],
+    "answer": 1,
+    "explanation": "Brief explanation. Replace with vetted content and cite ACR/EPA/NAIMA/SMACNA as applicable.",
+    "sources": [
+      {
+        "ref": "ACR 2021"
+      }
+    ]
+  },
+  {
+    "id": "D6-005",
+    "domain": "D6",
+    "stem": "Sample D6 question 5: placeholder stem.",
+    "choices": [
+      "Choice A",
+      "Choice B",
+      "Choice C",
+      "Choice D"
+    ],
+    "answer": 1,
+    "explanation": "Brief explanation. Replace with vetted content and cite ACR/EPA/NAIMA/SMACNA as applicable.",
+    "sources": [
+      {
+        "ref": "ACR 2021"
+      }
+    ]
+  },
+  {
+    "id": "D6-006",
+    "domain": "D6",
+    "stem": "Sample D6 question 6: placeholder stem.",
+    "choices": [
+      "Choice A",
+      "Choice B",
+      "Choice C",
+      "Choice D"
+    ],
+    "answer": 1,
+    "explanation": "Brief explanation. Replace with vetted content and cite ACR/EPA/NAIMA/SMACNA as applicable.",
+    "sources": [
+      {
+        "ref": "ACR 2021"
+      }
+    ]
+  },
+  {
+    "id": "D6-007",
+    "domain": "D6",
+    "stem": "Sample D6 question 7: placeholder stem.",
+    "choices": [
+      "Choice A",
+      "Choice B",
+      "Choice C",
+      "Choice D"
+    ],
+    "answer": 1,
+    "explanation": "Brief explanation. Replace with vetted content and cite ACR/EPA/NAIMA/SMACNA as applicable.",
+    "sources": [
+      {
+        "ref": "ACR 2021"
+      }
+    ]
+  },
+  {
+    "id": "D6-008",
+    "domain": "D6",
+    "stem": "Sample D6 question 8: placeholder stem.",
+    "choices": [
+      "Choice A",
+      "Choice B",
+      "Choice C",
+      "Choice D"
+    ],
+    "answer": 1,
+    "explanation": "Brief explanation. Replace with vetted content and cite ACR/EPA/NAIMA/SMACNA as applicable.",
+    "sources": [
+      {
+        "ref": "ACR 2021"
+      }
+    ]
+  },
+  {
+    "id": "D6-009",
+    "domain": "D6",
+    "stem": "Sample D6 question 9: placeholder stem.",
+    "choices": [
+      "Choice A",
+      "Choice B",
+      "Choice C",
+      "Choice D"
+    ],
+    "answer": 1,
+    "explanation": "Brief explanation. Replace with vetted content and cite ACR/EPA/NAIMA/SMACNA as applicable.",
+    "sources": [
+      {
+        "ref": "ACR 2021"
+      }
+    ]
+  },
+  {
+    "id": "D6-010",
+    "domain": "D6",
+    "stem": "Sample D6 question 10: placeholder stem.",
+    "choices": [
+      "Choice A",
+      "Choice B",
+      "Choice C",
+      "Choice D"
+    ],
+    "answer": 1,
+    "explanation": "Brief explanation. Replace with vetted content and cite ACR/EPA/NAIMA/SMACNA as applicable.",
+    "sources": [
+      {
+        "ref": "ACR 2021"
+      }
+    ]
+  },
+  {
+    "id": "D6-011",
+    "domain": "D6",
+    "stem": "Sample D6 question 11: placeholder stem.",
+    "choices": [
+      "Choice A",
+      "Choice B",
+      "Choice C",
+      "Choice D"
+    ],
+    "answer": 1,
+    "explanation": "Brief explanation. Replace with vetted content and cite ACR/EPA/NAIMA/SMACNA as applicable.",
+    "sources": [
+      {
+        "ref": "ACR 2021"
+      }
+    ]
+  },
+  {
+    "id": "D6-012",
+    "domain": "D6",
+    "stem": "Sample D6 question 12: placeholder stem.",
+    "choices": [
+      "Choice A",
+      "Choice B",
+      "Choice C",
+      "Choice D"
+    ],
+    "answer": 1,
+    "explanation": "Brief explanation. Replace with vetted content and cite ACR/EPA/NAIMA/SMACNA as applicable.",
+    "sources": [
+      {
+        "ref": "ACR 2021"
+      }
+    ]
+  }
+]

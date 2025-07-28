@@ -1,0 +1,10 @@
+---
+import Layout from "../../Layout.astro";
+import Flashcards from "../../components/Flashcards.jsx";
+import cards from "../../data/flashcards.json";
+---
+<Layout title="Flashcards">
+  <h1>Flashcards</h1>
+  <p>Tap a card to flip. Practice acronyms, definitions, and key figures.</p>
+  <Flashcards cards={cards} />
+</Layout>
