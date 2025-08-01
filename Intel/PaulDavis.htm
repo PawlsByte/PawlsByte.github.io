@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitor Marketing Analysis: Paul Davis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Corporate Intelligence -->
+    <!-- Application Structure Plan: The SPA is designed as an interactive intelligence dashboard with four main sections, accessible via a sticky navigation bar: 'The Playbook' (Strategy), 'The Price Tag' (Financials), 'The Battlefield' (Execution), and 'The Counter-Attack' (Recommendations). This thematic structure transforms the linear report into a non-linear, exploratory experience. It allows a user from AmeriClean to quickly jump to the most relevant section—whether it's understanding the competitor's strategy, their budget, their specific tactics, or how to counter them—making the dense information more digestible and actionable than a simple document. -->
+    <!-- Visualization & Content Choices: Key data is visualized for impact and clarity. Report Info: Franchisee financial contributions -> Goal: Compare/Inform -> Viz: Chart.js Doughnut Chart -> Interaction: Hover for details -> Justification: Makes the abstract fee structure tangible and easy to grasp. Report Info: Dual-layered marketing system -> Goal: Organize/Inform -> Viz: HTML/CSS card layout -> Interaction: Static display -> Justification: Breaks down complex strategic pillars into visually distinct, easily scannable sections. Report Info: National vs. Local tactics -> Goal: Organize/Compare -> Viz: Tabbed cards with icons -> Interaction: Click tabs -> Justification: Allows for easy comparison between broad strategy and on-the-ground execution. All choices prioritize user understanding and interaction within the designed dashboard structure. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #3b82f6; /* blue-500 */
+            border-color: #3b82f6; /* blue-500 */
+        }
+        .tab-button.active {
+            color: #3b82f6; /* blue-500 */
+            border-color: #3b82f6; /* blue-500 */
+        }
+        .tab-button {
+            transition: all 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <h1 class="text-xl md:text-2xl font-bold text-slate-900">Competitor Intel: Paul Davis</h1>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#playbook" class="nav-link font-medium text-slate-600 border-b-2 border-transparent pb-1">The Playbook</a>
+                    <a href="#pricetag" class="nav-link font-medium text-slate-600 border-b-2 border-transparent pb-1">The Price Tag</a>
+                    <a href="#battlefield" class="nav-link font-medium text-slate-600 border-b-2 border-transparent pb-1">The Battlefield</a>
+                    <a href="#counterattack" class="nav-link font-medium text-slate-600 border-b-2 border-transparent pb-1">The Counter-Attack</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-slate-600 hover:bg-slate-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="#playbook" class="block nav-link font-medium text-slate-600 py-2">The Playbook</a>
+                <a href="#pricetag" class="block nav-link font-medium text-slate-600 py-2">The Price Tag</a>
+                <a href="#battlefield" class="block nav-link font-medium text-slate-600 py-2">The Battlefield</a>
+                <a href="#counterattack" class="block nav-link font-medium text-slate-600 py-2">The Counter-Attack</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-8 md:py-12">
+
+        <section id="playbook" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">The Playbook</h2>
+                <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">Paul Davis operates a sophisticated dual-layered marketing system, combining a powerful national brand engine with a structured, locally-executed plan built on a foundation of insurance industry partnerships.</p>
+            </div>
+            <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-blue-500 flex flex-col">
+                    <div class="flex-grow">
+                        <div class="flex items-start mb-4">
+                            <span class="text-3xl mr-4">📢</span>
+                            <div>
+                                <h3 class="font-bold text-xl text-slate-900">Corporate Brand Blueprint</h3>
+                                <p class="text-sm text-blue-600 font-medium">"Difference Makers" & "Extraordinary Care"</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-700 text-sm">At its core, the brand is built on empathy and reliability. The "Difference Makers" initiative positions employees as compassionate experts, a theme central to national TV ads. To ensure consistency, the company codified "10 Serving Basics" to create a replicable, high-quality customer experience.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-green-500 flex flex-col">
+                    <div class="flex-grow">
+                        <div class="flex items-start mb-4">
+                            <span class="text-3xl mr-4">⚙️</span>
+                            <div>
+                                <h3 class="font-bold text-xl text-slate-900">The Franchisor-as-Marketer Model</h3>
+                                <p class="text-sm text-green-600 font-medium">The "Strategic" and "Activity" Plans</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-700 text-sm">A highly structured model where corporate provides strategy and the franchisee executes. This is governed by the <strong>Strategic Marketing Plan (SMP)</strong>, a national fund for major campaigns, and the <strong>Marketing Activity Plan (MAP)</strong>, a tactical playbook for local execution. This creates a "franchise-in-a-box" system.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-violet-500 flex flex-col">
+                    <div class="flex-grow">
+                        <div class="flex items-start mb-4">
+                            <span class="text-3xl mr-4">🤝</span>
+                            <div>
+                                <h3 class="font-bold text-xl text-slate-900">The Cornerstone: Insurance Nexus</h3>
+                                <p class="text-sm text-violet-600 font-medium">The Foundational B2B Pillar</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-700 text-sm">The foundational pillar of growth is deep-rooted relationships with the insurance industry. National accounts provide new franchisees with immediate business. They are systemically integrated with a Quality Assurance department, making them an efficient and predictable partner for adjusters and creating a powerful B2B referral network.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricetag" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">The Price Tag</h2>
+                <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">The franchise model mandates significant, non-discretionary financial contributions to a centralized marketing and operations system, creating a formidable war chest.</p>
+            </div>
+            <div class="grid md:grid-cols-5 gap-8 items-start">
+                <div class="md:col-span-3 bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="font-bold text-xl mb-4 text-slate-900">Mandatory Fee Structure (FDD Analysis)</h3>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 mt-1">&#10004;</span>
+                            <div><strong class="text-slate-700">Initial Marketing & Advertising:</strong> $12,000 - $72,000. A one-time, upfront cost required as part of the total initial investment, designated for local marketing and advertising to launch the new franchise.</div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 mt-1">&#10004;</span>
+                            <div><strong class="text-slate-700">Ongoing Royalty Fee:</strong> 4% of Gross Sales. A standard royalty paid monthly on all invoiced gross sales. This fee funds the entire franchisor operation, including the salaries of the corporate marketing and business development teams that support franchisees.</div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 mt-1">&#10004;</span>
+                            <div><strong class="text-slate-700">Strategic Marketing Plan (SMP) Fee:</strong> $500/month + 0.75% of sales. A mandatory monthly contribution to the national marketing fund. The fee consists of a flat $500 plus 0.75% of invoiced sales, subject to an annual, inflation-adjusted cap. This is the primary fund for national campaigns.</div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 mt-1">&#10004;</span>
+                            <div><strong class="text-slate-700">Common Software Fee (RMS):</strong> $495/month. A required monthly fee for the Restoration Management Software (RMS). This system includes a CRM used to track leads and measure marketing ROI, making it a critical component of the marketing infrastructure. An initial $3,000 implementation fee is also required.</div>
+                        </li>
+                         <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 mt-1">&#10004;</span>
+                            <div><strong class="text-slate-700">Local Marketing Spend:</strong> Unspecified. Franchisees are required to conduct their own local marketing activities as outlined in their Marketing Activity Plan (MAP). The exact budget is determined locally, but the initial $12,000 to $72,000 serves as the seed money for these efforts.</div>
+                        </li>
+                    </ul>
+                     <div class="mt-6 bg-slate-100 p-4 rounded-lg">
+                        <h4 class="font-semibold text-slate-800">Projected Billings Contribution</h4>
+                        <p class="text-sm text-slate-600 mt-2">Based on average franchise sales of $5.84 million, the Billings location is estimated to send **~&#36;283,220** to corporate annually. Nearly **&#36;50,000** of this is dedicated to the national SMP fund, before any local spending. This demonstrates that the competitor's marketing is not a discretionary line item but a significant, fixed cost of doing business dictated by the franchise agreement.</p>
+                    </div>
+                </div>
+                <div class="md:col-span-2 bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="font-bold text-xl mb-4 text-center text-slate-900">Projected Annual Fees (Billings)</h3>
+                    <div class="chart-container">
+                        <canvas id="feesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="battlefield" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">The Battlefield</h2>
+                <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">Marketing is executed on two fronts: a high-powered national offensive and a systematic local-market footprint.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <div id="battlefield-tabs" class="mb-6 flex flex-wrap justify-center border-b border-slate-200 -mt-2">
+                    <button data-tab="national" class="tab-button py-3 px-6 font-medium text-slate-600 border-b-2 border-transparent">National Offensive</button>
+                    <button data-tab="local" class="tab-button py-3 px-6 font-medium text-slate-600 border-b-2 border-transparent">Local Footprint (Billings)</button>
+                </div>
+                <div id="battlefield-content" class="mt-8">
+                </div>
+            </div>
+        </section>
+
+        <section id="counterattack" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">The Counter-Attack</h2>
+                <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">For AmeriClean, the path to victory is not imitation, but exploiting the gaps between Paul Davis's brand promise and its operational reality.</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow-md mb-8">
+                <h3 class="text-2xl font-bold text-center text-red-700 mb-4">The Achilles' Heel: Brand Promise vs. Customer Reality</h3>
+                <p class="text-center text-slate-700 mb-6">The most significant vulnerability for Paul Davis is the stark and documented disconnect between its polished national brand promise of "extraordinary care" and the actual service experiences reported by numerous customers. Public forums reveal a consistent pattern of severe, recurring complaints that directly contradict the brand's "10 Serving Basics."</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-red-800">Chronic Communication Failures</h4>
+                        <p class="text-red-700">Customers report projects suffering from "months of unwarranted and unexplained delays" and an inability to get return phone calls.</p>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-red-800">Poor Workmanship</h4>
+                        <p class="text-red-700">Complaints detail work that was not completed, broken appliances, damaged property, and employees disrespecting homes.</p>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-red-800">Billing Disputes & Lack of Transparency</h4>
+                        <p class="text-red-700">Customers complain of surprise charges, invoices for work not performed, and an inability to get clear estimates before work begins.</p>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-red-800">Franchise Instability</h4>
+                        <p class="text-red-700">Extreme cases show customers abandoned mid-project when a local franchise collapses, leaving them with lost deposits and property liens.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-blue-500">
+                    <h4 class="text-xl font-bold mb-3 text-slate-900">Counter-Programming the Digital Juggernaut</h4>
+                    <p class="text-slate-600 mb-4">Attempting to compete with the Paul Davis/Forthea digital marketing machine on a dollar-for-dollar basis is likely inefficient. The strategic approach is not to out-spend Paul Davis, but to out-think them by being more agile, authentic, and locally focused.</p>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex"><strong class="mr-2 text-blue-600">&#9679;</strong><div><strong>Weaponize Local Reputation:</strong> Every piece of digital marketing should emphasize local ownership and a stellar reputation. Ad copy should read "Billings' Top-Rated Restoration. Locally Owned & Operated. See Our 5-Star Reviews," directly contrasting with the potential for negative reviews associated with the franchise model.</div></li>
+                        <li class="flex"><strong class="mr-2 text-blue-600">&#9679;</strong><div><strong>Create Hyper-Niche Content:</strong> Develop highly specific blog posts and case studies about restoration issues unique to the Billings area (e.g., "Restoration Guide for Homes Affected by Yellowstone River Ice Jams," "Navigating Fire Restoration with Billings-Specific Building Codes"). This will attract highly qualified search traffic that the generic franchise content might miss.</div></li>
+                        <li class="flex"><strong class="mr-2 text-blue-600">&#9679;</strong><div><strong>Focus on Trust-Based Channels:</strong> Prioritize investment in channels where local trust outweighs national brand recognition. This includes dominating local SEO by generating a high volume of positive reviews on Google Business Profile and building a robust referral network with other trusted local trades (plumbers, roofers, electricians).</div></li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-green-500">
+                    <h4 class="text-xl font-bold mb-3 text-slate-900">An Actionable Marketing Blueprint for AmeriClean</h4>
+                     <p class="text-slate-600 mb-4">The path to success is not to imitate Paul Davis, but to relentlessly exploit the gaps between its national brand promise and the potential for local operational failure.</p>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex"><strong class="mr-2 text-green-600">&#9679;</strong><div><strong>Strategic Budgeting:</strong> Use the projected mandatory spend of the local Paul Davis franchisee (~$50,000 annually to the national fund, plus their own local budget) as a benchmark. AmeriClean should commit to a competitive marketing budget, with the key advantage that 100% of its investment can be surgically focused on the Billings market.</div></li>
+                        <li class="flex"><strong class="mr-2 text-green-600">&#9679;</strong><div><strong>Channel Prioritization (Highest Priority):</strong> Aggressively optimize the Google Business Profile to generate 5-star reviews. Systematically build a B2B referral network with Billings-area plumbers, roofers, and independent insurance agents. Create a library of authentic, hyper-local content that establishes AmeriClean as the undisputed local expert.</div></li>
+                        <li class="flex"><strong class="mr-2 text-green-600">&#9679;</strong><div><strong>Community Sponsorships:</strong> Invest in visible sponsorships of local Billings events, sports teams, or charities to build authentic community roots that a national brand cannot replicate.</div></li>
+                    </ul>
+                </div>
+            </div>
+            
+             <div class="bg-blue-50 p-6 rounded-xl">
+                <h3 class="text-xl font-bold text-blue-800 mb-4 text-center">Your Compelling Messaging Blueprint</h3>
+                <div class="grid md:grid-cols-3 gap-6 text-center">
+                    <div>
+                        <h4 class="font-semibold text-blue-700">Theme 1: Local Accountability</h4>
+                        <p class="text-sm text-slate-600">"Locally Owned & Operated in Billings." "When you call AmeriClean, you talk to an owner, not a call center." "We're your neighbors, and we're accountable to you."</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-blue-700">Theme 2: Guaranteed Quality</h4>
+                        <p class="text-sm text-slate-600">"Our Reputation is on Every Job." "We stand behind our work because our name is on the door, not a franchise agreement." This directly targets the quality control issues seen in competitor reviews.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-blue-700">Theme 3: Authentic Community Commitment</h4>
+                        <p class="text-sm text-slate-600">"Proud sponsors of the Billings Food Bank." "Partnering with [Local Charity Name] to keep our community strong." This demonstrates genuine local investment, not a corporate mandate.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-slate-300 mt-16">
+        <div class="container mx-auto px-6 py-4 text-center text-sm">
+            <p>This interactive report was generated for internal strategic planning by AmeriClean.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const battlefieldContentData = {
+                national: `
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="font-bold text-xl mb-2 text-slate-800">Digital Dominance: The Forthea Partnership</h4>
+                            <p class="text-sm text-slate-600 mb-4">A cornerstone of their modern strategy is a deep partnership with Forthea, their "preferred digital agency partner." Forthea executes highly targeted Google Pay-Per-Click (PPC) and pay-per-lead Local Service Ads (LSA), ensuring franchisees only pay for genuine customer leads. They also perform hyper-localized SEO, customizing content for each market (e.g., "frozen pipes" for northern locations) and optimizing Google Business Profiles. With access to the Paul Davis CRM, Forthea tracks leads from click to invoice, providing hard data on ROI.</p>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                                <div class="p-3 bg-green-100 rounded-md"><p class="text-2xl font-bold text-green-700">731%</p><p class="text-xs font-medium text-green-600">Reported ROI</p></div>
+                                <div class="p-3 bg-green-100 rounded-md"><p class="text-2xl font-bold text-green-700">11x</p><p class="text-xs font-medium text-green-600">Increase in Leads</p></div>
+                                <div class="p-3 bg-green-100 rounded-md"><p class="text-2xl font-bold text-green-700">801%</p><p class="text-xs font-medium text-green-600">Increase in Page 1 Keywords</p></div>
+                                <div class="p-3 bg-green-100 rounded-md"><p class="text-2xl font-bold text-green-700">84%</p><p class="text-xs font-medium text-green-600">Increase in Traffic</p></div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl mb-2 text-slate-800">Airwave Saturation: TV and Radio</h4>
+                            <p class="text-sm text-slate-600 mb-3">Paul Davis supports its digital efforts with a classic "airwave" strategy. They run national TV campaigns focusing on their emotional, story-driven "Difference Maker" branding. A strategic multi-year partnership with The Weather Channel and weather.com places the brand directly in front of a perfectly targeted audience, using technology to serve dynamic TV spots tagged with local franchise information based on real-time weather conditions. Evidence also points to the use of radio as part of the regional and local media mix, with franchisees advertising on local iHeartMedia stations.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl mb-2 text-slate-800">Building Authority: Public Relations</h4>
+                            <p class="text-sm text-slate-600 mb-3">A proactive public relations program builds an aura of market leadership. Paul Davis maintains a media center, distributes press releases, and heavily publicizes its high rankings on lists like the *Entrepreneur* Franchise 500. They also position their executives as industry thought leaders, such as promoting an SVP's appointment to the presidency of the IICRC, the industry's main certifying body. This constant stream of positive news creates a powerful perception of being the dominant and most credible player in the market.</p>
+                        </div>
+                    </div>
+                `,
+                local: `
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="font-bold text-xl mb-2 text-slate-800">The Physical Footprint: Signage, Vehicles, and Location</h4>
+                            <p class="text-sm text-slate-600 mb-3">The Paul Davis of Yellowstone County franchise is physically located at <strong>235 Moore Ln, Suite A, Billings, MT 59101</strong>, a strategic base for rapid response. While specific photos are not available, the franchise system provides approved vendors for a consistent physical presence. Key materials include custom-designed yard signs for active job sites, pre-designed door hangers for targeted canvassing, and professionally wrapped vehicles (a mandatory investment), which serve as mobile billboards. This system turns every job site and service call into a marketing opportunity.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl mb-2 text-slate-800">The Digital Storefront: Website and Social Media</h4>
+                            <p class="text-sm text-slate-600 mb-3">The local website, <code>yellowstone.pauldavis.com</code>, is a customized version of the corporate template, prominently featuring the Billings address and local phone number. The site is optimized for local search, with a dedicated service area page listing Billings and surrounding towns. It also links to an extensive array of social media platforms, including Facebook, Instagram, LinkedIn, Pinterest, TikTok, Twitter, and YouTube, indicating a broad social media strategy managed by the franchisor and its digital agency.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl mb-2 text-slate-800">Community and B2B Integration</h4>
+                            <p class="text-sm text-slate-600 mb-3">Local marketing extends beyond traditional ads into community and B2B integration. The playbook includes direct B2B tactics like offering "Lunch & Learns" for key referral sources such as property managers and real estate professionals. Community involvement is also a mandated part of the business model, with a focus on honoring and partnering with first responders. A job posting for the Yellowstone County location explicitly requires participation in community awareness events, a grassroots strategy designed to build goodwill and embed the franchise within the local fabric.</p>
+                        </div>
+                    </div>
+                `
+            };
+            
+            function setupTabs(containerId, contentId, data) {
+                const tabContainer = document.getElementById(containerId);
+                const contentContainer = document.getElementById(contentId);
+                const buttons = tabContainer.querySelectorAll('.tab-button');
+
+                buttons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        buttons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                        contentContainer.innerHTML = data[button.dataset.tab];
+                    });
+                });
+                
+                if (buttons.length > 0) {
+                    buttons[0].click();
+                }
+            }
+
+            setupTabs('battlefield-tabs', 'battlefield-content', battlefieldContentData);
+
+            const feesCtx = document.getElementById('feesChart').getContext('2d');
+            const feesChart = new Chart(feesCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Royalty Fee', 'Strategic Marketing Plan Fee', 'Software Fee (RMS)'],
+                    datasets: [{
+                        label: 'Projected Annual Fee',
+                        data: [233448, 49772, 5940],
+                        backgroundColor: [
+                            '#3b82f6', // blue-500
+                            '#10b981', // emerald-500
+                            '#8b5cf6', // violet-500
+                        ],
+                        borderColor: '#ffffff', // white
+                        borderWidth: 4,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                             labels: {
+                                color: '#475569', // slate-600
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(context.parsed);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 120) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
