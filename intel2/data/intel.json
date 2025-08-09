@@ -1,0 +1,831 @@
+{
+  "companies": [
+    {
+      "id": "servpro-billings",
+      "name": "SERVPRO of Billings",
+      "logo": "SP",
+      "website": "https://www.servpro.com/locations/mt/servpro-of-billings",
+      "city": "Billings, MT",
+      "threatRank": 1,
+      "summary": "National franchise powerhouse with heavy PPC and strong insurance relationships.",
+      "services": [
+        "Water",
+        "Fire/Smoke",
+        "Mold",
+        "Storm",
+        "Commercial",
+        "Biohazard"
+      ],
+      "certs": [
+        "IICRC",
+        "EPA Lead-Safe"
+      ],
+      "tech": [
+        "Enterprise CMS",
+        "GA4",
+        "Call Center"
+      ],
+      "kpis": {
+        "seo": 78,
+        "rating": 4.7,
+        "reviews": 265,
+        "adSpend": 20000,
+        "localPack": 1,
+        "price": 4.0,
+        "quality": 4.7
+      },
+      "mix": {
+        "seo": 42,
+        "paid": 38,
+        "social": 10,
+        "referral": 10
+      },
+      "ratingBreakdown": {
+        "5\u2605": 210,
+        "4\u2605": 35,
+        "3\u2605": 10,
+        "2\u2605": 5,
+        "1\u2605": 5
+      },
+      "keywords": [
+        [
+          "water damage billings",
+          1
+        ],
+        [
+          "fire restoration billings",
+          1
+        ],
+        [
+          "mold remediation billings",
+          2
+        ]
+      ],
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          9,
+          10,
+          9,
+          8,
+          10,
+          11
+        ]
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          19000,
+          19500,
+          20000,
+          20000,
+          20500,
+          21000
+        ],
+        "reviews": [
+          240,
+          247,
+          252,
+          257,
+          262,
+          265
+        ],
+        "seo": [
+          75,
+          76,
+          77,
+          78,
+          78,
+          78
+        ],
+        "localPack": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "servicemaster-bigsky",
+      "name": "ServiceMaster by Big Sky",
+      "logo": "SM",
+      "website": "https://www.servicemasterrestore.com/servicemaster-by-big-sky-billings/",
+      "city": "Billings, MT",
+      "threatRank": 2,
+      "summary": "Large network brand; strong SEM and commercial readiness.",
+      "services": [
+        "Water",
+        "Fire/Smoke",
+        "Mold",
+        "Storm",
+        "Commercial",
+        "Data Recovery"
+      ],
+      "certs": [
+        "IICRC"
+      ],
+      "tech": [
+        "Enterprise CMS",
+        "GA4",
+        "Marketing Automation"
+      ],
+      "kpis": {
+        "seo": 70,
+        "rating": 4.6,
+        "reviews": 180,
+        "adSpend": 12000,
+        "localPack": 2,
+        "price": 4.0,
+        "quality": 4.5
+      },
+      "mix": {
+        "seo": 38,
+        "paid": 40,
+        "social": 12,
+        "referral": 10
+      },
+      "ratingBreakdown": {
+        "5\u2605": 140,
+        "4\u2605": 25,
+        "3\u2605": 10,
+        "2\u2605": 3,
+        "1\u2605": 2
+      },
+      "keywords": [
+        [
+          "water damage billings",
+          3
+        ],
+        [
+          "mold removal billings",
+          2
+        ]
+      ],
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          8,
+          8,
+          7,
+          9,
+          9,
+          8
+        ]
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          11500,
+          11800,
+          12000,
+          12200,
+          12000,
+          12500
+        ],
+        "reviews": [
+          165,
+          170,
+          172,
+          175,
+          178,
+          180
+        ],
+        "seo": [
+          68,
+          68,
+          69,
+          70,
+          70,
+          70
+        ],
+        "localPack": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "americlean",
+      "name": "AmeriClean",
+      "logo": "AC",
+      "website": "https://www.americlean9111.com",
+      "city": "Billings, MT",
+      "threatRank": 3,
+      "summary": "Local, high-touch brand with excellent reviews and responsiveness.",
+      "services": [
+        "Water",
+        "Fire/Smoke",
+        "Mold",
+        "Odor",
+        "Carpet"
+      ],
+      "certs": [
+        "IICRC",
+        "EPA Lead\u2011Safe",
+        "BBB A+"
+      ],
+      "tech": [
+        "WordPress",
+        "GBP",
+        "GA4",
+        "Call Tracking"
+      ],
+      "kpis": {
+        "seo": 34,
+        "rating": 4.9,
+        "reviews": 112,
+        "adSpend": 1500,
+        "localPack": 3,
+        "price": 3.0,
+        "quality": 4.5
+      },
+      "mix": {
+        "seo": 36,
+        "paid": 18,
+        "social": 20,
+        "referral": 26
+      },
+      "ratingBreakdown": {
+        "5\u2605": 84,
+        "4\u2605": 14,
+        "3\u2605": 7,
+        "2\u2605": 4,
+        "1\u2605": 3
+      },
+      "keywords": [
+        [
+          "water damage billings",
+          9
+        ],
+        [
+          "mold remediation billings",
+          7
+        ]
+      ],
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          6,
+          7,
+          6,
+          8,
+          9,
+          10
+        ]
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          1200,
+          1300,
+          1400,
+          1500,
+          1500,
+          1600
+        ],
+        "reviews": [
+          95,
+          98,
+          101,
+          106,
+          110,
+          112
+        ],
+        "seo": [
+          28,
+          30,
+          31,
+          33,
+          34,
+          34
+        ],
+        "localPack": [
+          4,
+          4,
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    {
+      "id": "alpha-omega",
+      "name": "Alpha-Omega Disaster Restoration",
+      "logo": "AO",
+      "website": "https://www.alphaomegapros.com",
+      "city": "Billings, MT",
+      "threatRank": 4,
+      "summary": "Established local firm with solid reputation and growing content.",
+      "services": [
+        "Water",
+        "Fire/Smoke",
+        "Mold",
+        "Commercial"
+      ],
+      "certs": [
+        "IICRC"
+      ],
+      "tech": [
+        "WordPress",
+        "GBP"
+      ],
+      "kpis": {
+        "seo": 55,
+        "rating": 4.8,
+        "reviews": 95,
+        "adSpend": 5000,
+        "localPack": 3,
+        "price": 3.0,
+        "quality": 4.3
+      },
+      "mix": {
+        "seo": 40,
+        "paid": 25,
+        "social": 15,
+        "referral": 20
+      },
+      "ratingBreakdown": {
+        "5\u2605": 78,
+        "4\u2605": 10,
+        "3\u2605": 5,
+        "2\u2605": 1,
+        "1\u2605": 1
+      },
+      "keywords": [
+        [
+          "water damage repair billings",
+          4
+        ],
+        [
+          "fire damage cleanup billings",
+          3
+        ]
+      ],
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          5,
+          6,
+          5,
+          6,
+          7,
+          7
+        ]
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          4500,
+          4700,
+          5000,
+          5000,
+          5100,
+          5200
+        ],
+        "reviews": [
+          88,
+          90,
+          91,
+          92,
+          94,
+          95
+        ],
+        "seo": [
+          53,
+          53,
+          54,
+          55,
+          55,
+          55
+        ],
+        "localPack": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    {
+      "id": "faithful",
+      "name": "Faithful Disaster Restoration",
+      "logo": "FR",
+      "website": "https://example.com/faithful",
+      "city": "Billings, MT",
+      "threatRank": 5,
+      "summary": "Local, trust-forward, lean ad spend; strong word of mouth.",
+      "services": [
+        "Water",
+        "Mold",
+        "Smoke Odor"
+      ],
+      "certs": [
+        "BBB",
+        "IICRC (partial)"
+      ],
+      "tech": [
+        "Wix",
+        "GBP"
+      ],
+      "kpis": {
+        "seo": 22,
+        "rating": 4.6,
+        "reviews": 88,
+        "adSpend": 900,
+        "localPack": 4,
+        "price": 2.0,
+        "quality": 3.9
+      },
+      "mix": {
+        "seo": 34,
+        "paid": 10,
+        "social": 16,
+        "referral": 40
+      },
+      "ratingBreakdown": {
+        "5\u2605": 64,
+        "4\u2605": 12,
+        "3\u2605": 6,
+        "2\u2605": 3,
+        "1\u2605": 3
+      },
+      "keywords": [
+        [
+          "water damage near me billings",
+          11
+        ],
+        [
+          "smoke odor removal billings",
+          7
+        ]
+      ],
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          3,
+          4,
+          3,
+          4,
+          5,
+          5
+        ]
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          700,
+          800,
+          800,
+          900,
+          900,
+          950
+        ],
+        "reviews": [
+          72,
+          76,
+          79,
+          83,
+          86,
+          88
+        ],
+        "seo": [
+          19,
+          20,
+          20,
+          21,
+          21,
+          22
+        ],
+        "localPack": [
+          5,
+          5,
+          4,
+          4,
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "id": "406-disaster",
+      "name": "406 Disaster Response",
+      "logo": "406",
+      "website": "https://example.com/406-disaster",
+      "city": "Billings, MT",
+      "threatRank": 6,
+      "summary": "24/7 local team; smaller footprint but nimble for niche jobs.",
+      "services": [
+        "Water",
+        "Trauma/Bio",
+        "Odor"
+      ],
+      "certs": [
+        "IICRC (partial)"
+      ],
+      "tech": [
+        "Squarespace",
+        "GBP"
+      ],
+      "kpis": {
+        "seo": 20,
+        "rating": 4.5,
+        "reviews": 52,
+        "adSpend": 600,
+        "localPack": 5,
+        "price": 2.0,
+        "quality": 3.8
+      },
+      "mix": {
+        "seo": 30,
+        "paid": 8,
+        "social": 22,
+        "referral": 40
+      },
+      "ratingBreakdown": {
+        "5\u2605": 40,
+        "4\u2605": 7,
+        "3\u2605": 3,
+        "2\u2605": 1,
+        "1\u2605": 1
+      },
+      "keywords": [
+        [
+          "biohazard cleanup billings",
+          8
+        ],
+        [
+          "water damage billings",
+          15
+        ]
+      ],
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          2,
+          3,
+          2,
+          3,
+          3,
+          4
+        ]
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          500,
+          550,
+          600,
+          600,
+          620,
+          650
+        ],
+        "reviews": [
+          45,
+          47,
+          49,
+          50,
+          51,
+          52
+        ],
+        "seo": [
+          18,
+          18,
+          19,
+          20,
+          20,
+          20
+        ],
+        "localPack": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5
+        ]
+      }
+    },
+    {
+      "id": "newman",
+      "name": "Newman Restoration & Cleaning",
+      "logo": "NR",
+      "website": "https://newmanclean.com",
+      "city": "Billings, MT",
+      "threatRank": 7,
+      "summary": "Family-owned; strong reviews; balanced mix of restoration + cleaning.",
+      "services": [
+        "Water",
+        "Carpet",
+        "Mold",
+        "Fire/Smoke"
+      ],
+      "certs": [
+        "BBB A+",
+        "IICRC"
+      ],
+      "tech": [
+        "WordPress",
+        "GBP",
+        "Meta Suite"
+      ],
+      "kpis": {
+        "seo": 36,
+        "rating": 4.8,
+        "reviews": 165,
+        "adSpend": 3500,
+        "localPack": 2,
+        "price": 3.0,
+        "quality": 4.3
+      },
+      "mix": {
+        "seo": 38,
+        "paid": 22,
+        "social": 20,
+        "referral": 20
+      },
+      "ratingBreakdown": {
+        "5\u2605": 130,
+        "4\u2605": 22,
+        "3\u2605": 7,
+        "2\u2605": 4,
+        "1\u2605": 2
+      },
+      "keywords": [
+        [
+          "carpet cleaning billings",
+          3
+        ],
+        [
+          "water extraction billings",
+          6
+        ]
+      ],
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          7,
+          7,
+          8,
+          9,
+          8,
+          9
+        ]
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          3000,
+          3200,
+          3300,
+          3500,
+          3600,
+          3600
+        ],
+        "reviews": [
+          150,
+          153,
+          157,
+          160,
+          162,
+          165
+        ],
+        "seo": [
+          32,
+          33,
+          34,
+          35,
+          36,
+          36
+        ],
+        "localPack": [
+          3,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      }
+    }
+  ],
+  "alerts": [
+    {
+      "date": "2025-08-09",
+      "who": "SERVPRO of Billings",
+      "text": "Launched PPC: 'Emergency Fire Damage Response'"
+    },
+    {
+      "date": "2025-08-09",
+      "who": "Alpha-Omega Disaster Restoration",
+      "text": "Added drone inspection service page"
+    }
+  ]
+}

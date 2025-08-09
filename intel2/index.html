@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Competitive Intel Hub — Threat Ranked</title>
+<link rel="icon" href="assets/logo.svg"><link rel="stylesheet" href="assets/brand.css">
+<style>
+:root{--bg:#0b0f14;--panel:#0f1622;--muted:#9ab0c4;--text:#e8f1f8;--line:#1a2740;--chip:#162130;--chipbd:#26364f;--hi:#7afcff;--hi2:#4bb3fd;--warn:#ffcc00}
+*{box-sizing:border-box} body{margin:0;background:#0b0f14;color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto}
+header{position:sticky;top:0;z-index:5;display:flex;gap:10px;align-items:center;padding:10px 14px;background:#0d1420;border-bottom:1px solid #1a2740}
+.container{display:grid;grid-template-columns:360px 1fr;gap:16px;padding:16px}
+.panel{background:#0f1622;border:1px solid #1a2740;border-radius:14px}
+.card{padding:12px;border:1px solid #1e2b45;border-radius:12px;background:linear-gradient(180deg,#101827,#0f1726)}
+.company{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;padding:10px;border:1px solid #1f2b42;border-radius:12px;background:#0f1724;cursor:pointer}
+.company:hover{outline:1px solid #2a3a58}
+.logo{width:40px;height:40px;border-radius:10px;background:#1a2334;display:grid;place-items:center;font-weight:700}
+.kpi{background:#0e1622;border:1px solid #1e2b42;border-radius:10px;padding:6px 8px;margin-right:6px}
+.pill{border:1px solid #2a3a58;background:#0d1522;color:#cfe3f7;padding:4px 8px;border-radius:999px}
+.pill.warn{border-color:#735b00;background:#2b2300;color:#ffe38a}
+.input{width:100%;padding:8px;border-radius:8px;border:1px solid #24324e;background:#0f1827;color:#dff0ff}
+.tabs{display:flex;gap:6px;padding:10px;border-bottom:1px solid #1a253a;position:sticky;top:49px;background:#0d1420}
+.tab{padding:8px 10px;border:1px solid #24324e;border-bottom:none;border-radius:10px 10px 0 0;background:#0f1827;cursor:pointer}
+.tab.active{border-color:#31507a}
+.content{padding:16px;overflow:auto;max-height:calc(100dvh - 128px)}
+table{width:100%;border-collapse:collapse} th,td{padding:10px;border-bottom:1px solid #20314f} th{background:#0f1a2a;color:#bfe0ff;text-align:left}
+.tiny{font-size:11px;color:#91a8bf}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+</style>
+<script src="assets/config.js"></script>
+</head>
+<body>
+<header>
+  <img src="assets/logo.svg" width="24" height="24">
+  <b>Competitive Intel Hub — Threat Ranked</b>
+  <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+    <input id="searchBox" class="input" style="width:260px" placeholder="Search competitors…">
+    <label class="pill" style="display:flex;align-items:center;gap:6px"><input id="toggleLive" type="checkbox"> Live</label>
+    <button id="btnRefresh" class="pill">Refresh</button>
+  </div>
+</header>
+
+<div class="container">
+  <aside class="panel" style="padding:12px">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 style="margin:0">Competitors</h3>
+        <span class="tiny">Ranked by Threat</span>
+      </div>
+      <div id="companyList" style="display:flex;flex-direction:column;gap:10px"></div>
+    </div>
+    <div class="card">
+      <h3 style="margin:6px 0">Add</h3>
+      <input id="newName" class="input" placeholder="Company">
+      <input id="newCity" class="input" placeholder="City, ST" style="margin-top:6px">
+      <input id="newWebsite" class="input" placeholder="https://example.com" style="margin-top:6px">
+      <button id="btnAdd" class="pill" style="margin-top:6px">Add</button>
+      <div id="addMsg" class="tiny" style="margin-top:6px"></div>
+    </div>
+    <div class="card">
+      <h3 style="margin:6px 0">Alerts</h3>
+      <div id="alerts" style="display:flex;flex-direction:column;gap:10px"></div>
+    </div>
+  </aside>
+
+  <section class="panel">
+    <div id="detail"></div>
+  </section>
+</div>
+
+<script>
+// Helpers
+const fmt={money:v=>'$'+(Math.round(v).toLocaleString())};
+function el(t,a={},...k){const e=document.createElement(t);Object.entries(a).forEach(([x,v])=>{if(x==='class')e.className=v;else if(x==='html')e.innerHTML=v;else e.setAttribute(x,v)});k.flat().filter(Boolean).forEach(ch=>e.appendChild(typeof ch==='string'?document.createTextNode(ch):ch));return e;}
+
+// chart helpers
+function lineChart(labels,series,w=520,h=220,title=''){const pad=36,max=Math.max(...series),min=Math.min(...series),range=(max-min)||1;const sx=i=>pad+(i/(labels.length-1))*(w-2*pad),sy=v=>h-pad-((v-min)/range)*(h-2*pad);let p='';series.forEach((v,i)=>{const x=sx(i),y=sy(v);p+=(i?' L':'M')+x+' '+y;});const dots=series.map((v,i)=>'<circle cx="'+sx(i)+'" cy="'+sy(v)+'" r="3" fill="#7afcff" stroke="#14304f"/>').join('');return '<svg width="'+w+'" height="'+h+'"><rect x="0" y="0" width="'+w+'" height="'+h+'" rx="10" ry="10" fill="#0c1421" stroke="#1a2a45"/><path d="'+p+'" fill="none" stroke="#7afcff" stroke-width="2"/>'+dots+'<text x="'+(w/2)+'" y="'+(h-8)+'" fill="#9fb7cc" font-size="12" text-anchor="middle">'+(title||'Timeline')+'</text></svg>';}
+function barChart(w,h,values,labels){const max=Math.max(...values,1),bw=Math.floor((w-40)/values.length)-6;let x=30,b='';values.forEach((v,i)=>{const bh=Math.max(2,Math.round((v/max)*(h-40))),y=h-bh-20;b+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+bh+'" rx="3" ry="3" fill="url(#g)"></rect>';b+='<text x="'+(x+bw/2)+'" y="'+(h-6)+'" fill="#9fb7cc" font-size="11" text-anchor="middle">'+(labels?labels[i]:'')+'</text>';x+=bw+8;});return '<svg width="'+w+'" height="'+h+'"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7afcff"/><stop offset="100%" stop-color="#4bb3fd"/></linearGradient></defs><rect x="0" y="0" width="'+w+'" height="'+h+'" rx="10" ry="10" fill="#0c1421" stroke="#1a2a45"/>'+b+'</svg>';}
+
+// data + live
+let data=null, live=false; const API=()=> (window.CIH_CONFIG?.API_BASE||'http://localhost:8080');
+async function fetchJSON(p,params={}){const q=new URLSearchParams(params).toString();const r=await fetch(API()+p+(q?'?'+q:''),{mode:'cors',credentials:'omit'});if(!r.ok) throw new Error('HTTP '+r.status);return r.json();}
+async function hydrate(c){try{const domain=(c.website||'').replace(/^https?:\/\//,'').replace(/\/$/,'');const [seo,ads,places,social]=await Promise.all([fetchJSON('/api/seo_snapshot',{domain}),fetchJSON('/api/meta_ads',{company:c.name}),fetchJSON('/api/places',{name:c.name,city:c.city||''}),fetchJSON('/api/social_posts',{})]);c.kpis.seo=seo.seo?.authority??c.kpis.seo;c.keywords=seo.keywords??c.keywords;c.topPages=seo.top_pages??c.topPages;c.ads=ads.ads??c.ads;if(places.reviews){c.kpis.rating=places.reviews.rating??c.kpis.rating;c.kpis.reviews=places.reviews.count??c.kpis.reviews;c.ratingBreakdown=places.reviews.hist??c.ratingBreakdown;}if(social.months&&social.posts){c.social={months:social.months,posts:social.posts};}}catch(e){console.warn('hydrate failed',c.name,e);}}
+
+// UI
+function threatPill(n){return el('span',{class:'pill '+(n<=2?'warn':'' )},'Threat #'+n);}
+function companyItem(c){const k=c.kpis;return el('div',{class:'company',onclick:()=>openDetail(c.id)},el('div',{class:'logo'},c.logo||'?'),el('div',{},el('div',{},el('b',{},c.name),' ',threatPill(c.threatRank)),el('div',{class:'tiny'},(c.website?c.website+' • ':'' )+(c.city||'')),el('div',{},el('span',{class:'kpi'},'SEO ',el('b',{},k.seo)),el('span',{class:'kpi'},'Rating ',el('b',{},k.rating)),el('span',{class:'kpi'},'Reviews ',el('b',{},k.reviews)),el('span',{class:'kpi'},'Ads ',el('b',{},fmt.money(k.adSpend))))));}
+
+function renderList(list){const wrap=document.getElementById('companyList');wrap.innerHTML='';(list||data.companies).sort((a,b)=>a.threatRank-b.threatRank).forEach(c=>wrap.appendChild(companyItem(c)));}
+function renderAlerts(){const box=document.getElementById('alerts');box.innerHTML='';(data.alerts||[]).forEach(a=>box.appendChild(el('div',{class:'tiny'},a.date+' — '+a.who+': '+a.text)));}
+
+function openDetail(id){
+  const c=data.companies.find(x=>x.id===id),k=c.kpis;
+  const detail=document.getElementById('detail'); detail.innerHTML='';
+  if(live){hydrate(c).then(()=>draw());} else {draw();}
+  function draw(){
+    detail.innerHTML='';
+    detail.appendChild(el('div',{style:'display:flex;justify-content:space-between;gap:12px;padding:14px;border-bottom:1px solid #1a253a;background:linear-gradient(180deg,#0e1522,#0c1320)'},
+      el('div',{},el('div',{},el('b',{},c.name),' ',threatPill(c.threatRank)),el('div',{class:'tiny'},(c.website?c.website+' • ':'' )+(c.city||''))),
+      el('div',{},el('span',{class:'pill'},'SEO '+k.seo),' ',el('span',{class:'pill'},'Rating '+k.rating),' ',el('span',{class:'pill'},'Reviews '+k.reviews),' ',el('span',{class:'pill'},'Local Pack '+k.localPack))
+    ));
+    const tabs=el('div',{class:'tabs'}),content=el('div',{class:'content'}); let active='Overview';
+    ['Overview','Marketing','SEO & Keywords','Reviews & Social','Benchmarks','Full Report'].forEach(n=>tabs.appendChild(el('div',{class:'tab'+(n===active?' active':''),onclick:()=>{active=n;[...tabs.children].forEach(ch=>ch.classList.toggle('active',ch.textContent===n));render();}},n)));
+    detail.appendChild(tabs); detail.appendChild(content);
+
+    function overview(){const box=el('div',{});
+      const grid=el('div',{class:'grid3'});
+      grid.appendChild(el('div',{},el('h3',{},'Ad Spend (6 mo)'),el('div',{html:lineChart(c.trends.months,c.trends.adSpend,360,220)})));
+      grid.appendChild(el('div',{},el('h3',{},'SEO (6 mo)'),el('div',{html:lineChart(c.trends.months,c.trends.seo||[],360,220)})));
+      grid.appendChild(el('div',{},el('h3',{},'Local Pack (lower is better)'),el('div',{html:lineChart(c.trends.months,c.trends.localPack,360,220)})));
+      box.appendChild(grid);
+      const tbl=el('table',{}); tbl.innerHTML='<tr><th style="width:240px">Metric</th><th>Value</th></tr>'+'<tr><td>Threat Rank</td><td>#'+c.threatRank+'</td></tr><tr><td>SEO Authority</td><td>'+k.seo+'</td></tr><tr><td>Avg Review Rating</td><td>'+k.rating+'</td></tr><tr><td>Review Volume</td><td>'+k.reviews+'</td></tr><tr><td>Est. Monthly Ad Spend</td><td>'+fmt.money(k.adSpend)+'</td></tr><tr><td>Google Local Pack Rank</td><td>'+k.localPack+'</td></tr>'; box.appendChild(tbl);
+      return box;}
+    function marketing(){const wrap=el('div',{}); const top=el('div',{class:'grid3'});
+      top.appendChild(el('div',{},el('h3',{},'Channel Mix'),el('div',{html:barChart(360,200,Object.values(c.mix||{}),Object.keys(c.mix||{}))})));
+      top.appendChild(el('div',{},el('h3',{},'Services'),el('div',{},...(c.services||[]).map(s=>el('span',{class:'pill'},s)))));
+      top.appendChild(el('div',{},el('h3',{},'Certifications'),el('div',{},...(c.certs||[]).map(s=>el('span',{class:'pill'},s)))));
+      wrap.appendChild(top); return wrap;}
+    function seo(){const box=el('div',{}); box.appendChild(el('h3',{},'Keywords (approx.)')); const tbl=el('table',{}); tbl.innerHTML='<tr><th>Keyword</th><th>Rank</th><th>Intent</th></tr>'; (c.keywords||[]).forEach(([kw,rank])=>{const tr=el('tr',{}); tr.appendChild(el('td',{},kw)); tr.appendChild(el('td',{},String(rank))); tr.appendChild(el('td',{},/near|billings|mt/i.test(kw)?'Local':'Service')); tbl.appendChild(tr);}); box.appendChild(tbl); return box;}
+    function reviews(){const box=el('div',{}); const rbk=c.ratingBreakdown||{}; box.appendChild(el('h3',{},'Ratings Distribution')); box.appendChild(el('div',{html:barChart(520,220,Object.values(rbk),Object.keys(rbk))})); return box;}
+    function benchmarks(){const box=el('div',{}); box.appendChild(el('h3',{},'Benchmark Table (sortable headings)')); const tbl=el('table',{}); let sortKey='threatRank', asc=true;
+      function draw(){ tbl.innerHTML='<tr><th data-k="threatRank">Threat</th><th data-k="name">Company</th><th data-k="seo">SEO</th><th data-k="rating">Rating</th><th data-k="reviews">Reviews</th><th data-k="adSpend">Ad Spend</th><th data-k="localPack">Local</th></tr>';
+        let rows=data.companies.map(co=>({threatRank:co.threatRank,name:co.name,seo:co.kpis.seo,rating:co.kpis.rating,reviews:co.kpis.reviews,adSpend:co.kpis.adSpend,localPack:co.kpis.localPack}));
+        rows.sort((a,b)=> asc? (a[sortKey]>b[sortKey]?1:-1):(a[sortKey]<b[sortKey]?1:-1));
+        rows.forEach(r=>{const tr=el('tr',{}); tr.appendChild(el('td',{},'#'+r.threatRank)); tr.appendChild(el('td',{},r.name)); tr.appendChild(el('td',{},r.seo)); tr.appendChild(el('td',{},r.rating)); tr.appendChild(el('td',{},r.reviews)); tr.appendChild(el('td',{},fmt.money(r.adSpend))); tr.appendChild(el('td',{},r.localPack)); tbl.appendChild(tr);});
+      } draw(); tbl.addEventListener('click',e=>{const k=e.target.getAttribute('data-k'); if(!k)return; asc=(sortKey===k)?!asc:true; sortKey=k; draw();}); box.appendChild(tbl); return box;}
+    function full(){const b=el('div',{}); b.appendChild(overview()); b.appendChild(marketing()); b.appendChild(seo()); b.appendChild(reviews()); b.appendChild(benchmarks()); return b;}
+    function render(){ content.innerHTML=''; const m={'Overview':overview,'Marketing':marketing,'SEO & Keywords':seo,'Reviews & Social':reviews,'Benchmarks':benchmarks,'Full Report':full}; content.appendChild(m[active]()); }
+    render();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async()=>{
+  const res=await fetch('data/intel.json',{cache:'no-store'}); data=await res.json();
+  renderList(); renderAlerts(); openDetail(data.companies.sort((a,b)=>a.threatRank-b.threatRank)[0].id);
+  document.getElementById('toggleLive').addEventListener('change',e=> live=!!e.target.checked);
+  document.getElementById('btnRefresh').addEventListener('click',()=> openDetail(data.companies.sort((a,b)=>a.threatRank-b.threatRank)[0].id));
+  document.getElementById('btnAdd').addEventListener('click',()=>{
+    const name=document.getElementById('newName').value.trim();
+    const city=document.getElementById('newCity').value.trim();
+    const website=document.getElementById('newWebsite').value.trim();
+    if(!name||!city){document.getElementById('addMsg').textContent='Name + City required.';return;}
+    const id=name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    if(data.companies.some(c=>c.id===id)){document.getElementById('addMsg').textContent='That company exists.';return;}
+    const base={"id":id,"name":name,"logo":name.split(' ').map(s=>s[0]).join('').slice(0,3).toUpperCase(),"website":website,"city":city,"threatRank":(data.companies.length+1),
+      "kpis":{"seo":0,"rating":0,"reviews":0,"adSpend":0,"localPack":0,"price":3,"quality":3},
+      "mix":{"seo":25,"paid":25,"social":25,"referral":25},
+      "ratingBreakdown":{"5★":0,"4★":0,"3★":0,"2★":0,"1★":0},
+      "keywords":[],"social":{"months":["Mar","Apr","May","Jun","Jul","Aug"],"posts":[0,0,0,0,0,0]},
+      "trends":{"months":["Mar","Apr","May","Jun","Jul","Aug"],"adSpend":[0,0,0,0,0,0],"reviews":[0,0,0,0,0,0],"seo":[0,0,0,0,0,0],"localPack":[0,0,0,0,0,0]}
+    };
+    data.companies.push(base); renderList(); openDetail(id);
+    document.getElementById('addMsg').textContent='Added (local only). Update data/intel.json to persist.';
+    document.getElementById('newName').value=''; document.getElementById('newCity').value=''; document.getElementById('newWebsite').value='';
+  });
+  document.getElementById('searchBox').addEventListener('input',e=>{
+    const s=e.target.value.trim().toLowerCase(); if(!s) return renderList();
+    renderList(data.companies.filter(c=> c.name.toLowerCase().includes(s) || (c.city||'').toLowerCase().includes(s)));
+  });
+});
+</script>
+</body></html>
