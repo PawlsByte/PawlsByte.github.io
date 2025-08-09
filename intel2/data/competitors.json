@@ -1,0 +1,956 @@
+{
+  "companies": [
+    {
+      "id": "americlean",
+      "name": "AmeriClean (You)",
+      "website": "https://www.americlean9111.com/",
+      "city": "Billings, MT",
+      "brand": "Local",
+      "services": [
+        "Water",
+        "Fire",
+        "Mold",
+        "Cleaning"
+      ],
+      "serviceAreas": [
+        "Billings",
+        "Laurel",
+        "Lockwood"
+      ],
+      "threatRank": 0,
+      "kpis": {
+        "seo": 38,
+        "rating": 4.7,
+        "reviews": 79,
+        "adSpend": 3200,
+        "localPack": 2
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          4243.5,
+          4235,
+          4401,
+          4367,
+          4554,
+          4409
+        ],
+        "seo": [
+          56,
+          54,
+          54,
+          55,
+          53,
+          53
+        ],
+        "localPack": [
+          3,
+          1,
+          2,
+          3,
+          2,
+          1
+        ]
+      },
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          11,
+          6,
+          7,
+          10,
+          11,
+          6
+        ],
+        "engagement": [
+          133,
+          232,
+          63,
+          238,
+          85,
+          89
+        ]
+      },
+      "ratingBreakdown": {
+        "5\u2605": 56,
+        "4\u2605": 14,
+        "3\u2605": 4,
+        "2\u2605": 2,
+        "1\u2605": 0
+      },
+      "profile": {
+        "positioning": "24/7 emergency response; certified techs; insurance coordination",
+        "channels": [
+          "Local SEO",
+          "Google Ads",
+          "Google Business Profile",
+          "Facebook"
+        ],
+        "seoNotes": "Service and geo pages present; room for internal linking & FAQs",
+        "socialNotes": "Before/after photos; cadence varies; engagement moderate",
+        "adCopy": "24/7 Water Damage Pros \u2022 Fast Arrival \u2022 Insurance-Billing Help"
+      }
+    },
+    {
+      "id": "servpro-billings",
+      "name": "SERVPRO of Billings",
+      "website": "https://www.servpro.com/locations/mt/billings",
+      "city": "Billings, MT",
+      "brand": "Franchise",
+      "services": [
+        "Water",
+        "Fire",
+        "Mold",
+        "Storm",
+        "Commercial"
+      ],
+      "serviceAreas": [
+        "Billings",
+        "Laurel",
+        "Lockwood",
+        "Heights"
+      ],
+      "threatRank": 2,
+      "kpis": {
+        "seo": 71,
+        "rating": 4.8,
+        "reviews": 174,
+        "adSpend": 15883,
+        "localPack": 1
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          14294.7,
+          13557,
+          13581,
+          13655,
+          13939,
+          13348
+        ],
+        "seo": [
+          71,
+          73,
+          72,
+          71,
+          69,
+          69
+        ],
+        "localPack": [
+          2,
+          1,
+          1,
+          2,
+          1,
+          1
+        ]
+      },
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          12,
+          7,
+          5,
+          5,
+          11,
+          6
+        ],
+        "engagement": [
+          252,
+          73,
+          273,
+          210,
+          67,
+          138
+        ]
+      },
+      "ratingBreakdown": {
+        "5\u2605": 125,
+        "4\u2605": 31,
+        "3\u2605": 10,
+        "2\u2605": 5,
+        "1\u2605": 1
+      },
+      "profile": {
+        "positioning": "24/7 emergency response; certified techs; insurance coordination",
+        "channels": [
+          "Local SEO",
+          "Google Ads",
+          "Google Business Profile",
+          "Facebook"
+        ],
+        "seoNotes": "Service and geo pages present; room for internal linking & FAQs",
+        "socialNotes": "Before/after photos; cadence varies; engagement moderate",
+        "adCopy": "24/7 Water Damage Pros \u2022 Fast Arrival \u2022 Insurance-Billing Help"
+      },
+      "threatScore": 50.4
+    },
+    {
+      "id": "servicemaster-big-sky",
+      "name": "ServiceMaster by Big Sky (Billings)",
+      "website": "https://www.servicemasterrestore.com/servicemaster-by-big-sky-billings/",
+      "city": "Billings, MT",
+      "brand": "Franchise",
+      "services": [
+        "Water",
+        "Fire",
+        "Mold",
+        "Large Loss",
+        "Odor"
+      ],
+      "serviceAreas": [
+        "Billings",
+        "Laurel",
+        "Huntley"
+      ],
+      "threatRank": 1,
+      "kpis": {
+        "seo": 72,
+        "rating": 4.9,
+        "reviews": 172,
+        "adSpend": 17620,
+        "localPack": 1
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          15858.0,
+          15890,
+          15357,
+          15054,
+          14233,
+          13635
+        ],
+        "seo": [
+          74,
+          73,
+          72,
+          72,
+          73,
+          71
+        ],
+        "localPack": [
+          1,
+          2,
+          1,
+          1,
+          1,
+          2
+        ]
+      },
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          5,
+          12,
+          9,
+          9,
+          10,
+          9
+        ],
+        "engagement": [
+          160,
+          237,
+          143,
+          226,
+          249,
+          63
+        ]
+      },
+      "ratingBreakdown": {
+        "5\u2605": 123,
+        "4\u2605": 30,
+        "3\u2605": 10,
+        "2\u2605": 5,
+        "1\u2605": 1
+      },
+      "profile": {
+        "positioning": "24/7 emergency response; certified techs; insurance coordination",
+        "channels": [
+          "Local SEO",
+          "Google Ads",
+          "Google Business Profile",
+          "Facebook"
+        ],
+        "seoNotes": "Service and geo pages present; room for internal linking & FAQs",
+        "socialNotes": "Before/after photos; cadence varies; engagement moderate",
+        "adCopy": "24/7 Water Damage Pros \u2022 Fast Arrival \u2022 Insurance-Billing Help"
+      },
+      "threatScore": 51.0
+    },
+    {
+      "id": "alpha-omega",
+      "name": "Alpha-Omega Disaster Restoration (FLEET Response)",
+      "website": "https://fleetdamagerestoration.com/alphaomega-damage-restoration-experts/locations/mt/alphaomega-of-billings/",
+      "city": "Billings, MT",
+      "brand": "Regional",
+      "services": [
+        "Water",
+        "Fire",
+        "Mold",
+        "Commercial"
+      ],
+      "serviceAreas": [
+        "Billings",
+        "Laurel",
+        "Columbus"
+      ],
+      "threatRank": 4,
+      "kpis": {
+        "seo": 60,
+        "rating": 4.5,
+        "reviews": 147,
+        "adSpend": 5884,
+        "localPack": 2
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          5295.6,
+          5338,
+          5345,
+          5369,
+          5554,
+          5381
+        ],
+        "seo": [
+          58,
+          59,
+          62,
+          61,
+          58,
+          59
+        ],
+        "localPack": [
+          2,
+          2,
+          2,
+          1,
+          3,
+          3
+        ]
+      },
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          8,
+          11,
+          6,
+          10,
+          10,
+          12
+        ],
+        "engagement": [
+          276,
+          256,
+          68,
+          180,
+          276,
+          263
+        ]
+      },
+      "ratingBreakdown": {
+        "5\u2605": 105,
+        "4\u2605": 26,
+        "3\u2605": 8,
+        "2\u2605": 4,
+        "1\u2605": 1
+      },
+      "profile": {
+        "positioning": "24/7 emergency response; certified techs; insurance coordination",
+        "channels": [
+          "Local SEO",
+          "Google Ads",
+          "Google Business Profile",
+          "Facebook"
+        ],
+        "seoNotes": "Service and geo pages present; room for internal linking & FAQs",
+        "socialNotes": "Before/after photos; cadence varies; engagement moderate",
+        "adCopy": "24/7 Water Damage Pros \u2022 Fast Arrival \u2022 Insurance-Billing Help"
+      },
+      "threatScore": 41.9
+    },
+    {
+      "id": "big-sky-dsr",
+      "name": "Big Sky Disaster Restoration",
+      "website": "https://www.bigskydsr.com/",
+      "city": "Billings, MT",
+      "brand": "Local",
+      "services": [
+        "Water",
+        "Fire",
+        "Mold",
+        "Rebuild"
+      ],
+      "serviceAreas": [
+        "Billings",
+        "Laurel",
+        "Lockwood"
+      ],
+      "threatRank": 5,
+      "kpis": {
+        "seo": 52,
+        "rating": 4.6,
+        "reviews": 104,
+        "adSpend": 5421,
+        "localPack": 2
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          4878.900000000001,
+          5047,
+          5205,
+          5113,
+          4998,
+          4807
+        ],
+        "seo": [
+          50,
+          54,
+          54,
+          53,
+          54,
+          53
+        ],
+        "localPack": [
+          2,
+          3,
+          2,
+          1,
+          2,
+          2
+        ]
+      },
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          5,
+          6,
+          6,
+          5,
+          6,
+          6
+        ],
+        "engagement": [
+          107,
+          105,
+          117,
+          299,
+          149,
+          132
+        ]
+      },
+      "ratingBreakdown": {
+        "5\u2605": 74,
+        "4\u2605": 18,
+        "3\u2605": 6,
+        "2\u2605": 3,
+        "1\u2605": 1
+      },
+      "profile": {
+        "positioning": "24/7 emergency response; certified techs; insurance coordination",
+        "channels": [
+          "Local SEO",
+          "Google Ads",
+          "Google Business Profile",
+          "Facebook"
+        ],
+        "seoNotes": "Service and geo pages present; room for internal linking & FAQs",
+        "socialNotes": "Before/after photos; cadence varies; engagement moderate",
+        "adCopy": "24/7 Water Damage Pros \u2022 Fast Arrival \u2022 Insurance-Billing Help"
+      },
+      "threatScore": 29.9
+    },
+    {
+      "id": "newman-restoration",
+      "name": "Newman Restoration & Cleaning",
+      "website": "https://newmanclean.com/",
+      "city": "Billings, MT",
+      "brand": "Local",
+      "services": [
+        "Water",
+        "Fire",
+        "Mold",
+        "Cleaning"
+      ],
+      "serviceAreas": [
+        "Billings",
+        "Heights",
+        "Laurel"
+      ],
+      "threatRank": 8,
+      "kpis": {
+        "seo": 54,
+        "rating": 4.4,
+        "reviews": 80,
+        "adSpend": 5672,
+        "localPack": 4
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          5104.8,
+          5387,
+          5375,
+          5692,
+          5511,
+          5243
+        ],
+        "seo": [
+          54,
+          52,
+          56,
+          54,
+          54,
+          53
+        ],
+        "localPack": [
+          4,
+          5,
+          4,
+          4,
+          4,
+          5
+        ]
+      },
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          6,
+          11,
+          10,
+          8,
+          10,
+          10
+        ],
+        "engagement": [
+          171,
+          254,
+          125,
+          288,
+          156,
+          108
+        ]
+      },
+      "ratingBreakdown": {
+        "5\u2605": 57,
+        "4\u2605": 14,
+        "3\u2605": 4,
+        "2\u2605": 2,
+        "1\u2605": 0
+      },
+      "profile": {
+        "positioning": "24/7 emergency response; certified techs; insurance coordination",
+        "channels": [
+          "Local SEO",
+          "Google Ads",
+          "Google Business Profile",
+          "Facebook"
+        ],
+        "seoNotes": "Service and geo pages present; room for internal linking & FAQs",
+        "socialNotes": "Before/after photos; cadence varies; engagement moderate",
+        "adCopy": "24/7 Water Damage Pros \u2022 Fast Arrival \u2022 Insurance-Billing Help"
+      },
+      "threatScore": 26.0
+    },
+    {
+      "id": "faithful-disaster",
+      "name": "Faithful Disaster Restoration",
+      "website": "https://faithfulclean.com/",
+      "city": "Billings, MT",
+      "brand": "Local",
+      "services": [
+        "Water",
+        "Fire",
+        "Mold"
+      ],
+      "serviceAreas": [
+        "Billings",
+        "Laurel"
+      ],
+      "threatRank": 6,
+      "kpis": {
+        "seo": 58,
+        "rating": 4.9,
+        "reviews": 86,
+        "adSpend": 6166,
+        "localPack": 3
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          5549.400000000001,
+          5415,
+          5227,
+          5352,
+          5111,
+          5094
+        ],
+        "seo": [
+          60,
+          58,
+          59,
+          57,
+          56,
+          56
+        ],
+        "localPack": [
+          3,
+          4,
+          2,
+          4,
+          4,
+          4
+        ]
+      },
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          9,
+          11,
+          9,
+          8,
+          7,
+          12
+        ],
+        "engagement": [
+          112,
+          76,
+          114,
+          145,
+          279,
+          263
+        ]
+      },
+      "ratingBreakdown": {
+        "5\u2605": 61,
+        "4\u2605": 15,
+        "3\u2605": 5,
+        "2\u2605": 2,
+        "1\u2605": 0
+      },
+      "profile": {
+        "positioning": "24/7 emergency response; certified techs; insurance coordination",
+        "channels": [
+          "Local SEO",
+          "Google Ads",
+          "Google Business Profile",
+          "Facebook"
+        ],
+        "seoNotes": "Service and geo pages present; room for internal linking & FAQs",
+        "socialNotes": "Before/after photos; cadence varies; engagement moderate",
+        "adCopy": "24/7 Water Damage Pros \u2022 Fast Arrival \u2022 Insurance-Billing Help"
+      },
+      "threatScore": 29.7
+    },
+    {
+      "id": "paul-davis-yellowstone",
+      "name": "Paul Davis Restoration of Yellowstone County",
+      "website": "https://yellowstone.pauldavis.com/",
+      "city": "Yellowstone County, MT",
+      "brand": "Franchise",
+      "services": [
+        "Water",
+        "Fire",
+        "Mold",
+        "Rebuild"
+      ],
+      "serviceAreas": [
+        "Billings",
+        "Laurel",
+        "Huntley",
+        "Shepherd"
+      ],
+      "threatRank": 3,
+      "kpis": {
+        "seo": 74,
+        "rating": 4.5,
+        "reviews": 194,
+        "adSpend": 16352,
+        "localPack": 2
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          14716.800000000001,
+          15278,
+          14386,
+          14410,
+          13725,
+          13487
+        ],
+        "seo": [
+          74,
+          75,
+          75,
+          73,
+          76,
+          72
+        ],
+        "localPack": [
+          3,
+          1,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          12,
+          10,
+          7,
+          10,
+          6,
+          12
+        ],
+        "engagement": [
+          166,
+          126,
+          81,
+          132,
+          290,
+          87
+        ]
+      },
+      "ratingBreakdown": {
+        "5\u2605": 139,
+        "4\u2605": 34,
+        "3\u2605": 11,
+        "2\u2605": 5,
+        "1\u2605": 1
+      },
+      "profile": {
+        "positioning": "24/7 emergency response; certified techs; insurance coordination",
+        "channels": [
+          "Local SEO",
+          "Google Ads",
+          "Google Business Profile",
+          "Facebook"
+        ],
+        "seoNotes": "Service and geo pages present; room for internal linking & FAQs",
+        "socialNotes": "Before/after photos; cadence varies; engagement moderate",
+        "adCopy": "24/7 Water Damage Pros \u2022 Fast Arrival \u2022 Insurance-Billing Help"
+      },
+      "threatScore": 50.0
+    },
+    {
+      "id": "406-disaster",
+      "name": "406 Disaster Response",
+      "website": "https://www.406disasterresponse.com/",
+      "city": "Billings, MT",
+      "brand": "Local",
+      "services": [
+        "Water",
+        "Fire",
+        "Biohazard"
+      ],
+      "serviceAreas": [
+        "Billings"
+      ],
+      "threatRank": 7,
+      "kpis": {
+        "seo": 57,
+        "rating": 4.7,
+        "reviews": 122,
+        "adSpend": 4869,
+        "localPack": 4
+      },
+      "trends": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "adSpend": [
+          4382.1,
+          4508,
+          4754,
+          4852,
+          4573,
+          4509
+        ],
+        "seo": [
+          58,
+          58,
+          57,
+          56,
+          57,
+          59
+        ],
+        "localPack": [
+          3,
+          4,
+          4,
+          5,
+          4,
+          4
+        ]
+      },
+      "social": {
+        "months": [
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug"
+        ],
+        "posts": [
+          10,
+          5,
+          5,
+          5,
+          7,
+          11
+        ],
+        "engagement": [
+          88,
+          114,
+          250,
+          191,
+          130,
+          63
+        ]
+      },
+      "ratingBreakdown": {
+        "5\u2605": 87,
+        "4\u2605": 21,
+        "3\u2605": 7,
+        "2\u2605": 3,
+        "1\u2605": 1
+      },
+      "profile": {
+        "positioning": "24/7 emergency response; certified techs; insurance coordination",
+        "channels": [
+          "Local SEO",
+          "Google Ads",
+          "Google Business Profile",
+          "Facebook"
+        ],
+        "seoNotes": "Service and geo pages present; room for internal linking & FAQs",
+        "socialNotes": "Before/after photos; cadence varies; engagement moderate",
+        "adCopy": "24/7 Water Damage Pros \u2022 Fast Arrival \u2022 Insurance-Billing Help"
+      },
+      "threatScore": 28.0
+    }
+  ]
+}

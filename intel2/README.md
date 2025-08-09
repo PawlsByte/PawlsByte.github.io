@@ -1,33 +1,19 @@
-# AmeriClean Intel Hub — Unified Admin v2 (Fixed)
 
-**What’s fixed/improved**
-- Fully implemented charts (no truncated code), interactive everywhere.
-- Hash routing ensures **Open Strategy** always loads the competitor detail, even after refresh.
-- Deep competitor drilldowns (Snapshot, SEO Audit, Paid Ads, Social & Reviews, Local Pack & GBP, Counter Plan, Action Plan).
-- **Print / Save PDF** buttons on competitor detail and master strategy (uses print CSS).
-- Simple model modes (Local / Provider URLs / Upload) + **Recompile** button.
-- Backend-free; Pages-friendly; includes `.nojekyll` and `assets/config.js`.
+# AmeriClean Intel Hub — Enterprise v3 (Backend-free)
 
-**Deploy**
-1) Upload all files to your repo root.  
-2) Ensure `.nojekyll` exists.  
-3) Use GitHub Actions (included) or Deploy-from-branch.
+Dense competitor intel with deep drilldowns, conservative economics, and printable strategies — deployable on GitHub Pages.
 
-**Provider JSON format (flexible)**
-```json
-{
-  "provider": "gemini",
-  "competitors": {
-    "servpro-billings": {
-      "budget": 21000,
-      "mix": {"PPC":0.4,"LSAs":0.25,"LocalSEO":0.2,"PaidSocial":0.1,"CRO":0.05},
-      "tactics": ["..."],
-      "keywords": [{"keyword":"water damage billings","volume":950,"cpc":17.0,"intent":"Emergency","service":"Water Damage"}]
-    }
-  }
-}
-```
+## Highlights
+- **Threat-ranked** competitors with KPI bars, trends, service areas, and deep-dive tabs
+- **Counter Plans** with recommended budgets, allocation, and merged tactics
+- **Keywords & Market Funnel** sizing from local seed or hosted JSON
+- **Data Manager** drag/drop importer for JSON/CSV (browser cache)
+- **Model modes** (Local / Provider URLs / Upload) + **Recompile**
 
-**Printing**
-- Use the **Print Current View** button (top right) or the **Print** buttons inside Competitor and Master pages.  
-- Clean print styles are applied automatically for PDF exports.
+## Deploy
+1) Upload everything to repo root (ensure `.nojekyll`).
+2) Pages via included GitHub Action (or deploy-from-branch).
+3) Optional: set provider URLs/keyword URL in `assets/config.js`.
+
+## Data
+Initial data are **conservative estimates** from public information. Replace via **Data Manager** or Provider URLs for live accuracy.

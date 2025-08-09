@@ -1,0 +1,60 @@
+{
+  "keywords": [
+    {
+      "keyword": "water damage billings",
+      "volume": 900,
+      "cpc": 16.5,
+      "intent": "Emergency",
+      "service": "Water Damage"
+    },
+    {
+      "keyword": "water damage restoration billings",
+      "volume": 550,
+      "cpc": 14.2,
+      "intent": "Emergency",
+      "service": "Water Damage"
+    },
+    {
+      "keyword": "mold remediation billings",
+      "volume": 300,
+      "cpc": 11.3,
+      "intent": "Service",
+      "service": "Mold Remediation"
+    },
+    {
+      "keyword": "fire damage cleanup billings",
+      "volume": 180,
+      "cpc": 12.9,
+      "intent": "Service",
+      "service": "Fire Damage"
+    },
+    {
+      "keyword": "sewage cleanup billings",
+      "volume": 110,
+      "cpc": 13.5,
+      "intent": "Emergency",
+      "service": "Water Damage"
+    },
+    {
+      "keyword": "dry out service billings",
+      "volume": 90,
+      "cpc": 9.8,
+      "intent": "Service",
+      "service": "Water Damage"
+    },
+    {
+      "keyword": "smoke odor removal billings",
+      "volume": 80,
+      "cpc": 8.5,
+      "intent": "Service",
+      "service": "Fire Damage"
+    },
+    {
+      "keyword": "basement flood cleanup billings",
+      "volume": 120,
+      "cpc": 15.5,
+      "intent": "Emergency",
+      "service": "Water Damage"
+    }
+  ]
+}

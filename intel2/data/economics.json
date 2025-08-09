@@ -1,0 +1,22 @@
+{
+  "Water Damage": {
+    "closeRate": 0.3,
+    "grossMargin": 0.45,
+    "avgTicket": 3500
+  },
+  "Mold Remediation": {
+    "closeRate": 0.28,
+    "grossMargin": 0.5,
+    "avgTicket": 4200
+  },
+  "Fire Damage": {
+    "closeRate": 0.22,
+    "grossMargin": 0.4,
+    "avgTicket": 8000
+  },
+  "General Restoration": {
+    "closeRate": 0.35,
+    "grossMargin": 0.35,
+    "avgTicket": 900
+  }
+}

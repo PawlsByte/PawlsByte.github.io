@@ -1,40 +1,47 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AmeriClean Intel Hub — Unified Admin v2</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AmeriClean Intel Hub — Enterprise v3</title>
 <meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b0f14;--panel:#0f1622;--muted:#9ab0c4;--text:#e8f1f8;--line:#1a2740;--hi:#7afcff;--hi2:#4bb3fd;--good:#16c784;--warn:#ffcc00;--bad:#ff6b6b}
-*{box-sizing:border-box}body{margin:0;background:#0b0f14;color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto}
-a{color:#9ed0ff;text-decoration:none}
-.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:10px 14px;background:#0d1420;border-bottom:1px solid #1a2740}
-.logo{width:28px;height:28px;border-radius:8px;background:#0e1726;display:grid;place-items:center;font-weight:700}
-.layout{display:grid;grid-template-columns:280px 1fr;gap:0;min-height:100dvh}
-.sidebar{background:#0e1522;border-right:1px solid #1a2740;padding:12px;position:sticky;top:48px;height:calc(100dvh - 48px);overflow:auto}
-.side-item{padding:8px 10px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid #1a2740;background:#0f1928}
-.side-item.active{outline:1px solid #30507a}
+:root{--bg:#0a0f17;--panel:#0f1624;--text:#e7f2ff;--muted:#9cb4cc;--line:#1c2944;--hi:#7afcff;--hi2:#4bb3fd;--good:#1ecb7d;--bad:#ff6b6b;--warn:#ffd166}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 "Inter",system-ui,-apple-system,Segoe UI,Roboto}
+a{color:#a9d5ff;text-decoration:none}
+.topbar{position:sticky;top:0;z-index:20;display:flex;gap:10px;align-items:center;padding:10px 14px;background:#0d1422;border-bottom:1px solid var(--line)}
+.logo{width:28px;height:28px;border-radius:8px;background:#0e172b;display:grid;place-items:center;font-weight:700}
+.layout{display:grid;grid-template-columns:300px 1fr;min-height:100dvh}
+.sidebar{background:#0d1524;border-right:1px solid var(--line);padding:12px;position:sticky;top:48px;height:calc(100dvh - 48px);overflow:auto}
+.side-item{padding:10px;border:1px solid var(--line);border-radius:10px;background:#0f1a2e;margin-bottom:8px;cursor:pointer}
+.side-item.active{outline:1px solid #35659a}
 .main{padding:16px}
-.card{background:#0f1622;border:1px solid #1a2740;border-radius:14px;padding:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.kpi{display:flex;flex-direction:column;gap:4px;padding:10px;border:1px solid #1b2942;border-radius:12px;background:linear-gradient(180deg,#101827,#0f1726)}
-.pill{border:1px solid #2a3a58;background:#0d1522;color:#cfe3f7;padding:4px 8px;border-radius:999px}
-.btn{cursor:pointer;padding:6px 10px;border-radius:8px;border:1px solid #28436a;background:#0f1a2a;color:#cfe3f7}
-.input{width:100%;padding:8px;border-radius:8px;border:1px solid #24324e;background:#0f1827;color:#dff0ff}
-table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #20314f}th{background:#0f1a2a;color:#bfe0ff;text-align:left}
-.small{font-size:12px;color:#9ab0c4}
-.badge{display:inline-block;padding:2px 6px;border-radius:6px;border:1px solid #204060;background:#132033}
-.tabs{display:flex;gap:6px;margin-top:8px}
-.tab{padding:8px 10px;border:1px solid #24324e;border-radius:8px;background:#0f1827;cursor:pointer}
-.tab.active{outline:1px solid #31507a}
-hr{border:0;border-top:1px solid #1a2740;margin:12px 0}
-.notice{padding:8px;border:1px dashed #2a3a58;border-radius:8px;background:#0d1726}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{padding:10px;border:1px solid #203255;border-radius:12px;background:linear-gradient(180deg,#101a2e,#0e1626)}
+.pill{display:inline-block;padding:4px 8px;border-radius:999px;border:1px solid #254168;background:#0e1b30;color:#cfe6ff;margin-right:6px}
+.btn{cursor:pointer;padding:6px 10px;border-radius:8px;border:1px solid #2a466f;background:#0f1a2b;color:#cfe6ff}
+.btn.ghost{background:#0c1320;border-color:#263a5c}
+.input{width:100%;padding:8px;border-radius:8px;border:1px solid #2a3c5c;background:#0e1830;color:#dfeeff}
+.small{font-size:12px;color:var(--muted)}
+.badge{padding:2px 6px;border-radius:6px;border:1px solid #204060;background:#132033}
+table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #20314f}th{background:#0f1b2d;color:#bfe0ff;text-align:left}
+hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+.tabs{display:flex;gap:6px;margin-top:8px}.tab{padding:8px 10px;border:1px solid #243a60;border-radius:8px;background:#0f1a2c;cursor:pointer}.tab.active{outline:1px solid #35659a}
+.notice{padding:8px;border:1px dashed #2a3f64;border-radius:8px;background:#0d172a}
+.flex{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tag{display:inline-block;padding:2px 6px;border:1px solid #30537f;border-radius:6px;background:#0f1c30;color:#cfe6ff}
+@media print{.topbar,.sidebar,.tabs,.btn{display:none!important}.card{border:0}.print-page{page-break-after:always}}
 </style>
 <script src="assets/config.js"></script>
 </head>
 <body>
 <div class="topbar">
-  <div class="logo">AC</div><b>AmeriClean Intel Hub — Unified Admin v2</b>
+  <div class="logo">AC</div><b>AmeriClean Intel Hub — Enterprise v3</b>
   <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
     <input id="searchBox" class="input" style="width:260px" placeholder="Search competitors…">
     <select id="modelMode" class="input" style="width:200px">
@@ -43,6 +50,7 @@ hr{border:0;border-top:1px solid #1a2740;margin:12px 0}
       <option value="upload">Model: Upload Files</option>
     </select>
     <button id="btnRecompile" class="btn">Recompile Master Plan</button>
+    <button id="btnPrintView" class="btn ghost">Print Current View</button>
   </div>
 </div>
 
@@ -52,8 +60,9 @@ hr{border:0;border-top:1px solid #1a2740;margin:12px 0}
     <div class="side-item active" data-page="dashboard">Dashboard</div>
     <div class="side-item" data-page="competitors">Competitors</div>
     <div class="side-item" data-page="keywords">Keywords</div>
-    <div class="side-item" data-page="planner">PPC Planner</div>
+    <div class="side-item" data-page="funnel">Market Funnel</div>
     <div class="side-item" data-page="master">Master Strategy</div>
+    <div class="side-item" data-page="data">Data Manager</div>
     <div class="side-item" data-page="help">Help</div>
 
     <div class="small" style="margin:12px 0 6px">Add competitor</div>
@@ -69,25 +78,257 @@ hr{border:0;border-top:1px solid #1a2740;margin:12px 0}
   </main>
 </div>
 
-<script id="seed" type="application/json">{"companies": [{"id": "servpro-billings", "name": "SERVPRO of Billings", "logo": "SP", "website": "https://www.servpro.com/locations/mt/servpro-of-billings", "city": "Billings, MT", "threatRank": 1, "kpis": {"seo": 78, "rating": 4.7, "reviews": 265, "adSpend": 20000, "localPack": 1, "price": 4.0, "quality": 4.7}, "mix": {"seo": 42, "paid": 38, "social": 10, "referral": 10}, "ratingBreakdown": {"5\u2605": 210, "4\u2605": 35, "3\u2605": 10, "2\u2605": 5, "1\u2605": 5}, "keywords": [["water damage billings", 1], ["fire restoration billings", 1], ["mold remediation billings", 2]], "trends": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "adSpend": [19000, 19500, 20000, 20500, 20500, 21000], "seo": [75, 76, 77, 78, 78, 78], "localPack": [1, 1, 1, 1, 1, 1]}, "social": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "posts": [9, 10, 9, 8, 10, 11], "engagement": [220, 240, 235, 250, 265, 280]}, "profile": {"positioning": "Emergency water & fire restoration with fast response and national brand trust.", "channels": ["Google Ads Search", "Local Services Ads", "Google Business Profile", "Facebook", "Local SEO"], "seoNotes": "Strong category pages; consistent NAP across directories; high review velocity.", "socialNotes": "Regular before/after posts; occasional storm alerts; modest comment replies.", "adCopy": "24/7 Water Damage Pros \u2022 We Respond in 60 Minutes \u2022 Insurance-Billing Help."}}, {"id": "servicemaster-bigsky", "name": "ServiceMaster by Big Sky", "logo": "SM", "website": "https://www.servicemasterrestore.com/servicemaster-by-big-sky-billings/", "city": "Billings, MT", "threatRank": 2, "kpis": {"seo": 70, "rating": 4.6, "reviews": 180, "adSpend": 12000, "localPack": 2, "price": 4.0, "quality": 4.5}, "mix": {"seo": 38, "paid": 40, "social": 12, "referral": 10}, "ratingBreakdown": {"5\u2605": 140, "4\u2605": 25, "3\u2605": 10, "2\u2605": 3, "1\u2605": 2}, "keywords": [["water damage billings", 3], ["mold removal billings", 2]], "trends": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "adSpend": [11500, 11800, 12000, 12200, 12000, 12500], "seo": [68, 68, 69, 70, 70, 70], "localPack": [2, 2, 2, 2, 2, 2]}, "social": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "posts": [8, 8, 7, 9, 9, 8], "engagement": [120, 125, 130, 150, 160, 155]}, "profile": {"positioning": "Full-service restoration with emphasis on mold & smoke cleanup.", "channels": ["Google Ads Search", "GBP", "Facebook", "Direct referrals"], "seoNotes": "Decent service pages; weaker internal linking; fewer city pages.", "socialNotes": "Steady posts; fewer videos; moderate engagement.", "adCopy": "Mold & Fire Cleanup \u2022 Fast Estimates \u2022 Certified Technicians."}}, {"id": "americlean", "name": "AmeriClean (You)", "logo": "AC", "website": "https://www.americlean9111.com", "city": "Billings, MT", "threatRank": 3, "kpis": {"seo": 34, "rating": 4.9, "reviews": 112, "adSpend": 3000, "localPack": 3, "price": 3.0, "quality": 4.5}, "mix": {"seo": 36, "paid": 18, "social": 20, "referral": 26}, "ratingBreakdown": {"5\u2605": 84, "4\u2605": 14, "3\u2605": 7, "2\u2605": 4, "1\u2605": 3}, "keywords": [["water damage billings", 9], ["mold remediation billings", 7]], "trends": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "adSpend": [2500, 2600, 2700, 2800, 2900, 3000], "seo": [28, 30, 31, 33, 34, 34], "localPack": [4, 4, 3, 3, 3, 3]}, "social": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "posts": [6, 7, 6, 8, 9, 10], "engagement": [90, 95, 110, 130, 145, 160]}, "profile": {"positioning": "High-touch local team with 4.9\u2605 service; fast response and transparent pricing.", "channels": ["GBP", "Local SEO", "Referral Partners", "Facebook", "Google Ads (limited)"], "seoNotes": "Needs more geo pages; add sewage/dry-out/smoke odor pages; improve internal links.", "socialNotes": "Growing cadence; add reels and storm alerts; reply faster to comments.", "adCopy": "AmeriClean \u2014 Local & Fast \u2022 4.9\u2605 Rated \u2022 60\u2011Minute Arrival Window."}}, {"id": "alpha-omega", "name": "Alpha-Omega Disaster Restoration", "logo": "AO", "website": "https://www.alphaomegapros.com", "city": "Billings, MT", "threatRank": 4, "kpis": {"seo": 55, "rating": 4.8, "reviews": 95, "adSpend": 5000, "localPack": 3, "price": 3.0, "quality": 4.3}, "mix": {"seo": 40, "paid": 25, "social": 15, "referral": 20}, "ratingBreakdown": {"5\u2605": 78, "4\u2605": 10, "3\u2605": 5, "2\u2605": 1, "1\u2605": 1}, "keywords": [["water damage repair billings", 4], ["fire damage cleanup billings", 3]], "trends": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "adSpend": [4500, 4700, 5000, 5000, 5100, 5200], "seo": [53, 53, 54, 55, 55, 55], "localPack": [3, 3, 3, 3, 3, 3]}, "social": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "posts": [5, 6, 5, 6, 7, 7], "engagement": [70, 80, 76, 82, 90, 92]}, "profile": {"positioning": "Specialists in water damage + rebuild; strong ratings; moderate spend.", "channels": ["Local SEO", "Google Ads", "GBP", "Facebook"], "seoNotes": "Solid pages; fewer backlinks; opportunity in suburb pages.", "socialNotes": "Light cadence; can push more video content.", "adCopy": "Rapid Water Cleanup \u2022 Certified \u2022 We Work With Insurance."}}]}</script>
-<script id="econ" type="application/json">{"Water Damage": {"closeRate": 0.35, "grossMargin": 0.45, "avgTicket": 3500}, "Mold Remediation": {"closeRate": 0.3, "grossMargin": 0.5, "avgTicket": 4200}, "Fire Damage": {"closeRate": 0.25, "grossMargin": 0.4, "avgTicket": 8000}, "General Restoration": {"closeRate": 0.4, "grossMargin": 0.35, "avgTicket": 900}}</script>
-<script id="kwseed" type="application/json">[{"keyword": "water damage billings", "volume": 900, "cpc": 16.5, "intent": "Emergency", "service": "Water Damage"}, {"keyword": "water damage restoration billings", "volume": 550, "cpc": 14.2, "intent": "Emergency", "service": "Water Damage"}, {"keyword": "mold remediation billings", "volume": 300, "cpc": 11.3, "intent": "Service", "service": "Mold Remediation"}, {"keyword": "fire damage cleanup billings", "volume": 180, "cpc": 12.9, "intent": "Service", "service": "Fire Damage"}, {"keyword": "sewage cleanup billings", "volume": 110, "cpc": 13.5, "intent": "Emergency", "service": "Water Damage"}, {"keyword": "dry out service billings", "volume": 90, "cpc": 9.8, "intent": "Service", "service": "Water Damage"}, {"keyword": "smoke odor removal billings", "volume": 80, "cpc": 8.5, "intent": "Service", "service": "Fire Damage"}, {"keyword": "basement flood cleanup billings", "volume": 120, "cpc": 15.5, "intent": "Emergency", "service": "Water Damage"}]</script>
 <script>
-// ====== Data & Config ======
-var DATA = JSON.parse(document.getElementById('seed').textContent);
-var ECON = JSON.parse(document.getElementById('econ').textContent);
-var KWSEED = JSON.parse(document.getElementById('kwseed').textContent);
-var MODE = 'local'; // local | urls | upload
-var PROVIDERS = { list: ['gemini','o3','gpt5','gpt5pro'], urls: (window.PROVIDER_URLS||{}), cache: {} };
-var KEYWORD_URL = window.KEYWORD_JSON_URL || '';
+// ===== Load data =====
+async function getJSON(url){ const r=await fetch(url, {mode:'cors'}); if(!r.ok) throw new Error('fetch '+url); return r.json(); }
+let DATA = await getJSON('data/competitors.json');
+let ECON = await getJSON('data/economics.json');
+let KWSEED = (await getJSON('data/keywords.json')).keywords;
+let MODE='local';
+let PROVIDERS={ list:['gemini','o3','gpt5','gpt5pro'], urls:(window.PROVIDER_URLS||{}), cache:{} };
+let KEYWORD_URL = window.KEYWORD_JSON_URL || '';
 
-// ====== Utils & Charts ======
-var fmt={money:(v)=>'$'+(Math.round(v).toLocaleString()), pct:(v)=> (Math.round(v*100))+'%'};
-function el(t,a){var e=document.createElement(t);a=a||{};for(var k in a){if(k==='class')e.className=a[k];else if(k==='html')e.innerHTML=a[k];else e.setAttribute(k,a[k]);}for(var i=2;i<arguments.length;i++){var ch=arguments[i];if(ch==null)continue;if(typeof ch==='string')e.appendChild(document.createTextNode(ch));else e.appendChild(ch);}return e;}
-function bar(w,h,vals,labels){var m=Math.max.apply(null,vals.concat([1])),bw=Math.floor((w-40)/vals.length)-6,x=30,b='';for(var i=0;i<vals.length;i++){var v=vals[i],bh=Math.max(2,Math.round((v/m)*(h-40))),y=h-bh-20;b+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+bh+'" rx="3" ry="3" fill="url(#g)"></rect>';b+='<text x="'+(x+bw/2)+'" y="'+(h-6)+'" fill="#9fb7cc" font-size="11" text-anchor="middle">'+(labels?labels[i]:'')+'</text>';x+=bw+8;}return '<svg width="'+w+'" height="'+h+'"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#67b8ff"/><stop offset="100%" stop-color="#164a77"/></linearGradient></defs>'+b+'</svg>';}
-function line(labels,series,w,h){w=w||520;h=h||220;var pad=36,max=Math.max.apply(null,series),min=Math.min.apply(null,series),range=(max-min)||1;function sx(i){return pad+(i/(labels.length-1))*(w-2*pad);}function sy(v){return h-pad-((v-min)/range)*(h-2*pad);}var p='';for(var i=0;i<series.length;i++){var x=sx(i),y=sy(series[i]);p+=(i?' L':'M')+x+' '+y;}var dots='';for(var j=0;j<series.length;j++){dots+='<circle cx="'+sx(j)+'" cy="'+sy(series[j])+'" r="3" fill="#7afcff" stroke="#14304f"/>';}return '<svg width="'+w+'" height="'+h+'"><path d="'+p+'" fill="none" stroke="#7afcff" stroke-width="2"/>'+dots+'</svg>';}
+// ===== Utils & lightweight charts =====
+const fmt={money:(v)=>'$'+(Math.round(v).toLocaleString())};
+function el(t,a){const e=document.createElement(t);a=a||{};for(const k in a){if(k==='class')e.className=a[k];else if(k==='html')e.innerHTML=a[k];else if(k==='onclick')e.onclick=a[k];else e.setAttribute(k,a[k]);}for(let i=2;i<arguments.length;i++){const ch=arguments[i];if(ch==null)continue;if(typeof ch==='string')e.appendChild(document.createTextNode(ch));else e.appendChild(ch);}return e;}
+function bar(w,h,vals,labels){const m=Math.max(...vals,1),bw=Math.max(6,Math.floor((w-60)/vals.length)-6);let x=40,b=[];b.push('<svg width="'+w+'" height="'+h+'"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7afcff"/><stop offset="100%" stop-color="#286b8e"/></linearGradient></defs>');for(let i=0;i<vals.length;i++){const v=vals[i],bh=Math.max(2,Math.round((v/m)*(h-50))),y=h-bh-20;b.push('<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+bh+'" rx="3" ry="3" fill="url(#g)"></rect>');if(labels)b.push('<text x="'+(x+bw/2)+'" y="'+(h-6)+'" fill="#9fb7cc" font-size="11" text-anchor="middle">'+labels[i]+'</text>');x+=bw+10;}b.push('</svg>');return b.join('');}
+function line(labels,series,w,h){w=w||520;h=h||220;const pad=36,max=Math.max(...series,1),min=Math.min(...series,0),range=(max-min)||1;const sx=i=> pad+(i/(labels.length-1))*(w-2*pad);const sy=v=> h-pad-((v-min)/range)*(h-2*pad);let p='';for(let i=0;i<series.length;i++){p+=(i?' L':'M')+sx(i)+' '+sy(series[i]);}let dots='';for(let j=0;j<series.length;j++){dots+='<circle cx="'+sx(j)+'" cy="'+sy(series[j])+'" r="3" fill="#7afcff" stroke="#14304f"></circle>';}let xAxis='';for(let k=0;k<labels.length;k++){xAxis+='<text x="'+sx(k)+'" y="'+(h-4)+'" font-size="11" fill="#9fb7cc" text-anchor="middle">'+labels[k]+'</text>';}return '<svg width="'+w+'" height="'+h+'"><path d="'+p+'" fill="none" stroke="#4bb3fd" stroke-width="2"></path>'+dots+xAxis+'</svg>';}
 
-// ====== Keyword load (backend-free) ======
+// ===== Threat score =====
+function threatScore(c){const k=c.kpis; let s=0; s+=k.seo*0.35; s+=(k.reviews/10.0)*0.25; s+=((6-k.localPack)*10)*0.20; s+=(k.adSpend/1000.0)*0.20; if(c.brand==='Franchise'||c.brand==='Regional') s+=8; return Math.round(s*10)/10;}
+function recomputeRanks(){ DATA.companies.filter(c=>c.id!=='americlean').forEach(c=> c.threatScore=threatScore(c)); DATA.companies.filter(c=>c.id!=='americlean').sort((a,b)=>b.threatScore-a.threatScore).forEach((c,i)=> c.threatRank=i+1); }
+recomputeRanks();
+
+// ===== Local planning engine =====
+function localPlanFor(c){
+  const me = DATA.companies.find(x=>x.id==='americlean')||c;
+  let budget = Math.max(3000, Math.round((c.kpis.adSpend*0.55)+(c.kpis.seo*30)+(c.kpis.reviews*3.0)));
+  let mix={PPC:0.36,LSAs:0.22,LocalSEO:0.26,PaidSocial:0.08,CRO:0.08};
+  if(c.kpis.localPack<=2){ mix.PPC=0.42; mix.LSAs=0.25; mix.LocalSEO=0.20; mix.PaidSocial=0.08; mix.CRO=0.05; }
+  const s=mix.PPC+mix.LSAs+mix.LocalSEO+mix.PaidSocial+mix.CRO; Object.keys(mix).forEach(k=> mix[k]=+(mix[k]/s).toFixed(2));
+  const cpl={}; Object.keys(ECON).forEach(sv=>{ const e=ECON[sv], gp=e.grossMargin*e.avgTicket, maxCAC=gp*0.45; cpl[sv]=Math.round((maxCAC*e.closeRate)/3); });
+  return {budget,mix,cpl};
+}
+
+// ===== Provider merge =====
+async function loadProviders(){
+  if(MODE==='local'){PROVIDERS.cache={};return{};}
+  const out={};
+  for(const name of PROVIDERS.list){
+    try{
+      if(MODE==='urls' && (window.PROVIDER_URLS||{})[name]){
+        const r=await fetch(window.PROVIDER_URLS[name],{mode:'cors'}); if(r.ok){ out[name]=await r.json(); localStorage.setItem('provider:'+name, JSON.stringify(out[name])); continue; }
+      }
+      const cached=localStorage.getItem('provider:'+name); if(cached) out[name]=JSON.parse(cached);
+    }catch(e){}
+  }
+  PROVIDERS.cache=out; return out;
+}
+function aggMedian(nums){const arr=nums.filter(n=>typeof n==='number').sort((a,b)=>a-b); if(!arr.length) return 0; const m=Math.floor(arr.length/2); return arr.length%2?arr[m]:Math.round((arr[m-1]+arr[m])/2);}
+function aggMix(mixes){ const sum={PPC:0,LSAs:0,LocalSEO:0,PaidSocial:0,CRO:0}; let n=0; mixes.forEach(m=>{ if(!m) return; n++; Object.keys(sum).forEach(k=> sum[k]+= (m[k]||0)); }); if(!n) return sum; Object.keys(sum).forEach(k=> sum[k]=+(sum[k]/n).toFixed(2)); const s=sum.PPC+sum.LSAs+sum.LocalSEO+sum.PaidSocial+sum.CRO; if(s){ Object.keys(sum).forEach(k=> sum[k]=+(sum[k]/s).toFixed(2)); } return sum; }
+function dedupe(arr){ const seen={}; return (arr||[]).filter(t=>{const k=(t||'').toLowerCase(); if(!k||seen[k]) return false; seen[k]=1; return true;}); }
+function unionKeywords(lists){ const map={}; lists.forEach(L=> (L||[]).forEach(r=>{ const key=(r.keyword||'').toLowerCase(); if(!key) return; if(!map[key]) map[key]=Object.assign({},r); else{ map[key].volume=Math.max(map[key].volume||0, r.volume||0); map[key].cpc=Math.max(map[key].cpc||0, r.cpc||0); map[key].intent=map[key].intent||r.intent; map[key].service=map[key].service||r.service; } })); return Object.values(map).sort((a,b)=>(b.volume||0)-(a.volume||0)); }
+
+async function recompile(){
+  const prov = await loadProviders();
+  const merged={};
+  for(const c of DATA.companies){
+    const parts=[];
+    parts.push({provider:'local', plan:localPlanFor(c), tactics:(c.profile? [c.profile.seoNotes, c.profile.socialNotes, c.profile.adCopy] : []), keywords:KWSEED});
+    for(const name of Object.keys(prov)){
+      const d=prov[name]; if(d && d.competitors && d.competitors[c.id]){
+        const pc=d.competitors[c.id]; parts.push({provider:name, plan:{budget:pc.budget, mix:pc.mix}, tactics:pc.tactics||[], keywords:pc.keywords||[]});
+      }
+    }
+    const budget = aggMedian(parts.map(p=> p.plan && p.plan.budget).filter(Boolean));
+    const mix = aggMix(parts.map(p=> p.plan && p.plan.mix));
+    const tactics = dedupe([].concat(...parts.map(p=> p.tactics||[])));
+    const kwAll = unionKeywords([].concat(...parts.map(p=> p.keywords||[])));
+    merged[c.id]={budget,mix,tactics,keywords:kwAll,byModel:parts};
+  }
+  const masterBudget = aggMedian(Object.values(merged).map(m=>m.budget));
+  const masterMix = aggMix(Object.values(merged).map(m=>m.mix));
+  const masterKeywords = unionKeywords([].concat(...Object.values(merged).map(m=>m.keywords)));
+  window.MASTER_PLAN={generatedAt:new Date().toISOString(), providers:Object.keys(prov), merged, master:{budget:masterBudget,mix:masterMix,topKeywords:masterKeywords.slice(0,25)}};
+}
+
+// ===== Views =====
+function sectionTitle(txt){return el('div',null, el('h3',null,txt));}
+function kpi(label,value,sub){return el('div',{class:'kpi'}, el('div',null,label), el('b',null,value), sub? el('div',{class:'small'},sub): null );}
+
+function pageDashboard(){
+  const wrap=el('div');
+  const me=DATA.companies.find(x=>x.id==='americlean')||DATA.companies[0];
+  const rivals=DATA.companies.filter(c=>c.id!=='americlean').slice().sort((a,b)=>a.threatRank-b.threatRank);
+  const top=rivals[0];
+  const row=el('div',{class:'row3'});
+  row.appendChild(kpi('Top Threat', top? top.name:'—', top? ('Threat Score '+top.threatScore):''));
+  row.appendChild(kpi('AmeriClean SEO', (me.kpis.seo||0)+' / 100', 'Goal: +15 in 90 days'));
+  row.appendChild(kpi('Spend Gap vs Top', fmt.money(Math.max(0,(top?.kpis.adSpend||0)-(me.kpis.adSpend||0))), 'Monthly gap'));
+  wrap.appendChild(row);
+
+  const charts=el('div',{class:'row'});
+  charts.appendChild(el('div',{class:'card'}, sectionTitle('Threat Spend Trend (6 mo)'), el('div',{html:line((top?.trends.months||[]),(top?.trends.adSpend||[]),520,240)})));
+  charts.appendChild(el('div',{class:'card'}, sectionTitle('AmeriClean SEO Trend'), el('div',{html:line(me.trends.months, me.trends.seo,520,240)})));
+  wrap.appendChild(charts);
+
+  // SOV estimate panel
+  const totalVol = KWSEED.reduce((s,r)=>s+(r.volume||0),0);
+  const sov=el('div',{class:'row'});
+  sov.appendChild(el('div',{class:'card'}, sectionTitle('Local Demand (Search Volume)'), el('b',null, (totalVol.toLocaleString())+' / mo'), el('div',{class:'small'},'Across top service terms in Billings')));
+  const spend=el('div',{class:'card'}, sectionTitle('Estimated PPC Clicks (AmeriClean)'), (function(){ const p=localPlanFor(me); const ppc=Math.round(p.budget*(p.mix.PPC||0)); const avgCPC=Math.round((KWSEED.reduce((s,r)=>s+(r.cpc||10),0)/KWSEED.length)||10); const clicks=Math.max(1, Math.floor(ppc/Math.max(1,avgCPC))); return el('div',null, el('b',null, clicks+' / mo'), el('div',{class:'small'}, fmt.money(ppc)+' @ ~$'+avgCPC+' CPC')); })()));
+  wrap.appendChild(sov);
+
+  wrap.appendChild(el('hr'));
+  wrap.appendChild(el('div',{class:'notice'}, 'Tip: Use the model selector (top). Local = built-in. Provider URLs = JSON links in assets/config.js. Upload = drop model JSONs, then Recompile.'));
+  return wrap;
+}
+
+function competitorCard(c){
+  const k=c.kpis;
+  const card=el('div',{class:'card'});
+  card.appendChild(el('div',null, el('b',null,c.name),' ', el('span',{class:'badge'},c.brand), ' ', el('span',{class:'badge'},c.city)));
+  card.appendChild(el('div',{class:'small'}, c.website||''));
+  card.appendChild(el('div',{html:bar(360,160,[k.seo,(k.rating||0)*20,(k.reviews||0)/10,(k.adSpend||0)/500], ['SEO','★','Rev','Ad$'])}));
+  card.appendChild(el('div',null, el('span',{class:'pill'},'Threat #'+(c.threatRank||'?')), el('span',{class:'pill'},'Score '+(c.threatScore||'?')) ));
+  const btn=el('a',{href:'#/competitor/'+c.id, class:'btn'},'Open Strategy');
+  card.appendChild(el('div',{style:'margin-top:8px'}, btn));
+  return card;
+}
+
+function pageCompetitors(){
+  const wrap=el('div');
+  const controls=el('div',{class:'flex card'}, el('div',null,'Filters:'),
+    el('select',{id:'brandFilter',class:'input',style:'width:180px'}, el('option',{value:''},'All brands'),el('option',{value:'Franchise'},'Franchise'),el('option',{value:'Local'},'Local'),el('option',{value:'Regional'},'Regional')),
+    el('select',{id:'sortBy',class:'input',style:'width:180px'}, el('option',{value:'threat'},'Sort: Threat'), el('option',{value:'seo'},'Sort: SEO'), el('option',{value:'ad'},'Sort: Ad Spend'), el('option',{value:'reviews'},'Sort: Reviews')));
+  wrap.appendChild(controls);
+  const grid=el('div',{class:'row3', id:'compGrid'});
+  wrap.appendChild(grid);
+  function draw(){
+    const brand=(document.getElementById('brandFilter').value||'').toLowerCase();
+    const by=document.getElementById('sortBy').value;
+    grid.innerHTML='';
+    let list=DATA.companies.filter(c=>c.id!=='americlean');
+    if(brand) list=list.filter(c=> (c.brand||'').toLowerCase()===brand);
+    list.sort((a,b)=>{
+      if(by==='seo') return b.kpis.seo-a.kpis.seo;
+      if(by==='ad') return b.kpis.adSpend-a.kpis.adSpend;
+      if(by==='reviews') return b.kpis.reviews-a.kpis.reviews;
+      return a.threatRank-b.threatRank;
+    });
+    list.forEach(c=> grid.appendChild(competitorCard(c)));
+  }
+  controls.querySelectorAll('select').forEach(s=> s.addEventListener('change', draw));
+  draw();
+  wrap.appendChild(el('hr'));
+  const detail=el('div',{id:'compDetail'}); wrap.appendChild(detail);
+  return wrap;
+}
+
+function compTabs(active, setActive){
+  const names=['Snapshot','Service Areas','SEO & Content','Paid Media','Social & Reviews','Local Pack & GBP','Counter Plan','Action Plan'];
+  const bar=el('div',{class:'tabs'});
+  names.forEach(n=>{ const t=el('div',{class:'tab'+(n===active?' active':''), 'data-tab':n}, n); t.addEventListener('click', ()=> setActive(n)); bar.appendChild(t); });
+  return bar;
+}
+
+function renderCompetitorDetail(id){
+  const c=DATA.companies.find(x=>x.id===id); if(!c) return;
+  const host=document.getElementById('compDetail')||document.getElementById('page'); host.innerHTML='';
+  host.appendChild(el('div',{class:'card print-page'}, el('h2',null,c.name,' ', el('span',{class:'badge'},c.brand),' ', el('span',{class:'badge'},c.city)), el('div',{class:'small'}, el('a',{href:c.website,target:'_blank'}, c.website)), el('div',null, el('button',{class:'btn',onclick:()=>window.print()},'Print This Competitor'))));
+  let active='Snapshot'; const content=el('div'); function setActive(tab){ active=tab; draw(); }
+  host.appendChild(compTabs(active,setActive)); host.appendChild(content);
+
+  function draw(){
+    content.innerHTML='';
+    if(active==='Snapshot'){
+      const me=DATA.companies.find(x=>x.id==='americlean');
+      const row=el('div',{class:'row'});
+      row.appendChild(el('div',{class:'card'}, sectionTitle('KPI vs AmeriClean'),
+        el('table',{html:'<tr><th>Metric</th><th>'+c.name+'</th><th>AmeriClean</th><th>Gap</th></tr>'
+          +'<tr><td>SEO</td><td>'+c.kpis.seo+'</td><td>'+me.kpis.seo+'</td><td>'+(c.kpis.seo-me.kpis.seo)+'</td></tr>'
+          +'<tr><td>Avg Rating</td><td>'+c.kpis.rating+'</td><td>'+me.kpis.rating+'</td><td>'+((c.kpis.rating-me.kpis.rating).toFixed(1))+'</td></tr>'
+          +'<tr><td>Reviews</td><td>'+c.kpis.reviews+'</td><td>'+me.kpis.reviews+'</td><td>'+(c.kpis.reviews-me.kpis.reviews)+'</td></tr>'
+          +'<tr><td>Est. Ad Spend</td><td>'+fmt.money(c.kpis.adSpend)+'</td><td>'+fmt.money(me.kpis.adSpend)+'</td><td>'+fmt.money(c.kpis.adSpend-me.kpis.adSpend)+'</td></tr>'
+          +'<tr><td>Local Pack Rank</td><td>'+c.kpis.localPack+'</td><td>'+me.kpis.localPack+'</td><td>'+(c.kpis.localPack-me.kpis.localPack)+'</td></tr>'
+        })
+      ));
+      row.appendChild(el('div',{class:'card'}, sectionTitle('Trends'),
+        el('div',{html:line(c.trends.months, c.trends.adSpend, 520, 220)}), el('div',{class:'small'},'Ad Spend (6 mo)')));
+      content.appendChild(row);
+      content.appendChild(el('div',{class:'card'}, sectionTitle('Observed Strategy'), el('ul',null,
+        el('li',null,'Positioning: ', c.profile.positioning||''),
+        el('li',null,'Primary Channels: ', (c.profile.channels||[]).join(', ')),
+        el('li',null,'SEO Notes: ', c.profile.seoNotes||''),
+        el('li',null,'Social Notes: ', c.profile.socialNotes||'')
+      )));
+    }
+    if(active==='Service Areas'){
+      content.appendChild(el('div',{class:'card'}, sectionTitle('Service Areas'), el('div',{class:'flex'}, ...(c.serviceAreas||[]).map(s=> el('span',{class:'tag'},s)) )));
+      content.appendChild(el('div',{class:'card'}, sectionTitle('Services Offered'), el('div',{class:'flex'}, ...(c.services||[]).map(s=> el('span',{class:'tag'},s)) )));
+      content.appendChild(el('div',{class:'card'}, sectionTitle('Links'), el('div',null, el('a',{href:c.website,target:'_blank'},'Website →'), ' ', c.social?.facebook? el('a',{href:c.social.facebook,target:'_blank',style:'margin-left:12px'},'Facebook →'): el('span',{class:'small'},'No social link noted'))));
+    }
+    if(active==='SEO & Content'){
+      const kw= (window.MASTER_PLAN?.merged?.[c.id]?.keywords) || KWSEED;
+      const table=el('table'); table.innerHTML='<tr><th>Keyword</th><th>Volume</th><th>CPC</th><th>Intent</th><th>Service</th></tr>';
+      kw.slice(0,20).forEach(r=>{ const tr=el('tr'); tr.appendChild(el('td',null,r.keyword)); tr.appendChild(el('td',null,String(r.volume||0))); tr.appendChild(el('td',null,r.cpc? '$'+r.cpc.toFixed(2):'—')); tr.appendChild(el('td',null,r.intent||'')); tr.appendChild(el('td',null,r.service||'')); table.appendChild(tr); });
+      content.appendChild(el('div',{class:'card'}, sectionTitle('Keyword Demand (Top 20)'), table));
+      const contentGaps=['Sewage cleanup (page + FAQs)','Basement flood cleanup (local photos)','Smoke odor removal (service page)','Emergency after-hours page (call-only CTA)','Suburb geo pages (Laurel, Lockwood, Heights)'];
+      content.appendChild(el('div',{class:'card'}, sectionTitle('Content Gaps (Likely)'), el('ul',null, ...contentGaps.map(t=> el('li',null,t)) )));
+    }
+    if(active==='Paid Media'){
+      const kw=(window.MASTER_PLAN?.merged?.[c.id]?.keywords)||KWSEED;
+      const p=localPlanFor(c); const ppc=Math.round(p.budget*(p.mix.PPC||0)); const avgCPC=Math.round((kw.reduce((s,r)=>s+(r.cpc||10),0)/kw.length)||10); const clicks=Math.max(1, Math.floor(ppc/Math.max(1,avgCPC)));
+      const labels=kw.slice(0,8).map(x=> x.keyword.length>16? x.keyword.slice(0,16)+'…':x.keyword); const vals=kw.slice(0,8).map(x=> x.volume||0);
+      const row=el('div',{class:'row'});
+      row.appendChild(el('div',{class:'card'}, sectionTitle('Top Keywords by Volume'), el('div',{html:bar(520,220,vals,labels)})));
+      row.appendChild(el('div',{class:'card'}, sectionTitle('Budget → Clicks → Leads (Est.)'), (function(){ const conv=0.10; const leads=Math.floor(clicks*conv); const t=el('table'); t.innerHTML='<tr><th>PPC Budget</th><th>Avg CPC</th><th>Clicks</th><th>Leads @10%</th></tr>'+'<tr><td>'+fmt.money(ppc)+'</td><td>$'+avgCPC+'</td><td>'+clicks+'</td><td>'+leads+'</td></tr>'; return t; })()));
+      content.appendChild(row);
+      content.appendChild(el('div',{class:'card'}, sectionTitle('Ad Copy Angle (Example)'), el('div',{class:'small'}, c.profile.adCopy||'')));
+    }
+    if(active==='Social & Reviews'){
+      const rb=c.ratingBreakdown||{};
+      const row=el('div',{class:'row'});
+      row.appendChild(el('div',{class:'card'}, sectionTitle('Ratings Distribution'), el('div',{html:bar(420,200, Object.values(rb), Object.keys(rb))})));
+      row.appendChild(el('div',{class:'card'}, sectionTitle('Social Cadence (posts/mo)'), el('div',{html:line(c.social.months, c.social.posts, 520, 200)})));
+      content.appendChild(row);
+      content.appendChild(el('div',{class:'card'}, sectionTitle('Engagement Trend'), el('div',{html:line(c.social.months, c.social.engagement, 820, 200)})));
+    }
+    if(active==='Local Pack & GBP'){
+      const row=el('div',{class:'row'});
+      row.appendChild(el('div',{class:'card'}, sectionTitle('Local Pack Rank (lower=better)'), el('div',{html:line(c.trends.months, c.trends.localPack, 520, 200)})));
+      row.appendChild(el('div',{class:'card'}, sectionTitle('GBP Checklist'),
+        el('ul',null,
+          el('li',null,'100% services + emergency attributes'),
+          el('li',null,'Weekly posts (before/after, offers, Q&A)'),
+          el('li',null,'Fresh photos monthly (jobs, team, vehicles)'),
+          el('li',null,'Call tracking; message enabled; after-hours routing')
+        )
+      ));
+      content.appendChild(row);
+    }
+    if(active==='Counter Plan'){
+      const plan=(window.MASTER_PLAN?.merged?.[c.id])||{budget:localPlanFor(c).budget, mix:localPlanFor(c).mix, tactics:[]};
+      const labels=Object.keys(plan.mix), vals=labels.map(k=> Math.round((plan.budget||0)*(plan.mix[k]||0)));
+      const grid=el('div',{class:'row'});
+      grid.appendChild(el('div',{class:'card'}, sectionTitle('Recommended Monthly Budget'), el('b',null, fmt.money(plan.budget||0))));
+      grid.appendChild(el('div',{class:'card'}, sectionTitle('Spend Allocation'), el('div',{html:bar(520,200,vals,labels)})));
+      content.appendChild(grid);
+      const tactics = plan.tactics?.length? plan.tactics : ['Launch exact-match emergency PPC + LSAs (7pm–7am call-only)','Publish sewage/dry-out/smoke odor pages + FAQs','CRO: sticky call CTA; 60‑minute arrival promise','GBP: weekly posts/photos; enable messaging','Reviews: +20 in 60 days via automation'];
+      content.appendChild(el('div',{class:'card'}, sectionTitle('Tactics (Merged)'), el('ul',null, ...(tactics.map(t=> el('li',null,t))) )));
+    }
+    if(active==='Action Plan'){
+      const t=el('table'); t.innerHTML='<tr><th>Phase</th><th>Action</th><th>Owner</th><th>Target</th></tr>'
+        +'<tr><td>Week 1</td><td>Launch emergency PPC + LSAs</td><td>Marketing</td><td>5 leads/day</td></tr>'
+        +'<tr><td>Week 2</td><td>Publish service & geo pages</td><td>SEO</td><td>Index in 7 days</td></tr>'
+        +'<tr><td>Week 3</td><td>GBP posts + photos + Q&A</td><td>Social</td><td>3/wk</td></tr>'
+        +'<tr><td>Week 4</td><td>Review campaign kickoff (+20/60d)</td><td>Ops</td><td>4.8★+</td></tr>';
+      content.appendChild(el('div',{class:'card'}, sectionTitle('Execution Timeline'), t));
+    }
+  }
+  draw();
+}
+
 async function fetchKeywords(city){
   const k='kw:'+city;
   if(KEYWORD_URL && MODE!=='local'){
@@ -97,302 +338,105 @@ async function fetchKeywords(city){
   return KWSEED;
 }
 
-// ====== Strategy engine (local) ======
-function localPlanFor(c){
-  const my=DATA.companies.find(x=>x.id==='americlean')||c;
-  let budget=Math.max(2500, Math.round((c.kpis.adSpend*0.55)+(c.kpis.seo*32)+(c.kpis.reviews*3.5)));
-  let mix={PPC:0.34,LSAs:0.20,LocalSEO:0.26,PaidSocial:0.10,CRO:0.10};
-  if(c.kpis.localPack<=2){ mix={PPC:0.40,LSAs:0.25,LocalSEO:0.20,PaidSocial:0.10,CRO:0.05}; }
-  if(my.kpis.rating>c.kpis.rating){ mix.LocalSEO+=0.05; mix.PPC-=0.05; }
-  const s=mix.PPC+mix.LSAs+mix.LocalSEO+mix.PaidSocial+mix.CRO; Object.keys(mix).forEach(k=> mix[k]=+(mix[k]/s).toFixed(2));
-  let cpl={}; Object.keys(ECON).forEach(sv=>{ const e=ECON[sv], gp=e.grossMargin*e.avgTicket, maxCAC=gp*0.5; cpl[sv]=Math.round((maxCAC*e.closeRate)/3); });
-  return {budget:budget,mix:mix,cpl:cpl};
-}
-
-// ====== Providers (simple mode) ======
-async function loadProviders(){
-  // In "urls" mode, fetch URLs; in "upload" mode, use local cache; in "local" mode, skip
-  if(MODE==='local') { PROVIDERS.cache={}; return {}; }
-  const out={};
-  for(const name of PROVIDERS.list){
-    try{
-      if(MODE==='urls' && PROVIDERS.urls[name]){
-        const r=await fetch(PROVIDERS.urls[name],{mode:'cors'}); if(r.ok){ out[name]=await r.json(); localStorage.setItem('provider:'+name, JSON.stringify(out[name])); continue; }
-      }
-      const cached=localStorage.getItem('provider:'+name); if(cached){ out[name]=JSON.parse(cached); }
-    }catch(e){}
-  }
-  PROVIDERS.cache=out; return out;
-}
-
-// ====== Aggregation ======
-function aggMedian(nums){ const arr=nums.filter(n=>typeof n==='number').slice().sort((a,b)=>a-b); if(!arr.length) return 0; const m=Math.floor(arr.length/2); return arr.length%2?arr[m]:Math.round((arr[m-1]+arr[m])/2); }
-function aggMix(mixes){ const sum={PPC:0,LSAs:0,LocalSEO:0,PaidSocial:0,CRO:0}; let n=0; mixes.forEach(m=>{ if(!m) return; n++; Object.keys(sum).forEach(k=> sum[k]+= (m[k]||0)); }); if(n===0) return sum; Object.keys(sum).forEach(k=> sum[k]=+(sum[k]/n).toFixed(2)); const s=sum.PPC+sum.LSAs+sum.LocalSEO+sum.PaidSocial+sum.CRO; if(s){ Object.keys(sum).forEach(k=> sum[k]=+(sum[k]/s).toFixed(2)); } return sum; }
-function dedupe(arr){ const seen={}; return (arr||[]).filter(t=>{const k=(t||'').toLowerCase(); if(!k||seen[k]) return false; seen[k]=1; return true;}); }
-function unionKeywords(lists){ const map={}; lists.forEach(L=> (L||[]).forEach(r=>{ const key=(r.keyword||'').toLowerCase(); if(!key) return; if(!map[key]) map[key]=Object.assign({},r); else{ map[key].volume=Math.max(map[key].volume||0, r.volume||0); map[key].cpc=Math.max(map[key].cpc||0, r.cpc||0); map[key].intent=map[key].intent||r.intent; map[key].service=map[key].service||r.service; } })); return Object.values(map).sort((a,b)=>(b.volume||0)-(a.volume||0)); }
-
-async function recompile(){
-  const prov = await loadProviders();
-  const merged={};
-  for(const c of DATA.companies){
-    const parts=[];
-    parts.push({provider:'local', plan:localPlanFor(c), tactics:(c.profile? [c.profile.seoNotes, c.profile.socialNotes, c.profile.adCopy] : [])});
-    for(const name of Object.keys(prov)){
-      const d=prov[name]; if(d && d.competitors && d.competitors[c.id]){
-        const pc=d.competitors[c.id]; parts.push({provider:name, plan:{budget:pc.budget, mix:pc.mix}, tactics:pc.tactics||[], keywords:pc.keywords||[]});
-      }
-    }
-    const budget = aggMedian(parts.map(p=> p.plan && p.plan.budget).filter(Boolean));
-    const mix = aggMix(parts.map(p=> p.plan && p.plan.mix));
-    const tactics = dedupe([].concat.apply([], parts.map(p=> p.tactics||[])));
-    const kwAll = unionKeywords([].concat.apply([], parts.map(p=> p.keywords||[])).concat([KWSEED]));
-    merged[c.id]={budget:budget,mix:mix,tactics:tactics,keywords:kwAll,byModel:parts};
-  }
-  const masterBudget = aggMedian(Object.values(merged).map(m=>m.budget));
-  const masterMix = aggMix(Object.values(merged).map(m=>m.mix));
-  const masterKeywords = unionKeywords([].concat.apply([], Object.values(merged).map(m=>m.keywords)));
-  window.MASTER_PLAN={generatedAt:new Date().toISOString(), providers:Object.keys(prov), merged:merged, master:{budget:masterBudget,mix:masterMix,topKeywords:masterKeywords.slice(0,20)}};
-}
-
-// ====== Views ======
-function sectionTitle(txt){ return el('div',null, el('h3',null,txt)); }
-function kpi(label,value,sub){ return el('div',{class:'kpi'}, el('div',null,label), el('b',null,value), sub? el('div',{class:'small'},sub): null ); }
-
-function pageDashboard(){
-  const wrap=el('div');
-  const ordered=DATA.companies.slice().sort((a,b)=>a.threatRank-b.threatRank);
-  const lead=ordered[0], me=DATA.companies.find(x=>x.id==='americlean')||ordered[0];
-  const top=el('div',{class:'row3'});
-  top.appendChild(kpi('Top Threat', lead.name, 'Local Pack #'+lead.kpis.localPack+' • SEO '+lead.kpis.seo));
-  top.appendChild(kpi('AmeriClean Rating', me.kpis.rating, me.kpis.reviews+' reviews'));
-  top.appendChild(kpi('Spend Gap vs Top', fmt.money(Math.max(0,(lead.kpis.adSpend||0)-(me.kpis.adSpend||0))), 'Monthly gap'));
-  wrap.appendChild(top);
-  const charts=el('div',{class:'row'});
-  charts.appendChild(el('div',{class:'card'}, sectionTitle('Threat Ad Spend (6 mo)'), el('div',{html:line(lead.trends.months, lead.trends.adSpend, 520, 240)})));
-  charts.appendChild(el('div',{class:'card'}, sectionTitle('AmeriClean SEO (6 mo)'), el('div',{html:line(me.trends.months, me.trends.seo||[0], 520, 240)})));
-  wrap.appendChild(charts);
-  wrap.appendChild(el('hr'));
-  wrap.appendChild(el('div',{class:'notice'}, 'Tip: Use the model selector (top right). Default is Local Engine. "Provider URLs" will read JSON links from assets/config.js. "Upload Files" lets anyone drop in model outputs and click Recompile—no coding needed.'));
-  return wrap;
-}
-
-function competitorCard(c){
-  const k=c.kpis;
-  const card=el('div',{class:'card'});
-  card.appendChild(el('div',null, el('b',null,c.name),' ', el('span',{class:'badge'},c.city||'')));
-  card.appendChild(el('div',{class:'small'}, c.website||''));
-  card.appendChild(el('div',{html:bar(360,160,[k.seo,(k.rating||0)*20,(k.reviews||0)/10,(k.adSpend||0)/500], ['SEO','★','Rev','Ad$'])}));
-  card.appendChild(el('div',null, el('span',{class:'pill'},'Threat #'+c.threatRank),' ', el('span',{class:'pill'},'Local Pack '+k.localPack)));
-  // "Open Strategy" uses hash routing so it's reliable across reloads
-  const btn=el('a',{href:'#/competitor/'+c.id, class:'btn', 'data-action':'open', 'data-id':c.id},'Open Strategy');
-  card.appendChild(el('div',{style:'margin-top:8px'}, btn));
-  return card;
-}
-
-function pageCompetitors(){
-  const wrap=el('div');
-  const grid=el('div',{class:'row3', id:'compGrid'});
-  DATA.companies.slice().sort((a,b)=>a.threatRank-b.threatRank).forEach(c=> grid.appendChild(competitorCard(c)));
-  wrap.appendChild(grid);
-  wrap.appendChild(el('hr'));
-  const detail=el('div',{id:'compDetail'});
-  wrap.appendChild(detail);
-  return wrap;
-}
-
-function compTabs(active, setActive){
-  const names=['Snapshot','SEO Audit','Paid Ads','Social & Reviews','Local Pack & GBP','Counter Plan','Action Plan'];
-  const bar=el('div',{class:'tabs'});
-  names.forEach(n=>{
-    const t=el('div',{class:'tab'+(n===active?' active':''), 'data-tab':n}, n);
-    t.addEventListener('click', ()=> setActive(n));
-    bar.appendChild(t);
-  });
-  return bar;
-}
-
-function renderCompetitorDetail(id){
-  const c=DATA.companies.find(x=>x.id===id); if(!c) return;
-  const host=document.getElementById('compDetail'); if(!host) return;
-  host.innerHTML='';
-  const header=el('div',{class:'card'}, el('div',null, el('h2',null,c.name),' ', el('span',{class:'badge'},c.city||'')), el('div',{class:'small'},c.website||''));
-  host.appendChild(header);
-  let active='Snapshot';
-  const content=el('div');
-  function setActive(tab){ active=tab; draw(); }
-  host.appendChild(compTabs(active,setActive));
-  host.appendChild(content);
-
-  function draw(){
-    content.innerHTML='';
-    if(active==='Snapshot'){
-      const me=DATA.companies.find(x=>x.id==='americlean')||c;
-      const row=el('div',{class:'row'});
-      row.appendChild(el('div',{class:'card'}, sectionTitle('KPI Snapshot'),
-        el('table',{html:'<tr><th>Metric</th><th>'+c.name+'</th><th>AmeriClean</th><th>Gap</th></tr>'
-          +'<tr><td>SEO Score</td><td>'+c.kpis.seo+'</td><td>'+me.kpis.seo+'</td><td>'+(c.kpis.seo-me.kpis.seo)+'</td></tr>'
-          +'<tr><td>Avg Rating</td><td>'+c.kpis.rating+'</td><td>'+me.kpis.rating+'</td><td>'+( (c.kpis.rating-me.kpis.rating).toFixed(1) )+'</td></tr>'
-          +'<tr><td>Reviews</td><td>'+c.kpis.reviews+'</td><td>'+me.kpis.reviews+'</td><td>'+(c.kpis.reviews-me.kpis.reviews)+'</td></tr>'
-          +'<tr><td>Est. Ad Spend</td><td>'+fmt.money(c.kpis.adSpend)+'</td><td>'+fmt.money(me.kpis.adSpend)+'</td><td>'+fmt.money(c.kpis.adSpend-me.kpis.adSpend)+'</td></tr>'
-          +'<tr><td>Local Pack</td><td>'+c.kpis.localPack+'</td><td>'+me.kpis.localPack+'</td><td>'+(c.kpis.localPack-me.kpis.localPack)+'</td></tr>'
-        })
-      ));
-      row.appendChild(el('div',{class:'card'}, sectionTitle('Trends'),
-        el('div',{html:line(c.trends.months, c.trends.adSpend, 520, 200)}),
-        el('div',{class:'small'},'Ad Spend (6 mo)')
-      ));
-      content.appendChild(row);
-      const profile=el('div',{class:'card'}, sectionTitle('Observed Strategy'), el('ul',null,
-        el('li',null,'Positioning: ', c.profile.positioning||''),
-        el('li',null,'Primary Channels: ', (c.profile.channels||[]).join(', ')),
-        el('li',null,'SEO Notes: ', c.profile.seoNotes||''),
-        el('li',null,'Social Notes: ', c.profile.socialNotes||''),
-        el('li',null,'Ad Copy Example: ', c.profile.adCopy||'')
-      ));
-      content.appendChild(profile);
-    }
-    if(active==='SEO Audit'){
-      const tbl=el('table'); tbl.innerHTML='<tr><th>Factor</th><th>Score/Notes</th></tr>'
-        +'<tr><td>Service Pages Coverage</td><td>'+(c.profile.seoNotes||'—')+'</td></tr>'
-        +'<tr><td>Geo Pages</td><td>'+(c.kpis.seo>60?'Good coverage, add suburbs':'Needs expansion (suburbs & nearby towns)')+'</td></tr>'
-        +'<tr><td>Backlinks</td><td>'+(c.kpis.seo>65?'Solid local citations':'Add industry/org citations; outreach')+'</td></tr>'
-        +'<tr><td>On‑page</td><td>'+(c.kpis.seo>65?'Titles/H1 well structured':'Tighten H1/title intent; add FAQs')+'</td></tr>';
-      content.appendChild(el('div',{class:'card'}, sectionTitle('SEO Overview'), tbl));
-      content.appendChild(el('div',{class:'card'}, sectionTitle('Keyword Positions (approx.)'), (function(){ const t=el('table'); t.innerHTML='<tr><th>Keyword</th><th>Rank</th><th>Intent</th></tr>'; (c.keywords||[]).forEach(pair=>{ const tr=el('tr'); tr.appendChild(el('td',null,pair[0])); tr.appendChild(el('td',null,String(pair[1]))); tr.appendChild(el('td',null, (/near|billings|mt/i.test(pair[0])?'Local':'Service') )); t.appendChild(tr); }); return t; })()));
-    }
-    if(active==='Paid Ads'){
-      const kw = (window.MASTER_PLAN && window.MASTER_PLAN.merged && window.MASTER_PLAN.merged[c.id] && window.MASTER_PLAN.merged[c.id].keywords) || KWSEED;
-      const top=kw.slice(0,8); const labels=top.map(x=> x.keyword.length>16? x.keyword.slice(0,16)+'…':x.keyword); const vals=top.map(x=> x.volume||0);
-      const panel=el('div',{class:'row'});
-      panel.appendChild(el('div',{class:'card'}, sectionTitle('Top Keywords by Volume'), el('div',{html:bar(520,220,vals,labels)})));
-      panel.appendChild(el('div',{class:'card'}, sectionTitle('Budget vs Clicks (est.)'), (function(){ const p=localPlanFor(c); const ppc=Math.round(p.budget*(p.mix.PPC||0)); const avgCPC=Math.round((kw.reduce((s,r)=>s+(r.cpc||10),0)/kw.length)||10); const clicks=Math.max(1, Math.floor(ppc/Math.max(1,avgCPC))); const t=el('table'); t.innerHTML='<tr><th>PPC Budget</th><th>Avg CPC</th><th>Clicks</th></tr>'+'<tr><td>'+fmt.money(ppc)+'</td><td>$'+avgCPC+'</td><td>'+clicks+'</td></tr>'; return t; })()));
-      content.appendChild(panel);
-    }
-    if(active==='Social & Reviews'){
-      const rb = c.ratingBreakdown||{};
-      const rev=el('div',{class:'row'});
-      rev.appendChild(el('div',{class:'card'}, sectionTitle('Ratings Distribution'), el('div',{html:bar(420,200, Object.values(rb), Object.keys(rb))})));
-      rev.appendChild(el('div',{class:'card'}, sectionTitle('Social Cadence (posts/mo)'), el('div',{html:line(c.social.months, c.social.posts, 520, 200)})));
-      content.appendChild(rev);
-      content.appendChild(el('div',{class:'card'}, sectionTitle('Engagement Trend'), el('div',{html:line(c.social.months, c.social.engagement, 820, 200)})));
-    }
-    if(active==='Local Pack & GBP'){
-      const row=el('div',{class:'row'});
-      row.appendChild(el('div',{class:'card'}, sectionTitle('Local Pack Rank (lower=better)'), el('div',{html:line(c.trends.months, c.trends.localPack, 520, 200)})));
-      row.appendChild(el('div',{class:'card'}, sectionTitle('GBP Checklist'),
-        el('ul',null,
-          el('li',null,'100% services/badges; emergency attributes'),
-          el('li',null,'Weekly posts (before/after, offers, Q&A)'),
-          el('li',null,'Photos: jobs, team, vehicles, equipment'),
-          el('li',null,'Call tracking; message enabled; after-hours routing')
-        )
-      ));
-      content.appendChild(row);
-    }
-    if(active==='Counter Plan'){
-      const plan = (window.MASTER_PLAN && window.MASTER_PLAN.merged && window.MASTER_PLAN.merged[c.id]) || {budget:localPlanFor(c).budget, mix:localPlanFor(c).mix, tactics:[]};
-      const grid=el('div',{class:'row'});
-      const labels=Object.keys(plan.mix||{}); const vals=labels.map(k=> Math.round((plan.budget||0)*(plan.mix[k]||0)));
-      grid.appendChild(el('div',{class:'card'}, sectionTitle('Recommended Monthly Budget'), el('b',null, fmt.money(plan.budget||0))));
-      grid.appendChild(el('div',{class:'card'}, sectionTitle('Spend Allocation'), el('div',{html:bar(520,200,vals,labels)})));
-      content.appendChild(grid);
-      content.appendChild(el('div',{class:'card'}, sectionTitle('Tactics (Merged)'), el('ul',null, ...((plan.tactics&&plan.tactics.length)? plan.tactics : ['GBP: weekly posts/photos/Q&A','Reviews: +20/60d with automation','PPC: exact emergency terms; night call-only','SEO: add sewage/dry-out/smoke odor pages','CRO: sticky call CTA; 60‑min arrival']).map(t=> el('li',null,t)) )));
-    }
-    if(active==='Action Plan'){
-      const t=el('table'); t.innerHTML='<tr><th>Phase</th><th>Action</th><th>Owner</th><th>Target</th></tr>'
-        +'<tr><td>Week 1</td><td>Launch exact-match emergency PPC + LSAs</td><td>Marketing</td><td>5 leads/day</td></tr>'
-        +'<tr><td>Week 2</td><td>Publish sewage/dry-out/smoke odor pages</td><td>SEO</td><td>Index in 7 days</td></tr>'
-        +'<tr><td>Week 3</td><td>GBP posts + photos + Q&A</td><td>Social</td><td>3/wk</td></tr>'
-        +'<tr><td>Week 4</td><td>Review campaign kickoff (+20/60d)</td><td>Ops</td><td>4.8★+</td></tr>';
-      content.appendChild(el('div',{class:'card'}, sectionTitle('Execution Timeline'), t));
-    }
-  }
-  draw();
-}
-
 async function pageKeywords(){
   const me=DATA.companies.find(x=>x.id==='americlean')||DATA.companies[0];
   const kw=await fetchKeywords(me.city||'Billings, MT');
   const wrap=el('div');
   const t=el('table'); t.innerHTML='<tr><th>Keyword</th><th>Volume</th><th>CPC</th><th>Intent</th><th>Service</th></tr>';
   kw.forEach(r=>{ const tr=el('tr'); tr.appendChild(el('td',null,r.keyword)); tr.appendChild(el('td',null,String(r.volume||0))); tr.appendChild(el('td',null, r.cpc? '$'+r.cpc.toFixed(2):'—')); tr.appendChild(el('td',null, r.intent||'')); tr.appendChild(el('td',null, r.service||'')); t.appendChild(tr); });
-  wrap.appendChild(el('div',{class:'card'}, sectionTitle('Local Keyword Demand — '+(me.city||'')), t));
-  const top=kw.slice(0,8), labels=top.map(x=> x.keyword.length>16? x.keyword.slice(0,16)+'…':x.keyword), vals=top.map(x=> x.volume||0);
+  wrap.appendChild(el('div',{class:'card print-page'}, sectionTitle('Local Keyword Demand'), t));
+  const top=kw.slice(0,10), labels=top.map(x=> x.keyword.length>16? x.keyword.slice(0,16)+'…':x.keyword), vals=top.map(x=> x.volume||0);
   wrap.appendChild(el('div',{class:'card'}, sectionTitle('Top Volume (bar)'), el('div',{html:bar(820,220,vals,labels)})));
   return wrap;
 }
 
-function pagePlanner(){
-  const kw=(window.MASTER_PLAN && window.MASTER_PLAN.master && window.MASTER_PLAN.master.topKeywords) || KWSEED;
-  const budget=((window.MASTER_PLAN && window.MASTER_PLAN.master && window.MASTER_PLAN.master.budget)||6000);
-  const ppc=Math.round(budget*0.35);
-  const avgCPC=Math.round((kw.reduce((s,r)=>s+(r.cpc||10),0)/kw.length)||10);
-  const clicks=Math.max(1, Math.floor(ppc/Math.max(1,avgCPC)));
-  const conv=0.10, leads=Math.floor(clicks*conv), cpl=leads? Math.round(ppc/leads):ppc;
-  const t=el('table'); t.innerHTML='<tr><th>PPC Budget</th><th>Avg CPC</th><th>Clicks</th><th>Conv. Rate</th><th>Leads</th><th>CPL</th></tr>'
-    +'<tr><td>'+fmt.money(ppc)+'</td><td>$'+avgCPC+'</td><td>'+clicks+'</td><td>'+Math.round(conv*100)+'%</td><td>'+leads+'</td><td>$'+cpl+'</td></tr>';
-  return el('div',null, el('div',{class:'card'}, sectionTitle('Budget & Conversion Forecast'), t));
+function pageFunnel(){
+  const wrap=el('div');
+  const totalVol = KWSEED.reduce((s,r)=>s+(r.volume||0),0);
+  const avgCPC = Math.round((KWSEED.reduce((s,r)=>s+(r.cpc||10),0)/KWSEED.length)||10);
+  const me=DATA.companies.find(x=>x.id==='americlean');
+  const plan=localPlanFor(me); const ppc=Math.round(plan.budget*(plan.mix.PPC||0)); const clicks=Math.max(1, Math.floor(ppc/Math.max(1,avgCPC)));
+  const conv=0.10, leads=Math.floor(clicks*conv);
+  const row=el('div',{class:'row3'});
+  row.appendChild(kpi('Search Demand (mo)', totalVol.toLocaleString()));
+  row.appendChild(kpi('Clicks (est.)', clicks.toLocaleString(), fmt.money(ppc)+' @ ~$'+avgCPC+' CPC'));
+  row.appendChild(kpi('Leads (est.)', leads.toString(), 'Conv 10%'));
+  wrap.appendChild(row);
+  wrap.appendChild(el('div',{class:'card'}, sectionTitle('How we compute'), el('div',{class:'small'}, 'We use conservative industry baselines. Replace with your data anytime via Data Manager or Provider URLs.')));
+  return wrap;
 }
 
 function pageMaster(){
   const M=window.MASTER_PLAN||{master:{budget:0,mix:{}},merged:{}};
   const wrap=el('div');
-  wrap.appendChild(el('div',{class:'row'}, kpi('Master Budget (Median)', fmt.money(M.master.budget||0)), el('div',{class:'card'}, sectionTitle('Master Mix (Avg)'), el('div',{html:bar(520,160, Object.keys(M.master.mix||{}).map(k=> Math.round((M.master.budget||0)*(M.master.mix[k]||0))), Object.keys(M.master.mix||{}))})) ));
-  const kw=(M.master.topKeywords||[]).slice(0,12); const t=el('table'); t.innerHTML='<tr><th>Keyword</th><th>Volume</th><th>CPC</th><th>Intent</th><th>Service</th></tr>'; kw.forEach(r=>{ const tr=el('tr'); tr.appendChild(el('td',null,r.keyword)); tr.appendChild(el('td',null,String(r.volume||0))); tr.appendChild(el('td',null, r.cpc? '$'+r.cpc.toFixed(2):'—')); tr.appendChild(el('td',null, r.intent||'')); tr.appendChild(el('td',null, r.service||'')); t.appendChild(tr); });
-  wrap.appendChild(el('div',{class:'card'}, sectionTitle('Top Keywords (Merged)'), t));
+  wrap.appendChild(el('div',{class:'row'},
+    kpi('Master Budget (Median)', fmt.money(M.master.budget||0)),
+    el('div',{class:'card'}, sectionTitle('Master Mix (Avg)'), el('div',{html:bar(520,160, Object.keys(M.master.mix||{}).map(k=> Math.round((M.master.budget||0)*(M.master.mix[k]||0))), Object.keys(M.master.mix||{}))}))
+  ));
+  const kw=(M.master.topKeywords||[]).slice(0,20); const t=el('table'); t.innerHTML='<tr><th>Keyword</th><th>Volume</th><th>CPC</th><th>Intent</th><th>Service</th></tr>'; kw.forEach(r=>{ const tr=el('tr'); tr.appendChild(el('td',null,r.keyword)); tr.appendChild(el('td',null,String(r.volume||0))); tr.appendChild(el('td',null, r.cpc? '$'+r.cpc.toFixed(2):'—')); tr.appendChild(el('td',null, r.intent||'')); tr.appendChild(el('td',null, r.service||'')); t.appendChild(tr); });
+  wrap.appendChild(el('div',{class:'card print-page'}, sectionTitle('Top Keywords (Merged)'), t));
+  wrap.appendChild(el('div',null, el('button',{class:'btn', onclick:()=>window.print()}, 'Print Master Strategy')));
+  return wrap;
+}
+
+function pageData(){
+  const wrap=el('div');
+  wrap.appendChild(el('div',{class:'card'}, sectionTitle('Import Data (CSV/JSON)'), el('div',{class:'small'}, 'Drop files here to update competitors, keywords, or provider outputs (browser-only).'), el('div',{id:'drop',style:'border:1px dashed #2a3f64;padding:20px;border-radius:10px;margin-top:8px'}, 'Drop files here…')));
+  const drop=()=>{
+    const box=document.getElementById('drop');
+    box.addEventListener('dragover', e=>{e.preventDefault(); box.style.background='#0c1526';});
+    box.addEventListener('dragleave', e=>{box.style.background='transparent';});
+    box.addEventListener('drop', async e=>{
+      e.preventDefault(); box.style.background='transparent';
+      for(const f of e.dataTransfer.files){
+        const text=await f.text();
+        try{
+          const j=JSON.parse(text);
+          if(j.competitors || (j.companies)){ DATA = j.companitors? j : j; localStorage.setItem('DATA', JSON.stringify(DATA)); alert('Competitors updated from '+f.name); }
+          if(Array.isArray(j) || j.keywords){ const arr=Array.isArray(j)? j : j.keywords; localStorage.setItem('KW:'+ (DATA.companies.find(x=>x.id==='americlean')?.city||'Billings, MT'), JSON.stringify(arr)); alert('Keywords updated from '+f.name); }
+          if(j.provider && j.competitors){ localStorage.setItem('provider:'+j.provider, JSON.stringify(j)); alert('Provider '+j.provider+' cached'); }
+        }catch(ex){ console.log(ex); alert('Unsupported file: '+f.name); }
+      }
+    });
+  };
+  setTimeout(drop, 100);
   return wrap;
 }
 
 function pageHelp(){
   return el('div',null,
     el('div',{class:'card'}, sectionTitle('How to Use'), el('ol',null,
-      el('li',null,'Pick a competitor (Competitors → Open Strategy).'),
-      el('li',null,'Review Snapshot, SEO, Paid Ads, Social/Reviews, Local Pack/GBP.'),
-      el('li',null,'Go to Counter Plan for budget + allocation + tactics.'),
-      el('li',null,'Switch model mode (top right) if you want to merge external AI outputs:'),
-      el('ul',null,
-        el('li',null,'Local Engine — simplest; uses built-in logic.'),
-        el('li',null,'Provider URLs — reads JSON links set in assets/config.js.'),
-        el('li',null,'Upload Files — drag-and-drop JSON for Gemini/o3/GPT; click Recompile.')
-      ),
-      el('li',null,'Master Strategy shows the combined plan across all competitors.')
-    )),
-    el('div',{class:'card'}, sectionTitle('What counts as “good” metrics?'), el('ul',null,
-      el('li',null,'SEO 70+ = strong; 50–69 = mid; <50 = weak.'),
-      el('li',null,'Local Pack 1–2 is dominant; aim to be ≤2 for “water damage” terms.'),
-      el('li',null,'Review velocity 10+/mo; Avg rating ≥4.8.'),
-      el('li',null,'Emergency PPC CPL target: $110–$160 (conservative).')
+      el('li',null,'Open Competitors → pick a company → deep-dive tabs.'),
+      el('li',null,'Use Counter Plan → get budget & channel mix.'),
+      el('li',null,'Go to Master Strategy → merged plan & keywords.'),
+      el('li',null,'Data Manager → import JSON/CSV (no backend).')
     ))
   );
 }
 
-// ====== Router (hash-based for reliability) ======
+// ===== Router =====
 function render(page){
   const host=document.getElementById('page'); host.innerHTML='';
   if(page && page.startsWith('#/competitor/')){
-    const id=page.split('/')[2]; // #, "", competitor, id
-    renderCompetitorDetail(id);
+    host.appendChild(pageCompetitors());
+    renderCompetitorDetail(page.split('/')[2]);
     return;
   }
-  const routes={dashboard:pageDashboard, competitors:pageCompetitors, keywords:()=>{pageKeywords().then(n=>{host.appendChild(n)}); return el('div');}, planner:pagePlanner, master:pageMaster, help:pageHelp};
+  const routes={dashboard:pageDashboard, competitors:pageCompetitors, keywords:()=>{pageKeywords().then(n=>host.appendChild(n)); return el('div');}, funnel:pageFunnel, master:pageMaster, data:pageData, help:pageHelp};
   host.appendChild(routes[page||'dashboard']());
 }
 
-function syncModeUI(){
-  const dd=document.getElementById('modelMode'); dd.value=MODE;
-}
-
+// ===== Init UI =====
+function syncModeUI(){ document.getElementById('modelMode').value=MODE; }
 async function init(){
-  // Navigation
   document.querySelectorAll('.side-item').forEach(n=> n.addEventListener('click', ()=>{ document.querySelectorAll('.side-item').forEach(m=>m.classList.remove('active')); n.classList.add('active'); render(n.getAttribute('data-page')); } ));
-  // Search filter (competitor grid)
-  document.getElementById('searchBox').addEventListener('input', (e)=>{
-    const s=e.target.value.trim().toLowerCase(); const grid=document.getElementById('compGrid'); if(!grid) return;
-    grid.innerHTML=''; DATA.companies.filter(c=> !s || c.name.toLowerCase().includes(s) || (c.city||'').toLowerCase().includes(s)).sort((a,b)=>a.threatRank-b.threatRank).forEach(c=> grid.appendChild(competitorCard(c)));
-  });
-  // Model mode
   document.getElementById('modelMode').addEventListener('change', (e)=>{ MODE=e.target.value; syncModeUI(); });
   document.getElementById('btnRecompile').addEventListener('click', async ()=>{ await recompile(); alert('Master plan rebuilt. Open a competitor or Master Strategy.'); render('master'); });
+  document.getElementById('btnPrintView').addEventListener('click', ()=> window.print() );
+  document.getElementById('searchBox').addEventListener('input', (e)=>{
+    const s=e.target.value.trim().toLowerCase(); const grid=document.getElementById('compGrid'); if(!grid) return;
+    grid.innerHTML=''; DATA.companies.filter(c=> c.id==='americlean' || c.name.toLowerCase().includes(s) || (c.city||'').toLowerCase().includes(s)).filter(c=>c.id!=='americlean').sort((a,b)=>a.threatRank-b.threatRank).forEach(c=> grid.appendChild(competitorCard(c)));
+  });
   // Add competitor
   document.getElementById('btnAdd').addEventListener('click', ()=>{
     const name=document.getElementById('newName').value.trim();
@@ -401,24 +445,12 @@ async function init(){
     if(!name||!city){ document.getElementById('addMsg').textContent='Name + City required.'; return; }
     const id=name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
     if(DATA.companies.some(c=> c.id===id)){ document.getElementById('addMsg').textContent='That company exists.'; return; }
-    DATA.companies.push({"id":id,"name":name,"logo":(name.split(' ').map(s=>s[0]).join('').slice(0,3)).toUpperCase(),"website":website,"city":city,"threatRank":(DATA.companies.length+1),
-      "kpis":{"seo":0,"rating":0,"reviews":0,"adSpend":0,"localPack":0,"price":3,"quality":3},
-      "mix":{"seo":25,"paid":25,"social":25,"referral":25},
-      "ratingBreakdown":{"5★":0,"4★":0,"3★":0,"2★":0,"1★":0},
-      "keywords":[],"trends":{"months":["Mar","Apr","May","Jun","Jul","Aug"],"adSpend":[0,0,0,0,0,0],"seo":[0,0,0,0,0,0],"localPack":[0,0,0,0,0,0]},
-      "social":{"months":["Mar","Apr","May","Jun","Jul","Aug"],"posts":[0,0,0,0,0,0],"engagement":[0,0,0,0,0,0]},
-      "profile":{"positioning":"","channels":[],"seoNotes":"","socialNotes":"","adCopy":""}
-    });
-    document.getElementById('addMsg').textContent='Added locally.';
-    render('competitors');
+    const seed = {id,name,website,city,brand:'Local',services:[],serviceAreas:[],kpis:{seo:40,rating:4.8,reviews:0,adSpend:0,localPack:4},trends:{months:['Mar','Apr','May','Jun','Jul','Aug'],adSpend:[0,0,0,0,0,0],seo:[40,40,40,40,40,40],localPack:[4,4,4,4,4,4]},social:{months:['Mar','Apr','May','Jun','Jul','Aug'],posts:[0,0,0,0,0,0],engagement:[0,0,0,0,0,0]},ratingBreakdown:{'5★':0,'4★':0,'3★':0,'2★':0,'1★':0},profile:{positioning:'',channels:[],seoNotes:'',socialNotes:'',adCopy:''}};
+    DATA.companies.push(seed); recomputeRanks(); document.getElementById('addMsg').textContent='Added locally.'; render('competitors');
   });
-  // Hash routing to ensure "Open Strategy" always works
-  window.addEventListener('hashchange', ()=> render(location.hash) );
+  if(location.hash && location.hash.startsWith('#/competitor/')){ render(location.hash); } else { render('dashboard'); }
   syncModeUI();
-  render('dashboard');
 }
-
 window.addEventListener('DOMContentLoaded', init);
 </script>
-</body>
-</html>
+</body></html>
