@@ -1,17 +1,28 @@
-# Competitive Intel Hub — Automated Package
+# AmeriClean Intel Hub — Admin (Backend-free)
 
-Files:
-- `.nojekyll` — disables Jekyll/Liquid
-- `index.html` — working standalone dashboard (no backend needed)
-- `index_live.html` — quick live API connectivity checker
-- `assets/config.js` — set `window.API_BASE`
-- `.github/workflows/pages.yml` — auto-deploy to GitHub Pages on push
-- `scripts/deploy.sh` — optional helper
+This is a GitHub Pages–safe, **backend-free** admin dashboard:
 
-## Deploy (web UI)
-1) Upload **everything** to your repo root.
-2) Go to **Settings → Pages**, set **Source: GitHub Actions** (uses the workflow here).
-3) Wait for the action to finish. Visit `https://<you>.github.io/<repo>/`.
+- **Competitors**: cards + trends, threat rank, and **Counter-Strategy** with conservative budget, channel split, CPL targets, and tactics.
+- **Local Keywords**: loads from a **public JSON URL** (GitHub raw/Gist) when **Live** is ON, else uses a seeded list; shows a **Google Trends** embed for the top keyword.
+- **PPC Planner**: groups keywords into ad groups and computes a quick budget → clicks → leads forecast.
+- **Settings**: set a keyword JSON URL without a backend.
 
-## Live API
-Edit `assets/config.js` with your API URL, then open `/index_live.html` and click **Test Fetch**.
+## Deploy
+1) Upload everything to your repo root (replace old files).  
+2) Ensure `.nojekyll` exists.  
+3) GitHub Pages → either **GitHub Actions** (workflow included) or **Deploy from branch**.
+
+## Keyword JSON format
+```json
+[
+  {"keyword":"water damage billings","volume":900,"cpc":16.5,"intent":"Emergency","service":"Water Damage"}
+]
+```
+or
+```json
+{ "keywords": [ ... ] }
+```
+
+## Notes
+- Exact **search volumes/CPC** from Google Ads require an API/key or backend. This build stays backend-free by using your JSON URL + Google Trends embeds.
+- Upload button on the Keywords page lets you import a JSON file manually if needed.

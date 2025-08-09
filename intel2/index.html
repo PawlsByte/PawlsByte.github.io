@@ -1,198 +1,390 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Competitive Intel Hub — Counter Strategy + Keywords</title>
+<title>AmeriClean Intel Hub — Admin</title>
 <meta name="color-scheme" content="dark">
 <style>
-:root{--bg:#0b0f14;--panel:#0f1622;--muted:#9ab0c4;--text:#e8f1f8;--line:#1a2740;--hi:#7afcff;--hi2:#4bb3fd;--warn:#ffcc00}
+:root{--bg:#0b0f14;--panel:#0f1622;--muted:#9ab0c4;--text:#e8f1f8;--line:#1a2740;--hi:#7afcff;--hi2:#4bb3fd;--good:#16c784;--warn:#ffcc00;--bad:#ff6b6b}
 *{box-sizing:border-box}body{margin:0;background:#0b0f14;color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto}
-header{position:sticky;top:0;z-index:5;display:flex;gap:10px;align-items:center;padding:10px 14px;background:#0d1420;border-bottom:1px solid #1a2740}
-.container{display:grid;grid-template-columns:360px 1fr;gap:16px;padding:16px}
-.panel{background:#0f1622;border:1px solid #1a2740;border-radius:14px}
-.card{padding:12px;border:1px solid #1e2b45;border-radius:12px;background:linear-gradient(180deg,#101827,#0f1726)}
-.company{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;padding:10px;border:1px solid #1f2b42;border-radius:12px;background:#0f1724;cursor:pointer}
-.company:hover{outline:1px solid #2a3a58}
-.logo{width:40px;height:40px;border-radius:10px;background:#1a2334;display:grid;place-items:center;font-weight:700}
-.kpi{background:#0e1622;border:1px solid #1e2b42;border-radius:10px;padding:6px 8px;margin-right:6px}
+a{color:#9ed0ff;text-decoration:none}
+.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:10px 14px;background:#0d1420;border-bottom:1px solid #1a2740}
+.logo{width:28px;height:28px;border-radius:8px;background:#0e1726;display:grid;place-items:center;font-weight:700}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:0;min-height:100dvh}
+.sidebar{background:#0e1522;border-right:1px solid #1a2740;padding:12px;position:sticky;top:48px;height:calc(100dvh - 48px);overflow:auto}
+.side-item{padding:8px 10px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid #1a2740;background:#0f1928}
+.side-item.active{outline:1px solid #30507a}
+.main{padding:16px}
+.card{background:#0f1622;border:1px solid #1a2740;border-radius:14px;padding:12px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.kpi{display:flex;flex-direction:column;gap:4px;padding:10px;border:1px solid #1b2942;border-radius:12px;background:linear-gradient(180deg,#101827,#0f1726)}
 .pill{border:1px solid #2a3a58;background:#0d1522;color:#cfe3f7;padding:4px 8px;border-radius:999px}
 .pill.warn{border-color:#735b00;background:#2b2300;color:#ffe38a}
+.btn{cursor:pointer;padding:6px 10px;border-radius:8px;border:1px solid #28436a;background:#0f1a2a;color:#cfe3f7}
 .input{width:100%;padding:8px;border-radius:8px;border:1px solid #24324e;background:#0f1827;color:#dff0ff}
-.tabs{display:flex;gap:6px;padding:10px;border-bottom:1px solid #1a253a;position:sticky;top:49px;background:#0d1420}
-.tab{padding:8px 10px;border:1px solid #24324e;border-bottom:none;border-radius:10px 10px 0 0;background:#0f1827;cursor:pointer}
-.tab.active{border-color:#31507a}
-.content{padding:16px;overflow:auto;max-height:calc(100dvh - 128px)}
 table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #20314f}th{background:#0f1a2a;color:#bfe0ff;text-align:left}
-.tiny{font-size:11px;color:#91a8bf}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.kwd-pill{display:inline-block;margin:4px;border:1px solid #2a3a58;padding:4px 8px;border-radius:999px;background:#0e1828}
+.small{font-size:12px;color:#9ab0c4}
+.badge{display:inline-block;padding:2px 6px;border-radius:6px;border:1px solid #204060;background:#132033}
 </style>
 <script src="assets/config.js"></script>
 </head>
 <body>
-<header>
-  <div style="width:24px;height:24px;border-radius:6px;background:#0e1726;display:grid;place-items:center;font-weight:700">CI</div>
-  <b>Competitive Intel Hub — Counter Strategy + Keywords</b>
+<div class="topbar">
+  <div class="logo">AC</div><b>AmeriClean Intel Hub — Admin</b>
   <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
-    <input id="searchBox" class="input" style="width:260px" placeholder="Search competitors…">
-    <label class="pill" style="display:flex;align-items:center;gap:6px"><input id="toggleLive" type="checkbox"> Live</label>
+    <input id="searchBox" class="input" style="width:280px" placeholder="Search competitors…">
+    <label class="pill" style="display:flex;align-items:center;gap:6px"><input id="toggleLive" type="checkbox"> Live (keywords)</label>
   </div>
-</header>
-
-<div class="container">
-  <aside class="panel" style="padding:12px">
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <h3 style="margin:0">Competitors</h3>
-        <span class="tiny">Ranked by Threat</span>
-      </div>
-      <div id="companyList" style="display:flex;flex-direction:column;gap:10px"></div>
-    </div>
-    <div class="card">
-      <h3 style="margin:6px 0">Add</h3>
-      <input id="newName" class="input" placeholder="Company">
-      <input id="newCity" class="input" placeholder="City, ST" style="margin-top:6px">
-      <input id="newWebsite" class="input" placeholder="https://example.com" style="margin-top:6px">
-      <button id="btnAdd" class="pill" style="margin-top:6px">Add</button>
-      <div id="addMsg" class="tiny" style="margin-top:6px"></div>
-    </div>
-  </aside>
-
-  <section class="panel"><div id="detail"></div></section>
 </div>
 
-<script id="seed" type="application/json">{"companies": [{"id": "servpro-billings", "name": "SERVPRO of Billings", "logo": "SP", "website": "https://www.servpro.com/locations/mt/servpro-of-billings", "city": "Billings, MT", "threatRank": 1, "kpis": {"seo": 78, "rating": 4.7, "reviews": 265, "adSpend": 20000, "localPack": 1, "price": 4.0, "quality": 4.7}, "mix": {"seo": 42, "paid": 38, "social": 10, "referral": 10}, "ratingBreakdown": {"5\u2605": 210, "4\u2605": 35, "3\u2605": 10, "2\u2605": 5, "1\u2605": 5}, "keywords": [["water damage billings", 1], ["fire restoration billings", 1], ["mold remediation billings", 2]], "trends": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "adSpend": [19000, 19500, 20000, 20000, 20500, 21000], "seo": [75, 76, 77, 78, 78, 78], "localPack": [1, 1, 1, 1, 1, 1]}}, {"id": "servicemaster-bigsky", "name": "ServiceMaster by Big Sky", "logo": "SM", "website": "https://www.servicemasterrestore.com/servicemaster-by-big-sky-billings/", "city": "Billings, MT", "threatRank": 2, "kpis": {"seo": 70, "rating": 4.6, "reviews": 180, "adSpend": 12000, "localPack": 2, "price": 4.0, "quality": 4.5}, "mix": {"seo": 38, "paid": 40, "social": 12, "referral": 10}, "ratingBreakdown": {"5\u2605": 140, "4\u2605": 25, "3\u2605": 10, "2\u2605": 3, "1\u2605": 2}, "keywords": [["water damage billings", 3], ["mold removal billings", 2]], "trends": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "adSpend": [11500, 11800, 12000, 12200, 12000, 12500], "seo": [68, 68, 69, 70, 70, 70], "localPack": [2, 2, 2, 2, 2, 2]}}, {"id": "americlean", "name": "AmeriClean (You)", "logo": "AC", "website": "https://www.americlean9111.com", "city": "Billings, MT", "threatRank": 3, "kpis": {"seo": 34, "rating": 4.9, "reviews": 112, "adSpend": 3000, "localPack": 3, "price": 3.0, "quality": 4.5}, "mix": {"seo": 36, "paid": 18, "social": 20, "referral": 26}, "ratingBreakdown": {"5\u2605": 84, "4\u2605": 14, "3\u2605": 7, "2\u2605": 4, "1\u2605": 3}, "keywords": [["water damage billings", 9], ["mold remediation billings", 7]], "trends": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "adSpend": [2500, 2600, 2700, 2800, 2900, 3000], "seo": [28, 30, 31, 33, 34, 34], "localPack": [4, 4, 3, 3, 3, 3]}}, {"id": "alpha-omega", "name": "Alpha-Omega Disaster Restoration", "logo": "AO", "website": "https://www.alphaomegapros.com", "city": "Billings, MT", "threatRank": 4, "kpis": {"seo": 55, "rating": 4.8, "reviews": 95, "adSpend": 5000, "localPack": 3, "price": 3.0, "quality": 4.3}, "mix": {"seo": 40, "paid": 25, "social": 15, "referral": 20}, "ratingBreakdown": {"5\u2605": 78, "4\u2605": 10, "3\u2605": 5, "2\u2605": 1, "1\u2605": 1}, "keywords": [["water damage repair billings", 4], ["fire damage cleanup billings", 3]], "trends": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "adSpend": [4500, 4700, 5000, 5000, 5100, 5200], "seo": [53, 53, 54, 55, 55, 55], "localPack": [3, 3, 3, 3, 3, 3]}}, {"id": "faithful", "name": "Faithful Disaster Restoration", "logo": "FR", "website": "https://example.com/faithful", "city": "Billings, MT", "threatRank": 5, "kpis": {"seo": 22, "rating": 4.6, "reviews": 88, "adSpend": 900, "localPack": 4, "price": 2.0, "quality": 3.9}, "mix": {"seo": 34, "paid": 10, "social": 16, "referral": 40}, "ratingBreakdown": {"5\u2605": 64, "4\u2605": 12, "3\u2605": 6, "2\u2605": 3, "1\u2605": 3}, "keywords": [["water damage near me billings", 11], ["smoke odor removal billings", 7]], "trends": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "adSpend": [700, 800, 800, 900, 900, 950], "seo": [19, 20, 20, 21, 21, 22], "localPack": [5, 5, 4, 4, 4, 4]}}]}</script>
-<script id="keywordsSeed" type="application/json">[{"keyword": "water damage billings", "volume": 900, "cpc": 16.5, "intent": "Emergency"}, {"keyword": "water damage restoration billings", "volume": 550, "cpc": 14.2, "intent": "Emergency"}, {"keyword": "mold remediation billings", "volume": 300, "cpc": 11.3, "intent": "Service"}, {"keyword": "fire damage cleanup billings", "volume": 180, "cpc": 12.9, "intent": "Service"}, {"keyword": "sewage cleanup billings", "volume": 110, "cpc": 13.5, "intent": "Emergency"}, {"keyword": "dry out service billings", "volume": 90, "cpc": 9.8, "intent": "Service"}]</script>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="small" style="margin:8px 0">Navigation</div>
+    <div class="side-item active" data-page="dashboard">Dashboard</div>
+    <div class="side-item" data-page="competitors">Competitors</div>
+    <div class="side-item" data-page="keywords">Local Keywords</div>
+    <div class="side-item" data-page="planner">PPC Planner</div>
+    <div class="side-item" data-page="settings">Settings</div>
+
+    <div class="small" style="margin:12px 0 6px">Add competitor</div>
+    <input id="newName" class="input" placeholder="Company">
+    <input id="newCity" class="input" placeholder="City, ST" style="margin-top:6px">
+    <input id="newWebsite" class="input" placeholder="https://example.com" style="margin-top:6px">
+    <button id="btnAdd" class="btn" style="margin-top:6px">Add</button>
+    <div id="addMsg" class="small" style="margin-top:6px"></div>
+  </aside>
+
+  <main class="main">
+    <div id="page"></div>
+  </main>
+</div>
+
+<script id="seed" type="application/json">{"companies": [{"id": "servpro-billings", "name": "SERVPRO of Billings", "logo": "SP", "website": "https://www.servpro.com/locations/mt/servpro-of-billings", "city": "Billings, MT", "threatRank": 1, "kpis": {"seo": 78, "rating": 4.7, "reviews": 265, "adSpend": 20000, "localPack": 1, "price": 4.0, "quality": 4.7}, "mix": {"seo": 42, "paid": 38, "social": 10, "referral": 10}, "ratingBreakdown": {"5\u2605": 210, "4\u2605": 35, "3\u2605": 10, "2\u2605": 5, "1\u2605": 5}, "keywords": [["water damage billings", 1], ["fire restoration billings", 1], ["mold remediation billings", 2]], "trends": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "adSpend": [19000, 19500, 20000, 20500, 20500, 21000], "seo": [75, 76, 77, 78, 78, 78], "localPack": [1, 1, 1, 1, 1, 1]}}, {"id": "servicemaster-bigsky", "name": "ServiceMaster by Big Sky", "logo": "SM", "website": "https://www.servicemasterrestore.com/servicemaster-by-big-sky-billings/", "city": "Billings, MT", "threatRank": 2, "kpis": {"seo": 70, "rating": 4.6, "reviews": 180, "adSpend": 12000, "localPack": 2, "price": 4.0, "quality": 4.5}, "mix": {"seo": 38, "paid": 40, "social": 12, "referral": 10}, "ratingBreakdown": {"5\u2605": 140, "4\u2605": 25, "3\u2605": 10, "2\u2605": 3, "1\u2605": 2}, "keywords": [["water damage billings", 3], ["mold removal billings", 2]], "trends": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "adSpend": [11500, 11800, 12000, 12200, 12000, 12500], "seo": [68, 68, 69, 70, 70, 70], "localPack": [2, 2, 2, 2, 2, 2]}}, {"id": "americlean", "name": "AmeriClean (You)", "logo": "AC", "website": "https://www.americlean9111.com", "city": "Billings, MT", "threatRank": 3, "kpis": {"seo": 34, "rating": 4.9, "reviews": 112, "adSpend": 3000, "localPack": 3, "price": 3.0, "quality": 4.5}, "mix": {"seo": 36, "paid": 18, "social": 20, "referral": 26}, "ratingBreakdown": {"5\u2605": 84, "4\u2605": 14, "3\u2605": 7, "2\u2605": 4, "1\u2605": 3}, "keywords": [["water damage billings", 9], ["mold remediation billings", 7]], "trends": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "adSpend": [2500, 2600, 2700, 2800, 2900, 3000], "seo": [28, 30, 31, 33, 34, 34], "localPack": [4, 4, 3, 3, 3, 3]}}, {"id": "alpha-omega", "name": "Alpha-Omega Disaster Restoration", "logo": "AO", "website": "https://www.alphaomegapros.com", "city": "Billings, MT", "threatRank": 4, "kpis": {"seo": 55, "rating": 4.8, "reviews": 95, "adSpend": 5000, "localPack": 3, "price": 3.0, "quality": 4.3}, "mix": {"seo": 40, "paid": 25, "social": 15, "referral": 20}, "ratingBreakdown": {"5\u2605": 78, "4\u2605": 10, "3\u2605": 5, "2\u2605": 1, "1\u2605": 1}, "keywords": [["water damage repair billings", 4], ["fire damage cleanup billings", 3]], "trends": {"months": ["Mar", "Apr", "May", "Jun", "Jul", "Aug"], "adSpend": [4500, 4700, 5000, 5000, 5100, 5200], "seo": [53, 53, 54, 55, 55, 55], "localPack": [3, 3, 3, 3, 3, 3]}}]}</script>
+<script id="econ" type="application/json">{"Water Damage": {"closeRate": 0.35, "grossMargin": 0.45, "avgTicket": 3500}, "Mold Remediation": {"closeRate": 0.3, "grossMargin": 0.5, "avgTicket": 4200}, "Fire Damage": {"closeRate": 0.25, "grossMargin": 0.4, "avgTicket": 8000}, "General Restoration": {"closeRate": 0.4, "grossMargin": 0.35, "avgTicket": 900}}</script>
+<script id="kwseed" type="application/json">[{"keyword": "water damage billings", "volume": 900, "cpc": 16.5, "intent": "Emergency", "service": "Water Damage"}, {"keyword": "water damage restoration billings", "volume": 550, "cpc": 14.2, "intent": "Emergency", "service": "Water Damage"}, {"keyword": "mold remediation billings", "volume": 300, "cpc": 11.3, "intent": "Service", "service": "Mold Remediation"}, {"keyword": "fire damage cleanup billings", "volume": 180, "cpc": 12.9, "intent": "Service", "service": "Fire Damage"}, {"keyword": "sewage cleanup billings", "volume": 110, "cpc": 13.5, "intent": "Emergency", "service": "Water Damage"}, {"keyword": "dry out service billings", "volume": 90, "cpc": 9.8, "intent": "Service", "service": "Water Damage"}, {"keyword": "smoke odor removal billings", "volume": 80, "cpc": 8.5, "intent": "Service", "service": "Fire Damage"}, {"keyword": "basement flood cleanup billings", "volume": 120, "cpc": 15.5, "intent": "Emergency", "service": "Water Damage"}]</script>
 <script>
+// ----- Data & Config -----
 var DATA = JSON.parse(document.getElementById('seed').textContent);
-var KEYWORDS = JSON.parse(document.getElementById('keywordsSeed').textContent);
-var LIVE = false;
-var API = function(){ return (window.API_BASE||'').replace(/\/$/,''); };
+var ECON = JSON.parse(document.getElementById('econ').textContent);
+var KWSEED = JSON.parse(document.getElementById('kwseed').textContent);
+var LIVE=false;
+var API_GIST = (window.KEYWORD_JSON_URL||'').trim(); // Optional: any JSON URL (GitHub raw, Gist, etc.)
 
-var fmt={money:function(v){return '$'+(Math.round(v).toLocaleString());}};
+// ----- Utils & Micro charts (SVG only) -----
+var fmt={money:(v)=>'$'+(Math.round(v).toLocaleString()), pct:(v)=> (Math.round(v*100))+'%', one:(n)=>Math.round(n)};
 function el(t,a){var e=document.createElement(t);a=a||{};for(var k in a){if(k==='class')e.className=a[k];else if(k==='html')e.innerHTML=a[k];else e.setAttribute(k,a[k]);}for(var i=2;i<arguments.length;i++){var ch=arguments[i];if(ch==null)continue;if(typeof ch==='string')e.appendChild(document.createTextNode(ch));else e.appendChild(ch);}return e;}
-function barChart(w,h,values,labels){var max=Math.max.apply(null,values.concat([1])),bw=Math.floor((w-40)/values.length)-6,x=30,b='';for(var i=0;i<values.length;i++){var v=values[i],bh=Math.max(2,Math.round((v/max)*(h-40))),y=h-bh-20;b+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+bh+'" rx="3" ry="3" fill="url(#g)"></rect>';b+='<text x="'+(x+bw/2)+'" y="'+(h-6)+'" fill="#9fb7cc" font-size="11" text-anchor="middle">'+(labels?labels[i]:'')+'</text>';x+=bw+8;}return '<svg width="'+w+'" height="'+h+'"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7afcff"/><stop offset="100%" stop-color="#4bb3fd"/></linearGradient></defs><rect x="0" y="0" width="'+w+'" height="'+h+'" rx="10" ry="10" fill="#0c1421" stroke="#1a2a45"/>'+b+'</svg>';}
-function lineChart(labels,series,w,h,title){w=w||520;h=h||220;title=title||'Timeline';var pad=36,max=Math.max.apply(null,series),min=Math.min.apply(null,series),range=(max-min)||1;function sx(i){return pad+(i/(labels.length-1))*(w-2*pad);}function sy(v){return h-pad-((v-min)/range)*(h-2*pad);}var p='';for(var i=0;i<series.length;i++){var x=sx(i),y=sy(series[i]);p+=(i?' L':'M')+x+' '+y;}var dots='';for(var j=0;j<series.length;j++){dots+='<circle cx="'+sx(j)+'" cy="'+sy(series[j])+'" r="3" fill="#7afcff" stroke="#14304f"/>';}return '<svg width="'+w+'" height="'+h+'"><rect x="0" y="0" width="'+w+'" height="'+h+'" rx="10" ry="10" fill="#0c1421" stroke="#1a2a45"/><path d="'+p+'" fill="none" stroke="#7afcff" stroke-width="2"/>'+dots+'<text x="'+(w/2)+'" y="'+(h-8)+'" fill="#9fb7cc" font-size="12" text-anchor="middle">'+title+'</text></svg>';}
+function bar(w,h,vals,labels){var m=Math.max.apply(null,vals.concat([1])),bw=Math.floor((w-40)/vals.length)-6,x=30,b='';for(var i=0;i<vals.length;i++){var v=vals[i],bh=Math.max(2,Math.round((v/m)*(h-40))),y=h-bh-20;b+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+bh+'" rx="3" ry="3" fill="url(#g)"></rect>';b+='<text x="'+(x+bw/2)+'" y="'+(h-6)+'" fill="#9fb7cc" font-size="11" text-anchor="middle">'+(labels?labels[i]:'')+'</text>';x+=bw+8;}return '<svg width="'+w+'" height="'+h+'"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7afcff"/><stop offset="100%" stop-color="#4bb3fd"/></linearGradient></defs><rect x="0" y="0" width="'+w+'" height="'+h+'" rx="10" ry="10" fill="#0c1421" stroke="#1a2a45"/>'+b+'</svg>';}
+function line(labels,series,w,h,title){w=w||520;h=h||220;title=title||'';var pad=36,max=Math.max.apply(null,series),min=Math.min.apply(null,series),range=(max-min)||1;function sx(i){return pad+(i/(labels.length-1))*(w-2*pad);}function sy(v){return h-pad-((v-min)/range)*(h-2*pad);}var p='';for(var i=0;i<series.length;i++){var x=sx(i),y=sy(series[i]);p+=(i?' L':'M')+x+' '+y;}var dots='';for(var j=0;j<series.length;j++){dots+='<circle cx="'+sx(j)+'" cy="'+sy(series[j])+'" r="3" fill="#7afcff" stroke="#14304f"/>'; }return '<svg width="'+w+'" height="'+h+'"><rect x="0" y="0" width="'+w+'" height="'+h+'" rx="10" ry="10" fill="#0c1421" stroke="#1a2a45"/><path d="'+p+'" fill="none" stroke="#7afcff" stroke-width="2"/>'+dots+'<text x="'+(w/2)+'" y="'+(h-8)+'" fill="#9fb7cc" font-size="12" text-anchor="middle">'+title+'</text></svg>';}
 
-function threatPill(n){return el('span',{class:'pill'+(n<=2?' warn':'')},'Threat #'+n);}
-function companyItem(c){var k=c.kpis;return el('div',{class:'company',onclick:function(){openDetail(c.id);}},
-  el('div',{class:'logo'},c.logo||'?'),
-  el('div',null,
-    el('div',null,el('b',null,c.name),' ',threatPill(c.threatRank)),
-    el('div',{class:'tiny'},(c.website?c.website+' • ':'')+(c.city||'')),
-    el('div',null,
-      el('span',{class:'kpi'},'SEO ',el('b',null,String(k.seo))),
-      el('span',{class:'kpi'},'Rating ',el('b',null,String(k.rating))),
-      el('span',{class:'kpi'},'Reviews ',el('b',null,String(k.reviews))),
-      el('span',{class:'kpi'},'Ads ',el('b',null,fmt.money(k.adSpend)))
-    )));}
-
-function renderList(list){var wrap=document.getElementById('companyList');wrap.innerHTML='';(list||DATA.companies).slice().sort(function(a,b){return a.threatRank-b.threatRank;}).forEach(function(c){wrap.appendChild(companyItem(c));});}
-
-// Strategic engine
-function planFor(c, my){
-  var base = Math.max(2500, Math.round((c.kpis.adSpend*0.6) + (c.kpis.seo*35) + (c.kpis.reviews*4)));
-  var mix = {PPC:0, LocalSEO:0, LSAs:0, PaidSocial:0, CRO:0};
-  if (c.kpis.localPack<=2){ mix.PPC=0.40; mix.LSAs=0.25; mix.LocalSEO=0.20; mix.PaidSocial=0.10; mix.CRO=0.05; }
-  else if (c.kpis.seo >= 60){ mix.PPC=0.35; mix.LSAs=0.20; mix.LocalSEO=0.25; mix.PaidSocial=0.10; mix.CRO=0.10; }
-  else { mix.PPC=0.30; mix.LSAs=0.20; mix.LocalSEO=0.30; mix.PaidSocial=0.10; mix.CRO=0.10; }
-  if (my.kpis.rating > c.kpis.rating){ mix.LocalSEO += 0.05; mix.PPC -= 0.05; }
-  var s = mix.PPC+mix.LocalSEO+mix.LSAs+mix.PaidSocial+mix.CRO; for (var k in mix){ mix[k]=+(mix[k]/s).toFixed(2); }
-  var tactics = [
-    "GBP: add 10+ project-specific photos; weekly posts; Q&A seeding for water/fire/mold.",
-    "Reviews: target +20 in 60 days; automate SMS/email; respond to all within 24h.",
-    "PPC: exact/intents for emergency terms; dayparting 6pm–7am bid boost; call-only ads at night.",
-    "LSAs: ensure background checks; dispute low-quality leads; bid more on 'water emergency' category.",
-    "SEO: service pages for 'sewage cleanup', 'dry-out', 'smoke odor'; add city + suburb pages.",
-    "CRO: header phone sticky; 60-min arrival promise; social proof near CTA; financing badge.",
-    "Paid Social: radius 20mi; storm/event alerts; before/after reels; lead form with 'free moisture check'."
-  ];
-  return {budget:base, mix:mix, tactics:tactics};
+// ----- Keyword sourcing (backend-free) -----
+// Priority: JSON URL (gist/raw) -> localStorage cache -> seed
+async function fetchKeywords(city){
+  const cacheKey='kw:'+city;
+  if(LIVE && API_GIST){
+    try{
+      const r = await fetch(API_GIST, {mode:'cors'});
+      if(r.ok){
+        const json = await r.json();
+        if(Array.isArray(json)){ localStorage.setItem(cacheKey, JSON.stringify(json)); return json; }
+        if(Array.isArray(json.keywords)){ localStorage.setItem(cacheKey, JSON.stringify(json.keywords)); return json.keywords; }
+      }
+    }catch(e){ /* fall back */ }
+  }
+  try{
+    const cached = localStorage.getItem(cacheKey);
+    if(cached) return JSON.parse(cached);
+  }catch(e){}
+  return KWSEED; // fallback
 }
 
-// Keywords (live or fallback)
-async function loadKeywords(city){
-  if (LIVE && API()){ try{ var r = await fetch(API() + '/api/keywords?location='+encodeURIComponent(city||''), {mode:'cors'}); if(r.ok){ var json = await r.json(); return json.keywords || KEYWORDS; } }catch(e){} }
-  return KEYWORDS;
+// Trends embed (no key, relative) — returns an iframe node
+function trendsEmbed(query, geo){
+  var src = 'https://trends.google.com/trends/embed/explore?q='+encodeURIComponent(query)+'&geo='+(geo||'US-MT');
+  var ifr = el('iframe',{src:src, width:'100%', height:'360', style:'border:0;background:#0f1622;border-radius:12px'});
+  return ifr;
 }
 
-// Views
-function openDetail(id){
-  var c = DATA.companies.filter(function(x){return x.id===id;})[0], k=c.kpis;
-  var detail=document.getElementById('detail'); detail.innerHTML='';
-  var tabs=el('div',{class:'tabs'}), content=el('div',{class:'content'}); var active='Overview';
-  ['Overview','Marketing','SEO & Keywords','Reviews & Social','Benchmarks','Counter-Strategy','Local Keyword Demand','Full Report'].forEach(function(n){
-    tabs.appendChild(el('div',{class:'tab'+(n===active?' active':''),onclick:function(){active=n;for(var i=0;i<tabs.children.length;i++){tabs.children[i].classList.toggle('active',tabs.children[i].textContent===n);} render();}}, n));
-  });
-  detail.appendChild(el('div',{style:'display:flex;justify-content:space-between;gap:12px;padding:14px;border-bottom:1px solid #1a253a;background:linear-gradient(180deg,#0e1522,#0c1320)'},
-    el('div',null, el('div',null, el('b',null,c.name),' ',threatPill(c.threatRank)), el('div',{class:'tiny'}, (c.website?c.website+' • ':'')+(c.city||''))),
-    el('div',null, el('span',{class:'pill'},'SEO '+k.seo),' ',el('span',{class:'pill'},'Rating '+k.rating),' ',el('span',{class:'pill'},'Reviews '+k.reviews),' ',el('span',{class:'pill'},'Local Pack '+k.localPack))
+// ----- Pages -----
+function navActivate(page){
+  document.querySelectorAll('.side-item').forEach(n=> n.classList.toggle('active', n.getAttribute('data-page')===page));
+  render(page);
+}
+
+function pageDashboard(){
+  const wrap=el('div');
+  const all=DATA.companies.slice().sort((a,b)=>a.threatRank-b.threatRank);
+  const lead=all[0], me=DATA.companies.find(x=>x.id==='americlean')||all[0];
+  const row=el('div',{class:'row3'});
+  row.appendChild(el('div',{class:'kpi'}, el('div',null,'Top Threat'), el('b',null,lead.name), el('div',{class:'small'}, 'Local Pack #'+lead.kpis.localPack+' • SEO '+lead.kpis.seo)));
+  row.appendChild(el('div',{class:'kpi'}, el('div',null,'AmeriClean Rating'), el('b',null,String(me.kpis.rating)), el('div',{class:'small'}, me.kpis.reviews+' reviews')));
+  row.appendChild(el('div',{class:'kpi'}, el('div',null,'Spend Gap (vs top)'), el('b',null,fmt.money(Math.max(0,lead.kpis.adSpend - me.kpis.adSpend||0))), el('div',{class:'small'}, 'Monthly')));
+  wrap.appendChild(row);
+
+  const charts=el('div',{class:'row'});
+  charts.appendChild(el('div',{class:'card'}, el('h3',null,'Top Threat Ad Spend (6 mo)'), el('div',{html:line(lead.trends.months, lead.trends.adSpend, 520, 240)})));
+  charts.appendChild(el('div',{class:'card'}, el('h3',null,'AmeriClean SEO (6 mo)'), el('div',{html:line(me.trends.months, me.trends.seo||[0], 520, 240)})));
+  wrap.appendChild(charts);
+  return wrap;
+}
+
+function companyTile(c){
+  const k=c.kpis;
+  return el('div',{class:'card'},
+    el('div',null, el('b',null,c.name), ' ', el('span',{class:'badge'}, c.city||'')),
+    el('div',{class:'small'}, c.website||''),
+    el('div',{html:bar(320,160,[k.seo, k.rating*20, k.reviews/10, k.adSpend/500], ['SEO','★','Rev','Ad$'])}),
+    el('div',null, el('span',{class:'pill'}, 'Threat #'+c.threatRank), ' ', el('span',{class:'pill'}, 'Local Pack '+k.localPack))
+  );
+}
+
+function pageCompetitors(){
+  const wrap=el('div');
+  const grid=el('div',{class:'row3'});
+  DATA.companies.slice().sort((a,b)=>a.threatRank-b.threatRank).forEach(c=> grid.appendChild(companyTile(c)));
+  wrap.appendChild(grid);
+
+  // Detail + counter
+  const sel = DATA.companies[0];
+  wrap.appendChild(el('div',{class:'card', style:'margin-top:12px'},
+    el('h3',null,'Counter-Strategy (AmeriClean vs '+sel.name+')'),
+    counterBlock(sel)
   ));
-  detail.appendChild(tabs); detail.appendChild(content);
-
-  function overview(){var box=el('div');var grid=el('div',{class:'grid3'});
-    var months=c.trends.months||["M1","M2","M3","M4","M5","M6"];
-    grid.appendChild(el('div',null,el('h3',null,'Ad Spend (6 mo)'),el('div',{html:lineChart(months,c.trends.adSpend||[0],360,220)})));
-    grid.appendChild(el('div',null,el('h3',null,'SEO (6 mo)'),el('div',{html:lineChart(months,c.trends.seo||[0],360,220)})));
-    grid.appendChild(el('div',null,el('h3',null,'Local Pack (lower is better)'),el('div',{html:lineChart(months,c.trends.localPack||[0],360,220)})));
-    box.appendChild(grid);
-    var tbl=el('table');tbl.innerHTML='<tr><th style="width:240px">Metric</th><th>Value</th></tr>'+'<tr><td>Threat Rank</td><td>#'+c.threatRank+'</td></tr><tr><td>SEO Authority</td><td>'+k.seo+'</td></tr><tr><td>Avg Review Rating</td><td>'+k.rating+'</td></tr><tr><td>Review Volume</td><td>'+k.reviews+'</td></tr><tr><td>Est. Monthly Ad Spend</td><td>'+fmt.money(k.adSpend)+'</td></tr><tr><td>Google Local Pack Rank</td><td>'+k.localPack+'</td></tr>'; box.appendChild(tbl); return box;}
-  function marketing(){var wrap=el('div');var top=el('div',{class:'grid3'});
-    top.appendChild(el('div',null,el('h3',null,'Channel Mix (Observed)'),el('div',{html:barChart(360,200,Object.values(c.mix||{}),Object.keys(c.mix||{}))})));
-    wrap.appendChild(top); return wrap; }
-  function seo(){var box=el('div'); box.appendChild(el('h3',null,'Keywords (approx.)')); var tbl=el('table'); tbl.innerHTML='<tr><th>Keyword</th><th>Rank</th><th>Intent</th></tr>'; (c.keywords||[]).forEach(function(pair){var kw=pair[0],rank=pair[1]; var tr=el('tr'); tr.appendChild(el('td',null,kw)); tr.appendChild(el('td',null,String(rank))); tr.appendChild(el('td',null, (/near|billings|mt/i.test(kw)?'Local':'Service'))); tbl.appendChild(tr);}); box.appendChild(tbl); return box; }
-  function reviews(){var box=el('div'); var rbk=c.ratingBreakdown||{}; box.appendChild(el('h3',null,'Ratings Distribution')); box.appendChild(el('div',{html:barChart(520,220,Object.values(rbk),Object.keys(rbk))})); return box; }
-  function benchmarks(){var box=el('div'); box.appendChild(el('h3',null,'Benchmarks')); var tbl=el('table'); tbl.innerHTML='<tr><th>Company</th><th>SEO</th><th>Rating</th><th>Reviews</th></tr>'; DATA.companies.forEach(function(co){var tr=el('tr'); tr.appendChild(el('td',null,co.name)); tr.appendChild(el('td',null,String(co.kpis.seo))); tr.appendChild(el('td',null,String(co.kpis.rating))); tr.appendChild(el('td',null,String(co.kpis.reviews))); tbl.appendChild(tr); }); box.appendChild(tbl); return box; }
-  function counter(){var my = DATA.companies.filter(function(x){return x.id==='americlean';})[0] || c; var plan = planFor(c, my);
-    var box=el('div'); box.appendChild(el('h3',null,'Counter-Strategy for AmeriClean vs '+c.name));
-    var grid=el('div',{class:'grid2'});
-    grid.appendChild(el('div',null, el('h3',null,'Recommended Monthly Budget'), el('div',{class:'pill'}, fmt.money(plan.budget)), el('div',{class:'tiny'},'Derived from competitor ad spend, SEO, and review strength.')));
-    var mixLabels=Object.keys(plan.mix), mixVals=mixLabels.map(function(k){return Math.round(plan.budget*plan.mix[k]);});
-    grid.appendChild(el('div',null, el('h3',null,'Spend Allocation'), el('div',{html:barChart(420,220,mixVals,mixLabels)})));
-    box.appendChild(grid);
-    box.appendChild(el('h3',null,'Tactics (Do these first)'));
-    var ol=el('ol'); plan.tactics.forEach(function(t){ol.appendChild(el('li',null,t));}); box.appendChild(ol);
-    box.appendChild(el('h3',null,'Tracking & Targets')); var tl=el('ul'); ['CPL target: $110–$160 for emergency calls','GBP actions: +25% in 60 days','Review velocity: +10/mo with 4.8★+','Landing page conv rate: 12–18% (emergency)'].forEach(function(t){tl.appendChild(el('li',null,t));}); box.appendChild(tl);
-    return box;
-  }
-  async function kwDemand(){var box=el('div'); box.appendChild(el('h3',null,'Local Keyword Demand — '+(c.city||'Your Area')));
-    var kw = await loadKeywords(c.city||'Billings, MT');
-    var tbl=el('table'); tbl.innerHTML='<tr><th>Keyword</th><th>Monthly Volume</th><th>Est. CPC</th><th>Intent</th></tr>';
-    kw.forEach(function(row){var tr=el('tr'); tr.appendChild(el('td',null,row.keyword)); tr.appendChild(el('td',null,String(row.volume))); tr.appendChild(el('td',null,'$'+row.cpc.toFixed(2))); tr.appendChild(el('td',null,row.intent)); tbl.appendChild(tr);});
-    box.appendChild(tbl);
-    var top=kw.slice(0,5); var labels=top.map(function(x){return x.keyword.length>16? x.keyword.slice(0,16)+'…' : x.keyword;}); var vals=top.map(function(x){return x.volume;});
-    box.appendChild(el('h3',null,'Top Search Volume (bar)'));
-    box.appendChild(el('div',{html:barChart(640,240,vals,labels)}));
-    return box;
-  }
-  function full(){var b=el('div'); b.appendChild(overview()); b.appendChild(marketing()); b.appendChild(seo()); b.appendChild(reviews()); b.appendChild(benchmarks()); b.appendChild(counter()); return b; }
-  function render(){ content.innerHTML=''; var views={'Overview':overview,'Marketing':marketing,'SEO & Keywords':seo,'Reviews & Social':reviews,'Benchmarks':benchmarks,'Counter-Strategy':counter,'Local Keyword Demand':kwDemand,'Full Report':full}; var v=views[active]; var out=v(); if(out && out.then){ out.then(function(node){ content.innerHTML=''; content.appendChild(node); }); } else { content.appendChild(out); } }
-  render();
+  return wrap;
 }
 
+function econTable(){
+  const t=el('table'); t.innerHTML='<tr><th>Service</th><th>Close Rate</th><th>Gross Margin</th><th>Avg Ticket</th><th>Gross Profit/Job</th></tr>';
+  Object.keys(ECON).forEach(s=>{
+    const e=ECON[s], gp = e.grossMargin * e.avgTicket;
+    const tr=el('tr'); tr.appendChild(el('td',null,s)); tr.appendChild(el('td',null, fmt.pct(e.closeRate)));
+    tr.appendChild(el('td',null, fmt.pct(e.grossMargin))); tr.appendChild(el('td',null, fmt.money(e.avgTicket)));
+    tr.appendChild(el('td',null, fmt.money(gp))); t.appendChild(tr);
+  });
+  return t;
+}
+
+function counterPlanFor(c){
+  const my = DATA.companies.find(x=>x.id==='americlean') || c;
+  // Spend baseline: conservative
+  const base = Math.max(2500, Math.round((c.kpis.adSpend*0.55) + (c.kpis.seo*32) + (c.kpis.reviews*3.5)));
+  // Channel mix
+  let mix={PPC:0.34, LSAs:0.20, LocalSEO:0.26, PaidSocial:0.10, CRO:0.10};
+  if(c.kpis.localPack<=2){ mix={PPC:0.40,LSAs:0.25,LocalSEO:0.20,PaidSocial:0.10,CRO:0.05}; }
+  if(my.kpis.rating > c.kpis.rating){ mix.LocalSEO+=0.05; mix.PPC-=0.05; }
+  // Normalize
+  const s=mix.PPC+mix.LSAs+mix.LocalSEO+mix.PaidSocial+mix.CRO; Object.keys(mix).forEach(k=> mix[k]=+(mix[k]/s).toFixed(2));
+  // CPL targets per service (conservative)
+  const cplTargets={};
+  Object.keys(ECON).forEach(sv=>{
+    const e=ECON[sv];
+    const profitPerJob = e.grossMargin * e.avgTicket;
+    const maxCAC = profitPerJob * 0.5; // invest up to 50% of gross profit per job
+    const cpl = Math.round((maxCAC * e.closeRate)/3); // divide by 3 to stay conservative (lead->appt->job)
+    cplTargets[sv]=cpl;
+  });
+  return {budget:base, mix:mix, cpl:cplTargets};
+}
+
+function counterBlock(c){
+  const plan = counterPlanFor(c);
+  const wrap=el('div');
+  const row=el('div',{class:'row'});
+  row.appendChild(el('div',{class:'kpi'}, el('div',null,'Recommended Monthly Budget'), el('b',null, fmt.money(plan.budget)), el('div',{class:'small'},'Conservative, tied to competitor strength')));
+  const labels=Object.keys(plan.mix), vals=labels.map(k=> Math.round(plan.budget*plan.mix[k]));
+  row.appendChild(el('div',{class:'kpi'}, el('div',null,'Spend Allocation'), el('div',{html:bar(420,160, vals, labels)})));
+  wrap.appendChild(row);
+
+  wrap.appendChild(el('div',{class:'row'},
+    el('div',{class:'card'}, el('h3',null,'Service Economics (Conservative)'), econTable()),
+    el('div',{class:'card'}, el('h3',null,'CPL Targets by Service'), cplTable(plan.cpl))
+  ));
+  wrap.appendChild(el('div',{class:'card'}, el('h3',null,'Tactics'),
+    tacticList(c)
+  ));
+  return wrap;
+}
+
+function cplTable(cpl){ const t=el('table'); t.innerHTML='<tr><th>Service</th><th>Max CPL (target)</th></tr>';
+  Object.keys(cpl).forEach(sv=>{ const tr=el('tr'); tr.appendChild(el('td',null,sv)); tr.appendChild(el('td',null,'$'+cpl[sv])); t.appendChild(tr); });
+  return t;
+}
+
+function tacticList(c){
+  const ul=el('ul'); [
+    'GBP: add project photos weekly; Q&A seeding for water/fire/mold; services/badge completeness 100%.',
+    'Reviews: +20 in 60 days; automated SMS/email; “review us” NFC card; reply to all within 24h.',
+    'PPC: exact match for emergency terms; daypart 6pm–7am bid +35%; call-only ads at night; negative match “jobs/salaries”.',
+    'LSAs: background checks complete; dispute low-quality leads; bid more on water emergency; enable messaging.',
+    'SEO: build city + suburb pages; service pages for sewage cleanup, dry-out, smoke odor; internal link hub from homepage.',
+    'CRO: sticky call button; hero with 60‑min arrival promise; trust badges; before/after gallery; financing badge.',
+    'Paid Social: 20mi radius; storm alert templates; before/after reels; lead form with “free moisture check”.'
+  ].forEach(t=> ul.appendChild(el('li',null,t)));
+  return ul;
+}
+
+function pageKeywords(){
+  const wrap=el('div');
+  wrap.appendChild(el('div',{class:'row'},
+    el('div',{class:'card'},
+      el('h3',null,'Local Keyword Demand'),
+      el('div',{class:'small'},'Source order: JSON URL (Settings) → Cache → Seed'),
+      el('div',null, el('button',{class:'btn',id:'btnReload'},'Reload')),
+      el('div',{id:'kwTableWrap'})
+    ),
+    el('div',{class:'card'},
+      el('h3',null,'Google Trends (relative, no key)'),
+      el('div',{class:'small'},'Shows relative interest for top keyword'),
+      el('div',{id:'trendsWrap'})
+    )
+  ));
+  // Upload JSON section
+  wrap.appendChild(el('div',{class:'card', style:'margin-top:12px'},
+    el('h3',null,'Upload keywords JSON (optional)'),
+    el('div',{class:'small'},'Schema: [{"keyword":"water damage billings","volume":900,"cpc":16.5,"intent":"Emergency","service":"Water Damage"}, ...]'),
+    el('input',{type:'file',id:'fileInput',accept:'.json'})
+  ));
+  setTimeout(()=> loadKeywordsUI(), 0);
+  return wrap;
+}
+
+async function loadKeywordsUI(){
+  const city = (DATA.companies.find(x=>x.id==='americlean')||{city:'Billings, MT'}).city;
+  const kw = await fetchKeywords(city);
+  const wrap = document.getElementById('kwTableWrap'); wrap.innerHTML='';
+  const t=el('table'); t.innerHTML='<tr><th>Keyword</th><th>Monthly Volume</th><th>Est. CPC</th><th>Intent</th><th>Service</th></tr>';
+  kw.forEach(r=>{ const tr=el('tr'); tr.appendChild(el('td',null,r.keyword)); tr.appendChild(el('td',null,String(r.volume||0))); tr.appendChild(el('td',null, r.cpc ? '$'+r.cpc.toFixed(2) : '—')); tr.appendChild(el('td',null,r.intent||'')); tr.appendChild(el('td',null,r.service||'')); t.appendChild(tr); });
+  wrap.appendChild(t);
+  const top = kw.slice().sort((a,b)=>(b.volume||0)-(a.volume||0))[0] || {keyword:'water damage billings'};
+  const trends = document.getElementById('trendsWrap'); trends.innerHTML=''; trends.appendChild(trendsEmbed(top.keyword, 'US-MT'));
+  // Hook PPC planner cache
+  window.__KW_CACHE__ = kw;
+}
+
+function pagePlanner(){
+  const wrap=el('div');
+  wrap.appendChild(el('div',{class:'row'},
+    el('div',{class:'card'},
+      el('h3',null,'PPC Ad Group Plan'),
+      el('div',{id:'agWrap'}),
+      el('div',{class:'small'},'Derived from keyword list + CPL targets')
+    ),
+    el('div',{class:'card'},
+      el('h3',null,'Budget & Conversions Forecast'),
+      el('div',{id:'ppcForecast'})
+    )
+  ));
+  setTimeout(()=> buildPlanner(), 0);
+  return wrap;
+}
+
+function groupKeywords(kw){
+  const groups={};
+  kw.forEach(k=>{ const g = (k.service||'General Restoration'); (groups[g]=groups[g]||[]).push(k); });
+  return groups;
+}
+
+function buildPlanner(){
+  const kw = window.__KW_CACHE__ || KWSEED;
+  const groups = groupKeywords(kw);
+  const agWrap = document.getElementById('agWrap'); agWrap.innerHTML='';
+  const t=el('table'); t.innerHTML='<tr><th>Ad Group</th><th>Keywords</th><th>Bid Hint</th></tr>';
+  Object.keys(groups).forEach(g=>{
+    const list=groups[g].slice(0,10).map(r=> r.keyword).join(', ');
+    const avgCPC = Math.round((groups[g].reduce((s,r)=> s+(r.cpc||10),0) / groups[g].length) || 10);
+    const tr=el('tr'); tr.appendChild(el('td',null,g)); tr.appendChild(el('td',null,list)); tr.appendChild(el('td',null,'$'+avgCPC));
+    t.appendChild(tr);
+  });
+  agWrap.appendChild(t);
+
+  // Forecast
+  const plan = counterPlanFor(DATA.companies[0]);
+  // Assume 60% of PPC allocation goes to Water Damage group by default
+  const ppcBudget = Math.round(plan.budget * plan.mix.PPC);
+  const avgCPC = Math.round((kw.reduce((s,r)=> s+(r.cpc||10),0) / kw.length) || 10);
+  const estClicks = Math.max(1, Math.floor(ppcBudget / Math.max(1,avgCPC)));
+  const ctr = 0.06, convRate = 0.10; // conservative
+  const estLeads = Math.floor(estClicks * convRate);
+  const cpl = estLeads ? Math.round(ppcBudget/estLeads) : ppcBudget;
+  const fc=el('table'); fc.innerHTML='<tr><th>Budget</th><th>Avg CPC</th><th>Clicks</th><th>Conv. Rate</th><th>Leads</th><th>CPL</th></tr>'
+    +'<tr><td>'+fmt.money(ppcBudget)+'</td><td>$'+avgCPC+'</td><td>'+estClicks+'</td><td>'+Math.round(convRate*100)+'%</td><td>'+estLeads+'</td><td>$'+cpl+'</td></tr>';
+  document.getElementById('ppcForecast').innerHTML=''; document.getElementById('ppcForecast').appendChild(fc);
+}
+
+function pageSettings(){
+  const wrap=el('div');
+  wrap.appendChild(el('div',{class:'card'},
+    el('h3',null,'Keyword Source (no backend)'),
+    el('div',{class:'small'},'Optionally set a JSON URL (e.g., GitHub raw or Gist). The app will fetch it when Live is ON.'),
+    el('input',{id:'kwUrl',class:'input',placeholder:'https://raw.githubusercontent.com/.../keywords.json'}),
+    el('button',{id:'saveKw',class:'btn',style:'margin-top:8px'},'Save')
+  ));
+  wrap.appendChild(el('div',{class:'card',style:'margin-top:12px'},
+    el('h3',null,'Economics (read-only here — edit assets/config.js to change)'),
+    econTable()
+  ));
+  return wrap;
+}
+
+// ----- Router -----
+function render(page){
+  const host=document.getElementById('page'); host.innerHTML='';
+  const routes={dashboard:pageDashboard, competitors:pageCompetitors, keywords:pageKeywords, planner:pagePlanner, settings:pageSettings};
+  host.appendChild(routes[page||'dashboard']());
+}
+
+// ----- Init & Events -----
 function init(){
-  renderList();
-  var first = DATA.companies.slice().sort(function(a,b){return a.threatRank-b.threatRank;})[0]; if(first) openDetail(first.id);
-  document.getElementById('toggleLive').addEventListener('change', function(e){ LIVE = !!e.target.checked; });
-  document.getElementById('btnAdd').addEventListener('click', function(){
-    var name=document.getElementById('newName').value.trim();
-    var city=document.getElementById('newCity').value.trim();
-    var website=document.getElementById('newWebsite').value.trim();
-    if(!name||!city){document.getElementById('addMsg').textContent='Name + City required.';return;}
-    var id=name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-    if(DATA.companies.some(function(c){return c.id===id;})){document.getElementById('addMsg').textContent='That company exists.';return;}
-    var base={"id":id,"name":name,"logo":(name.split(' ').map(function(s){return s[0];}).join('').slice(0,3)).toUpperCase(),"website":website,"city":city,"threatRank":(DATA.companies.length+1),
+  // Sidebar nav
+  document.querySelectorAll('.side-item').forEach(n=> n.addEventListener('click', ()=> navActivate(n.getAttribute('data-page')) ));
+  // Search
+  document.getElementById('searchBox').addEventListener('input', (e)=>{
+    const s=e.target.value.trim().toLowerCase();
+    const grid=document.querySelector('.row3'); if(!grid) return;
+    if(!s){ return render('competitors'); }
+    const res = DATA.companies.filter(c=> c.name.toLowerCase().includes(s) || (c.city||'').toLowerCase().includes(s));
+    grid.innerHTML=''; res.forEach(c=> grid.appendChild(companyTile(c)));
+  });
+  // Live toggle
+  document.getElementById('toggleLive').addEventListener('change', (e)=>{ LIVE = !!e.target.checked; });
+  // Add competitor
+  document.getElementById('btnAdd').addEventListener('click', ()=>{
+    const name=document.getElementById('newName').value.trim();
+    const city=document.getElementById('newCity').value.trim();
+    const website=document.getElementById('newWebsite').value.trim();
+    if(!name||!city){ document.getElementById('addMsg').textContent='Name + City required.'; return; }
+    const id=name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    if(DATA.companies.some(c=> c.id===id)){ document.getElementById('addMsg').textContent='That company exists.'; return; }
+    const base={"id":id,"name":name,"logo":(name.split(' ').map(s=>s[0]).join('').slice(0,3)).toUpperCase(),"website":website,"city":city,"threatRank":(DATA.companies.length+1),
       "kpis":{"seo":0,"rating":0,"reviews":0,"adSpend":0,"localPack":0,"price":3,"quality":3},
       "mix":{"seo":25,"paid":25,"social":25,"referral":25},
       "ratingBreakdown":{"5★":0,"4★":0,"3★":0,"2★":0,"1★":0},
       "keywords":[],"trends":{"months":["Mar","Apr","May","Jun","Jul","Aug"],"adSpend":[0,0,0,0,0,0],"seo":[0,0,0,0,0,0],"localPack":[0,0,0,0,0,0]}
     };
-    DATA.companies.push(base); renderList(); openDetail(id);
-    document.getElementById('addMsg').textContent='Added locally.';
-    document.getElementById('newName').value=''; document.getElementById('newCity').value=''; document.getElementById('newWebsite').value='';
+    DATA.companies.push(base); document.getElementById('addMsg').textContent='Added locally.';
   });
-  document.getElementById('searchBox').addEventListener('input', function(e){ var s=e.target.value.trim().toLowerCase(); if(!s) return renderList(); renderList(DATA.companies.filter(function(c){return c.name.toLowerCase().includes(s) || (c.city||'').toLowerCase().includes(s);})); });
+  // Keywords page actions
+  document.addEventListener('click', (e)=>{
+    if(e.target && e.target.id==='btnReload'){ loadKeywordsUI(); }
+  });
+  document.addEventListener('change', (e)=>{
+    if(e.target && e.target.id==='fileInput'){
+      const file=e.target.files[0]; if(!file) return;
+      const reader=new FileReader();
+      reader.onload=()=>{ try{ const parsed=JSON.parse(reader.result); if(Array.isArray(parsed)){ window.__KW_CACHE__=parsed; render('keywords'); } }catch(err){} };
+      reader.readAsText(file);
+    }
+  });
+  document.addEventListener('click', (e)=>{
+    if(e.target && e.target.id==='saveKw'){
+      const v=document.getElementById('kwUrl').value.trim(); if(v){ window.KEYWORD_JSON_URL=v; alert('Saved in this session. To persist, set KEYWORD_JSON_URL in assets/config.js'); }
+    }
+  });
+  render('dashboard');
 }
+
 window.addEventListener('DOMContentLoaded', init);
 </script>
-</body></html>
+
+<!-- Data seeds -->
+</body>
+</html>
