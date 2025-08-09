@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Competitive Intel Hub — Live</title>
+<meta name="color-scheme" content="dark">
+<style>body{margin:0;background:#0b0f14;color:#e8f1f8;font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto}.pill{border:1px solid #2a3a58;background:#0d1522;color:#cfe3f7;padding:4px 8px;border-radius:999px}</style>
+<script src="assets/config.js"></script>
+</head>
+<body>
+<div style="padding:12px;display:flex;gap:8px;align-items:center">
+  <b>Live mode</b>
+  <label class="pill" style="display:flex;align-items:center;gap:6px">
+    <input id="liveToggle" type="checkbox"> Use API
+  </label>
+  <button id="btn" class="pill">Test Fetch</button>
+  <div id="msg" style="margin-left:8px;color:#9ab0c4"></div>
+</div>
+<script>
+(function(){
+  var msg = document.getElementById('msg');
+  var base = (window.API_BASE||'').trim();
+  document.getElementById('liveToggle').checked = !!base;
+  document.getElementById('btn').addEventListener('click', async function(){
+    if(!base){ msg.textContent = 'Set API_BASE in assets/config.js first.'; return; }
+    try{
+      const r = await fetch(base.replace(/\/$/,'') + '/api/health', {mode:'cors'});
+      msg.textContent = r.ok ? 'API reachable ✅' : ('API error: ' + r.status);
+    }catch(e){ msg.textContent = 'Fetch failed: ' + e.message; }
+  });
+})();
+</script>
+</body></html>

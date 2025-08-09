@@ -1,1 +1,1 @@
-window.CIH_CONFIG={API_BASE:"http://localhost:8080"}
+window.API_BASE = '' // e.g. 'https://your-backend.example.com'
