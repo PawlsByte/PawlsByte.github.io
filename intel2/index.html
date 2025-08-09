@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AmeriClean Intel Hub — Admin</title>
+<title>AmeriClean Intel Hub — Unified Admin</title>
 <meta name="color-scheme" content="dark">
 <style>
 :root{--bg:#0b0f14;--panel:#0f1622;--muted:#9ab0c4;--text:#e8f1f8;--line:#1a2740;--hi:#7afcff;--hi2:#4bb3fd;--good:#16c784;--warn:#ffcc00;--bad:#ff6b6b}
@@ -9,7 +9,7 @@
 a{color:#9ed0ff;text-decoration:none}
 .topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:10px 14px;background:#0d1420;border-bottom:1px solid #1a2740}
 .logo{width:28px;height:28px;border-radius:8px;background:#0e1726;display:grid;place-items:center;font-weight:700}
-.layout{display:grid;grid-template-columns:260px 1fr;gap:0;min-height:100dvh}
+.layout{display:grid;grid-template-columns:280px 1fr;gap:0;min-height:100dvh}
 .sidebar{background:#0e1522;border-right:1px solid #1a2740;padding:12px;position:sticky;top:48px;height:calc(100dvh - 48px);overflow:auto}
 .side-item{padding:8px 10px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid #1a2740;background:#0f1928}
 .side-item.active{outline:1px solid #30507a}
@@ -19,21 +19,24 @@ a{color:#9ed0ff;text-decoration:none}
 .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .kpi{display:flex;flex-direction:column;gap:4px;padding:10px;border:1px solid #1b2942;border-radius:12px;background:linear-gradient(180deg,#101827,#0f1726)}
 .pill{border:1px solid #2a3a58;background:#0d1522;color:#cfe3f7;padding:4px 8px;border-radius:999px}
-.pill.warn{border-color:#735b00;background:#2b2300;color:#ffe38a}
 .btn{cursor:pointer;padding:6px 10px;border-radius:8px;border:1px solid #28436a;background:#0f1a2a;color:#cfe3f7}
 .input{width:100%;padding:8px;border-radius:8px;border:1px solid #24324e;background:#0f1827;color:#dff0ff}
 table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #20314f}th{background:#0f1a2a;color:#bfe0ff;text-align:left}
 .small{font-size:12px;color:#9ab0c4}
 .badge{display:inline-block;padding:2px 6px;border-radius:6px;border:1px solid #204060;background:#132033}
+.section-title{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+hr{border:0;border-top:1px solid #1a2740;margin:12px 0}
 </style>
 <script src="assets/config.js"></script>
 </head>
 <body>
 <div class="topbar">
-  <div class="logo">AC</div><b>AmeriClean Intel Hub — Admin</b>
+  <div class="logo">AC</div><b>AmeriClean Intel Hub — Unified Admin</b>
   <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
     <input id="searchBox" class="input" style="width:280px" placeholder="Search competitors…">
-    <label class="pill" style="display:flex;align-items:center;gap:6px"><input id="toggleLive" type="checkbox"> Live (keywords)</label>
+    <label class="pill" style="display:flex;align-items:center;gap:6px"><input id="toggleLive" type="checkbox"> Live (keywords/providers)</label>
+    <button id="btnRecompile" class="btn">Recompile Master Plan</button>
+    <button id="btnDownload" class="btn">Download Master JSON</button>
   </div>
 </div>
 
@@ -42,9 +45,10 @@ table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px s
     <div class="small" style="margin:8px 0">Navigation</div>
     <div class="side-item active" data-page="dashboard">Dashboard</div>
     <div class="side-item" data-page="competitors">Competitors</div>
-    <div class="side-item" data-page="keywords">Local Keywords</div>
+    <div class="side-item" data-page="keywords">Keywords</div>
     <div class="side-item" data-page="planner">PPC Planner</div>
-    <div class="side-item" data-page="settings">Settings</div>
+    <div class="side-item" data-page="master">Master Strategy</div>
+    <div class="side-item" data-page="models">Models & Settings</div>
 
     <div class="small" style="margin:12px 0 6px">Add competitor</div>
     <input id="newName" class="input" placeholder="Company">
@@ -63,290 +67,332 @@ table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px s
 <script id="econ" type="application/json">{"Water Damage": {"closeRate": 0.35, "grossMargin": 0.45, "avgTicket": 3500}, "Mold Remediation": {"closeRate": 0.3, "grossMargin": 0.5, "avgTicket": 4200}, "Fire Damage": {"closeRate": 0.25, "grossMargin": 0.4, "avgTicket": 8000}, "General Restoration": {"closeRate": 0.4, "grossMargin": 0.35, "avgTicket": 900}}</script>
 <script id="kwseed" type="application/json">[{"keyword": "water damage billings", "volume": 900, "cpc": 16.5, "intent": "Emergency", "service": "Water Damage"}, {"keyword": "water damage restoration billings", "volume": 550, "cpc": 14.2, "intent": "Emergency", "service": "Water Damage"}, {"keyword": "mold remediation billings", "volume": 300, "cpc": 11.3, "intent": "Service", "service": "Mold Remediation"}, {"keyword": "fire damage cleanup billings", "volume": 180, "cpc": 12.9, "intent": "Service", "service": "Fire Damage"}, {"keyword": "sewage cleanup billings", "volume": 110, "cpc": 13.5, "intent": "Emergency", "service": "Water Damage"}, {"keyword": "dry out service billings", "volume": 90, "cpc": 9.8, "intent": "Service", "service": "Water Damage"}, {"keyword": "smoke odor removal billings", "volume": 80, "cpc": 8.5, "intent": "Service", "service": "Fire Damage"}, {"keyword": "basement flood cleanup billings", "volume": 120, "cpc": 15.5, "intent": "Emergency", "service": "Water Damage"}]</script>
 <script>
-// ----- Data & Config -----
+// ===== Data & Config =====
 var DATA = JSON.parse(document.getElementById('seed').textContent);
 var ECON = JSON.parse(document.getElementById('econ').textContent);
 var KWSEED = JSON.parse(document.getElementById('kwseed').textContent);
 var LIVE=false;
-var API_GIST = (window.KEYWORD_JSON_URL||'').trim(); // Optional: any JSON URL (GitHub raw, Gist, etc.)
 
-// ----- Utils & Micro charts (SVG only) -----
-var fmt={money:(v)=>'$'+(Math.round(v).toLocaleString()), pct:(v)=> (Math.round(v*100))+'%', one:(n)=>Math.round(n)};
+// Model provider registry (backend-free via public JSON URLs set in assets/config.js)
+var PROVIDERS = {
+  list: ['gpt5','gpt5pro','o3','gemini'],
+  urls: (window.PROVIDER_URLS || {}), // e.g., { gemini: 'https://raw.githubusercontent.com/.../gemini.json', ... }
+  cache: {} // providerName -> json
+};
+
+// ===== Utils & Microcharts =====
+var fmt={money:(v)=>'$'+(Math.round(v).toLocaleString()), pct:(v)=> (Math.round(v*100))+'%'};
 function el(t,a){var e=document.createElement(t);a=a||{};for(var k in a){if(k==='class')e.className=a[k];else if(k==='html')e.innerHTML=a[k];else e.setAttribute(k,a[k]);}for(var i=2;i<arguments.length;i++){var ch=arguments[i];if(ch==null)continue;if(typeof ch==='string')e.appendChild(document.createTextNode(ch));else e.appendChild(ch);}return e;}
 function bar(w,h,vals,labels){var m=Math.max.apply(null,vals.concat([1])),bw=Math.floor((w-40)/vals.length)-6,x=30,b='';for(var i=0;i<vals.length;i++){var v=vals[i],bh=Math.max(2,Math.round((v/m)*(h-40))),y=h-bh-20;b+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+bh+'" rx="3" ry="3" fill="url(#g)"></rect>';b+='<text x="'+(x+bw/2)+'" y="'+(h-6)+'" fill="#9fb7cc" font-size="11" text-anchor="middle">'+(labels?labels[i]:'')+'</text>';x+=bw+8;}return '<svg width="'+w+'" height="'+h+'"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7afcff"/><stop offset="100%" stop-color="#4bb3fd"/></linearGradient></defs><rect x="0" y="0" width="'+w+'" height="'+h+'" rx="10" ry="10" fill="#0c1421" stroke="#1a2a45"/>'+b+'</svg>';}
-function line(labels,series,w,h,title){w=w||520;h=h||220;title=title||'';var pad=36,max=Math.max.apply(null,series),min=Math.min.apply(null,series),range=(max-min)||1;function sx(i){return pad+(i/(labels.length-1))*(w-2*pad);}function sy(v){return h-pad-((v-min)/range)*(h-2*pad);}var p='';for(var i=0;i<series.length;i++){var x=sx(i),y=sy(series[i]);p+=(i?' L':'M')+x+' '+y;}var dots='';for(var j=0;j<series.length;j++){dots+='<circle cx="'+sx(j)+'" cy="'+sy(series[j])+'" r="3" fill="#7afcff" stroke="#14304f"/>'; }return '<svg width="'+w+'" height="'+h+'"><rect x="0" y="0" width="'+w+'" height="'+h+'" rx="10" ry="10" fill="#0c1421" stroke="#1a2a45"/><path d="'+p+'" fill="none" stroke="#7afcff" stroke-width="2"/>'+dots+'<text x="'+(w/2)+'" y="'+(h-8)+'" fill="#9fb7cc" font-size="12" text-anchor="middle">'+title+'</text></svg>';}
+function line(labels,series,w,h){w=w||520;h=h||220;var pad=36,max=Math.max.apply(null,series),min=Math.min.apply(null,series),range=(max-min)||1;function sx(i){return pad+(i/(labels.length-1))*(w-2*pad);}function sy(v){return h-pad-((v-min)/range)*(h-2*pad);}var p='';for(var i=0;i<series.length;i++){var x=sx(i),y=sy(series[i]);p+=(i?' L':'M')+x+' '+y;}var dots='';for(var j=0;j<series.length;j++){dots+='<circle cx="'+sx(j)+'" cy="'+sy(series[j])+'" r="3" fill="#7afcff" stroke="#14304f"/>';}return '<svg width="'+w+'" height="'+h+'"><rect x="0" y="0" width="'+w+'" height="'+h+'" rx="10" ry="10" fill="#0c1421" stroke="#1a2a45"/><path d="'+p+'" fill="none" stroke="#7afcff" stroke-width="2"/>'+dots+'</svg>';}
 
-// ----- Keyword sourcing (backend-free) -----
-// Priority: JSON URL (gist/raw) -> localStorage cache -> seed
+// ----- Keyword sourcing (backend-free): URL -> localStorage -> seed -----
 async function fetchKeywords(city){
   const cacheKey='kw:'+city;
-  if(LIVE && API_GIST){
+  if(LIVE && (window.KEYWORD_JSON_URL||'').trim()){
     try{
-      const r = await fetch(API_GIST, {mode:'cors'});
+      const r = await fetch(window.KEYWORD_JSON_URL.trim(), {mode:'cors'});
       if(r.ok){
         const json = await r.json();
-        if(Array.isArray(json)){ localStorage.setItem(cacheKey, JSON.stringify(json)); return json; }
-        if(Array.isArray(json.keywords)){ localStorage.setItem(cacheKey, JSON.stringify(json.keywords)); return json.keywords; }
+        const arr = Array.isArray(json) ? json : (json.keywords||[]);
+        if(arr.length){ localStorage.setItem(cacheKey, JSON.stringify(arr)); return arr; }
       }
-    }catch(e){ /* fall back */ }
+    }catch(e){}
   }
-  try{
-    const cached = localStorage.getItem(cacheKey);
-    if(cached) return JSON.parse(cached);
-  }catch(e){}
-  return KWSEED; // fallback
+  try{ const cached = localStorage.getItem(cacheKey); if(cached) return JSON.parse(cached); }catch(e){}
+  return KWSEED;
 }
 
-// Trends embed (no key, relative) — returns an iframe node
-function trendsEmbed(query, geo){
-  var src = 'https://trends.google.com/trends/embed/explore?q='+encodeURIComponent(query)+'&geo='+(geo||'US-MT');
-  var ifr = el('iframe',{src:src, width:'100%', height:'360', style:'border:0;background:#0f1622;border-radius:12px'});
-  return ifr;
+// ----- Strategy engine (this app's local "gpt5" plan) -----
+function localPlanForCompetitor(c){
+  var my = DATA.companies.find(x=>x.id==='americlean') || c;
+  var budget = Math.max(2500, Math.round((c.kpis.adSpend*0.55) + (c.kpis.seo*32) + (c.kpis.reviews*3.5)));
+  var mix={PPC:0.34,LSAs:0.20,LocalSEO:0.26,PaidSocial:0.10,CRO:0.10};
+  if(c.kpis.localPack<=2){ mix={PPC:0.40,LSAs:0.25,LocalSEO:0.20,PaidSocial:0.10,CRO:0.05}; }
+  if(my.kpis.rating > c.kpis.rating){ mix.LocalSEO+=0.05; mix.PPC-=0.05; }
+  var s=mix.PPC+mix.LSAs+mix.LocalSEO+mix.PaidSocial+mix.CRO; Object.keys(mix).forEach(k=> mix[k]=+(mix[k]/s).toFixed(2));
+  var cpl={}; Object.keys(ECON).forEach(sv=>{ var e=ECON[sv], gp=e.grossMargin*e.avgTicket; var maxCAC=gp*0.5; cpl[sv]=Math.round((maxCAC*e.closeRate)/3); });
+  var tactics=[
+    "GBP: weekly project photos; Q&A for water/mold/fire; 100% profile completeness.",
+    "Reviews: +20 in 60 days; SMS/email automation; reply <24h; display on site.",
+    "PPC: exact match emergency terms; daypart 6pm–7am bid +35%; call-only at night; negatives for jobs/salary.",
+    "LSAs: ensure background checks; dispute low-quality; prioritize water emergency category.",
+    "SEO: service pages for sewage cleanup, dry-out, smoke odor; city + suburb pages; internal linking hub.",
+    "CRO: sticky call CTA; 60‑min arrival promise; trust badges; financing badge; before/after gallery.",
+    "Paid Social: 20mi radius; storm alerts; before/after reels; lead form with moisture check."
+  ];
+  return {budget:budget, mix:mix, cpl:cpl, tactics:tactics};
 }
 
-// ----- Pages -----
-function navActivate(page){
-  document.querySelectorAll('.side-item').forEach(n=> n.classList.toggle('active', n.getAttribute('data-page')===page));
-  render(page);
+// ----- Provider ingestion (Gemini, o3, etc.) -----
+// Expected JSON shape (flexible):
+// {
+//   provider: "gemini",
+//   competitors: { "<id>": { budget: number, mix: {PPC:..}, tactics:[], keywords:[{keyword,volume,cpc,service,intent}] } },
+//   master: { notes:[], priorities:[], budget:number, mix:{...} }
+// }
+async function loadProvider(name){
+  // Prefer URL when LIVE ON, else localStorage, else cache or empty
+  const key='provider:'+name;
+  if(LIVE && PROVIDERS.urls[name]){
+    try{
+      const r=await fetch(PROVIDERS.urls[name], {mode:'cors'});
+      if(r.ok){ const json=await r.json(); PROVIDERS.cache[name]=json; localStorage.setItem(key, JSON.stringify(json)); return json; }
+    }catch(e){}
+  }
+  try{ const cached=localStorage.getItem(key); if(cached){ PROVIDERS.cache[name]=JSON.parse(cached); return PROVIDERS.cache[name]; } }catch(e){}
+  return PROVIDERS.cache[name]||null;
 }
 
+// ----- Aggregation logic -----
+function aggMedian(nums){ const arr=nums.filter(n=>typeof n==='number').slice().sort((a,b)=>a-b); if(!arr.length) return 0; const m=Math.floor(arr.length/2); return arr.length%2?arr[m]:Math.round((arr[m-1]+arr[m])/2); }
+function aggMix(mixes){
+  const sum={PPC:0,LSAs:0,LocalSEO:0,PaidSocial:0,CRO:0};
+  mixes.forEach(m=>{ if(!m) return; Object.keys(sum).forEach(k=> sum[k]+= (m[k]||0)); });
+  const cnt=Math.max(1, mixes.length); Object.keys(sum).forEach(k=> sum[k]=+(sum[k]/cnt).toFixed(2));
+  const s=sum.PPC+sum.LSAs+sum.LocalSEO+sum.PaidSocial+sum.CRO; Object.keys(sum).forEach(k=> sum[k]= s? +(sum[k]/s).toFixed(2):0);
+  return sum;
+}
+function dedupeText(arr){ const seen={}; return (arr||[]).filter(t=>{var k=(t||'').toLowerCase().trim(); if(!k||seen[k]) return false; seen[k]=1; return true;}); }
+function unionKeywords(lists){
+  const map={};
+  lists.forEach(L=> (L||[]).forEach(r=>{
+    const key=(r.keyword||'').toLowerCase();
+    if(!key) return;
+    if(!map[key]) map[key]=Object.assign({}, r);
+    else{
+      map[key].volume=Math.max(map[key].volume||0, r.volume||0);
+      map[key].cpc=Math.max(map[key].cpc||0, r.cpc||0);
+      map[key].intent=map[key].intent||r.intent;
+      map[key].service=map[key].service||r.service;
+    }
+  }));
+  return Object.values(map).sort((a,b)=>(b.volume||0)-(a.volume||0));
+}
+
+async function recompileMaster(){
+  // Load providers (if any)
+  const loaded = {};
+  for(const name of PROVIDERS.list){ loaded[name] = await loadProvider(name); }
+  // Build merged per-competitor plans
+  const merged = {};
+  for(const c of DATA.companies){
+    const parts = [];
+    // local engine first
+    parts.push({provider:'gpt5-local', plan: localPlanForCompetitor(c), keywords: []});
+    // providers
+    for(const name of PROVIDERS.list){
+      const d=loaded[name];
+      if(d && d.competitors && d.competitors[c.id]){
+        const p=d.competitors[c.id], kws=(p.keywords||[]);
+        parts.push({provider:name, plan:{budget:p.budget, mix:p.mix, cpl:p.cpl, tactics:p.tactics}, keywords:kws});
+      }
+    }
+    // aggregate
+    const budgets = parts.map(p=> p.plan && p.plan.budget).filter(Boolean);
+    const mixes = parts.map(p=> p.plan && p.plan.mix).filter(Boolean);
+    const tactics = dedupeText([].concat.apply([], parts.map(p=> (p.plan&&p.plan.tactics)||[] )));
+    const kwAll = unionKeywords(parts.map(p=> p.keywords).concat([KWSEED]));
+    const budget = aggMedian(budgets);
+    const mix = aggMix(mixes);
+    merged[c.id]={ budget:budget, mix:mix, tactics:tactics, keywords:kwAll, byModel:parts };
+  }
+  // Master plan
+  const masterBudget = aggMedian(Object.values(merged).map(m=>m.budget));
+  const masterMix = aggMix(Object.values(merged).map(m=>m.mix));
+  const masterKeywords = unionKeywords([].concat.apply([], Object.values(merged).map(m=> m.keywords)));
+  const master = { budget:masterBudget, mix:masterMix, topKeywords: masterKeywords.slice(0,20), notes:[
+    "Conservative plan using median budget and averaged channel mix across models.",
+    "Priority: emergency-intent PPC & LSAs; accelerate review velocity and GBP activity; expand service area pages."
+  ]};
+  window.MASTER_PLAN = { generatedAt: new Date().toISOString(), providers: Object.keys(loaded).filter(k=> !!loaded[k]), merged: merged, master: master };
+  render('master');
+}
+
+// ===== Views =====
 function pageDashboard(){
   const wrap=el('div');
   const all=DATA.companies.slice().sort((a,b)=>a.threatRank-b.threatRank);
   const lead=all[0], me=DATA.companies.find(x=>x.id==='americlean')||all[0];
-  const row=el('div',{class:'row3'});
-  row.appendChild(el('div',{class:'kpi'}, el('div',null,'Top Threat'), el('b',null,lead.name), el('div',{class:'small'}, 'Local Pack #'+lead.kpis.localPack+' • SEO '+lead.kpis.seo)));
-  row.appendChild(el('div',{class:'kpi'}, el('div',null,'AmeriClean Rating'), el('b',null,String(me.kpis.rating)), el('div',{class:'small'}, me.kpis.reviews+' reviews')));
-  row.appendChild(el('div',{class:'kpi'}, el('div',null,'Spend Gap (vs top)'), el('b',null,fmt.money(Math.max(0,lead.kpis.adSpend - me.kpis.adSpend||0))), el('div',{class:'small'}, 'Monthly')));
-  wrap.appendChild(row);
-
+  const head=el('div',{class:'row3'});
+  head.appendChild(el('div',{class:'kpi'}, el('div',null,'Top Threat'), el('b',null,lead.name), el('div',{class:'small'}, 'Local Pack #'+lead.kpis.localPack+' • SEO '+lead.kpis.seo)));
+  head.appendChild(el('div',{class:'kpi'}, el('div',null,'AmeriClean Rating'), el('b',null,String(me.kpis.rating)), el('div',{class:'small'}, me.kpis.reviews+' reviews')));
+  head.appendChild(el('div',{class:'kpi'}, el('div',null,'Spend Gap vs Top'), el('b',null,fmt.money(Math.max(0,(lead.kpis.adSpend||0)-(me.kpis.adSpend||0)))), el('div',{class:'small'}, 'Monthly')));
+  wrap.appendChild(head);
   const charts=el('div',{class:'row'});
-  charts.appendChild(el('div',{class:'card'}, el('h3',null,'Top Threat Ad Spend (6 mo)'), el('div',{html:line(lead.trends.months, lead.trends.adSpend, 520, 240)})));
-  charts.appendChild(el('div',{class:'card'}, el('h3',null,'AmeriClean SEO (6 mo)'), el('div',{html:line(me.trends.months, me.trends.seo||[0], 520, 240)})));
+  charts.appendChild(el('div',{class:'card'}, el('div',{class:'section-title'}, el('h3',null,'Threat Ad Spend (6 mo)')), el('div',{html:line(lead.trends.months, lead.trends.adSpend, 520, 240)})));
+  charts.appendChild(el('div',{class:'card'}, el('div',{class:'section-title'}, el('h3',null,'AmeriClean SEO (6 mo)')), el('div',{html:line(me.trends.months, me.trends.seo||[0], 520, 240)})));
   wrap.appendChild(charts);
+  wrap.appendChild(el('hr'));
+  wrap.appendChild(el('div',{class:'small'},'Tip: Load provider JSONs in Models & Settings, then press "Recompile Master Plan".'));
   return wrap;
 }
 
-function companyTile(c){
+function companyCard(c){
   const k=c.kpis;
   return el('div',{class:'card'},
-    el('div',null, el('b',null,c.name), ' ', el('span',{class:'badge'}, c.city||'')),
+    el('div',{class:'section-title'}, el('b',null,c.name), el('span',{class:'badge'}, c.city||'')),
     el('div',{class:'small'}, c.website||''),
-    el('div',{html:bar(320,160,[k.seo, k.rating*20, k.reviews/10, k.adSpend/500], ['SEO','★','Rev','Ad$'])}),
-    el('div',null, el('span',{class:'pill'}, 'Threat #'+c.threatRank), ' ', el('span',{class:'pill'}, 'Local Pack '+k.localPack))
+    el('div',{html:bar(360,160,[k.seo, (k.rating||0)*20, (k.reviews||0)/10, (k.adSpend||0)/500], ['SEO','★','Rev','Ad$'])}),
+    el('div',null, el('span',{class:'pill'}, 'Threat #'+c.threatRank), ' ', el('span',{class:'pill'}, 'Local Pack '+k.localPack)),
+    el('div',null, el('button',{class:'btn', onclick:()=> openCompetitor(c.id)}, 'Open Strategy'))
   );
 }
 
 function pageCompetitors(){
   const wrap=el('div');
   const grid=el('div',{class:'row3'});
-  DATA.companies.slice().sort((a,b)=>a.threatRank-b.threatRank).forEach(c=> grid.appendChild(companyTile(c)));
+  DATA.companies.slice().sort((a,b)=>a.threatRank-b.threatRank).forEach(c=> grid.appendChild(companyCard(c)));
   wrap.appendChild(grid);
-
-  // Detail + counter
-  const sel = DATA.companies[0];
-  wrap.appendChild(el('div',{class:'card', style:'margin-top:12px'},
-    el('h3',null,'Counter-Strategy (AmeriClean vs '+sel.name+')'),
-    counterBlock(sel)
-  ));
+  wrap.appendChild(el('hr'));
+  wrap.appendChild(el('div',{id:'compDetail'}));
   return wrap;
 }
 
-function econTable(){
-  const t=el('table'); t.innerHTML='<tr><th>Service</th><th>Close Rate</th><th>Gross Margin</th><th>Avg Ticket</th><th>Gross Profit/Job</th></tr>';
-  Object.keys(ECON).forEach(s=>{
-    const e=ECON[s], gp = e.grossMargin * e.avgTicket;
-    const tr=el('tr'); tr.appendChild(el('td',null,s)); tr.appendChild(el('td',null, fmt.pct(e.closeRate)));
-    tr.appendChild(el('td',null, fmt.pct(e.grossMargin))); tr.appendChild(el('td',null, fmt.money(e.avgTicket)));
-    tr.appendChild(el('td',null, fmt.money(gp))); t.appendChild(tr);
-  });
-  return t;
-}
-
-function counterPlanFor(c){
-  const my = DATA.companies.find(x=>x.id==='americlean') || c;
-  // Spend baseline: conservative
-  const base = Math.max(2500, Math.round((c.kpis.adSpend*0.55) + (c.kpis.seo*32) + (c.kpis.reviews*3.5)));
-  // Channel mix
-  let mix={PPC:0.34, LSAs:0.20, LocalSEO:0.26, PaidSocial:0.10, CRO:0.10};
-  if(c.kpis.localPack<=2){ mix={PPC:0.40,LSAs:0.25,LocalSEO:0.20,PaidSocial:0.10,CRO:0.05}; }
-  if(my.kpis.rating > c.kpis.rating){ mix.LocalSEO+=0.05; mix.PPC-=0.05; }
-  // Normalize
-  const s=mix.PPC+mix.LSAs+mix.LocalSEO+mix.PaidSocial+mix.CRO; Object.keys(mix).forEach(k=> mix[k]=+(mix[k]/s).toFixed(2));
-  // CPL targets per service (conservative)
-  const cplTargets={};
-  Object.keys(ECON).forEach(sv=>{
-    const e=ECON[sv];
-    const profitPerJob = e.grossMargin * e.avgTicket;
-    const maxCAC = profitPerJob * 0.5; // invest up to 50% of gross profit per job
-    const cpl = Math.round((maxCAC * e.closeRate)/3); // divide by 3 to stay conservative (lead->appt->job)
-    cplTargets[sv]=cpl;
-  });
-  return {budget:base, mix:mix, cpl:cplTargets};
-}
-
-function counterBlock(c){
-  const plan = counterPlanFor(c);
-  const wrap=el('div');
-  const row=el('div',{class:'row'});
-  row.appendChild(el('div',{class:'kpi'}, el('div',null,'Recommended Monthly Budget'), el('b',null, fmt.money(plan.budget)), el('div',{class:'small'},'Conservative, tied to competitor strength')));
-  const labels=Object.keys(plan.mix), vals=labels.map(k=> Math.round(plan.budget*plan.mix[k]));
-  row.appendChild(el('div',{class:'kpi'}, el('div',null,'Spend Allocation'), el('div',{html:bar(420,160, vals, labels)})));
-  wrap.appendChild(row);
-
-  wrap.appendChild(el('div',{class:'row'},
-    el('div',{class:'card'}, el('h3',null,'Service Economics (Conservative)'), econTable()),
-    el('div',{class:'card'}, el('h3',null,'CPL Targets by Service'), cplTable(plan.cpl))
-  ));
-  wrap.appendChild(el('div',{class:'card'}, el('h3',null,'Tactics'),
-    tacticList(c)
-  ));
-  return wrap;
-}
-
-function cplTable(cpl){ const t=el('table'); t.innerHTML='<tr><th>Service</th><th>Max CPL (target)</th></tr>';
-  Object.keys(cpl).forEach(sv=>{ const tr=el('tr'); tr.appendChild(el('td',null,sv)); tr.appendChild(el('td',null,'$'+cpl[sv])); t.appendChild(tr); });
-  return t;
-}
-
-function tacticList(c){
-  const ul=el('ul'); [
-    'GBP: add project photos weekly; Q&A seeding for water/fire/mold; services/badge completeness 100%.',
-    'Reviews: +20 in 60 days; automated SMS/email; “review us” NFC card; reply to all within 24h.',
-    'PPC: exact match for emergency terms; daypart 6pm–7am bid +35%; call-only ads at night; negative match “jobs/salaries”.',
-    'LSAs: background checks complete; dispute low-quality leads; bid more on water emergency; enable messaging.',
-    'SEO: build city + suburb pages; service pages for sewage cleanup, dry-out, smoke odor; internal link hub from homepage.',
-    'CRO: sticky call button; hero with 60‑min arrival promise; trust badges; before/after gallery; financing badge.',
-    'Paid Social: 20mi radius; storm alert templates; before/after reels; lead form with “free moisture check”.'
-  ].forEach(t=> ul.appendChild(el('li',null,t)));
-  return ul;
-}
-
-function pageKeywords(){
-  const wrap=el('div');
-  wrap.appendChild(el('div',{class:'row'},
-    el('div',{class:'card'},
-      el('h3',null,'Local Keyword Demand'),
-      el('div',{class:'small'},'Source order: JSON URL (Settings) → Cache → Seed'),
-      el('div',null, el('button',{class:'btn',id:'btnReload'},'Reload')),
-      el('div',{id:'kwTableWrap'})
+function openCompetitor(id){
+  const c = DATA.companies.find(x=>x.id===id);
+  const host=document.getElementById('compDetail'); if(!host) return;
+  host.innerHTML='';
+  // Per-model breakdown
+  const merged = (window.MASTER_PLAN && window.MASTER_PLAN.merged && window.MASTER_PLAN.merged[id]) || { byModel:[{provider:'gpt5-local', plan: localPlanForCompetitor(c)}], budget:0, mix:{}, tactics:[] };
+  const header=el('div',{class:'section-title'}, el('h3',null,'Strategy — ', c.name));
+  host.appendChild(el('div',{class:'card'}, header,
+    el('div',{class:'row'},
+      el('div',{class:'kpi'}, el('div',null,'Merged Budget'), el('b',null, fmt.money(merged.budget||localPlanForCompetitor(c).budget))),
+      el('div',{class:'kpi'}, el('div',null,'Merged Mix'), el('div',{html:bar(420,120, Object.keys(merged.mix).map(k=> Math.round((merged.budget||0)*(merged.mix[k]||0))), Object.keys(merged.mix))}))
     ),
-    el('div',{class:'card'},
-      el('h3',null,'Google Trends (relative, no key)'),
-      el('div',{class:'small'},'Shows relative interest for top keyword'),
-      el('div',{id:'trendsWrap'})
-    )
+    el('div',null, el('h4',null,'Tactics (Merged)'), el('ul',null, ...(merged.tactics||localPlanForCompetitor(c).tactics).map(t=> el('li',null,t))))
   ));
-  // Upload JSON section
-  wrap.appendChild(el('div',{class:'card', style:'margin-top:12px'},
-    el('h3',null,'Upload keywords JSON (optional)'),
-    el('div',{class:'small'},'Schema: [{"keyword":"water damage billings","volume":900,"cpc":16.5,"intent":"Emergency","service":"Water Damage"}, ...]'),
-    el('input',{type:'file',id:'fileInput',accept:'.json'})
-  ));
-  setTimeout(()=> loadKeywordsUI(), 0);
-  return wrap;
+  // By model list
+  const tbl=el('table'); tbl.innerHTML='<tr><th>Provider</th><th>Budget</th><th>Has Mix</th><th>Tactic Count</th></tr>';
+  (merged.byModel||[]).forEach(p=>{
+    const tr=el('tr'); tr.appendChild(el('td',null,p.provider)); tr.appendChild(el('td',null, p.plan && p.plan.budget ? fmt.money(p.plan.budget): '—'));
+    tr.appendChild(el('td',null, p.plan && p.plan.mix ? 'Yes':'—')); tr.appendChild(el('td',null, (p.plan&&p.plan.tactics)? p.plan.tactics.length : 0));
+    tbl.appendChild(tr);
+  });
+  host.appendChild(el('div',{class:'card'}, el('h3',null,'By Model'), tbl ));
 }
 
-async function loadKeywordsUI(){
-  const city = (DATA.companies.find(x=>x.id==='americlean')||{city:'Billings, MT'}).city;
-  const kw = await fetchKeywords(city);
-  const wrap = document.getElementById('kwTableWrap'); wrap.innerHTML='';
-  const t=el('table'); t.innerHTML='<tr><th>Keyword</th><th>Monthly Volume</th><th>Est. CPC</th><th>Intent</th><th>Service</th></tr>';
-  kw.forEach(r=>{ const tr=el('tr'); tr.appendChild(el('td',null,r.keyword)); tr.appendChild(el('td',null,String(r.volume||0))); tr.appendChild(el('td',null, r.cpc ? '$'+r.cpc.toFixed(2) : '—')); tr.appendChild(el('td',null,r.intent||'')); tr.appendChild(el('td',null,r.service||'')); t.appendChild(tr); });
-  wrap.appendChild(t);
-  const top = kw.slice().sort((a,b)=>(b.volume||0)-(a.volume||0))[0] || {keyword:'water damage billings'};
-  const trends = document.getElementById('trendsWrap'); trends.innerHTML=''; trends.appendChild(trendsEmbed(top.keyword, 'US-MT'));
-  // Hook PPC planner cache
-  window.__KW_CACHE__ = kw;
+async function pageKeywords(){
+  const wrap=el('div');
+  const me = DATA.companies.find(x=>x.id==='americlean') || DATA.companies[0];
+  const kw = await fetchKeywords(me.city||'Billings, MT');
+  // Table
+  const tbl=el('table'); tbl.innerHTML='<tr><th>Keyword</th><th>Volume</th><th>CPC</th><th>Intent</th><th>Service</th></tr>';
+  kw.forEach(r=>{ const tr=el('tr'); tr.appendChild(el('td',null,r.keyword)); tr.appendChild(el('td',null,String(r.volume||0))); tr.appendChild(el('td',null, r.cpc? '$'+r.cpc.toFixed(2): '—')); tr.appendChild(el('td',null,r.intent||'')); tr.appendChild(el('td',null,r.service||'')); tbl.appendChild(tr); });
+  const grid=el('div',{class:'row'});
+  grid.appendChild(el('div',{class:'card'}, el('div',{class:'section-title'}, el('h3',null,'Local Keyword Demand — ', me.city||'')), tbl));
+  // Simple volume chart for top 8
+  const top=kw.slice(0,8); const labels=top.map(x=> x.keyword.length>16? x.keyword.slice(0,16)+'…': x.keyword); const vals=top.map(x=> x.volume||0);
+  grid.appendChild(el('div',{class:'card'}, el('div',{class:'section-title'}, el('h3',null,'Top Volume (bar)')), el('div',{html:bar(520,220,vals,labels)})));
+  wrap.appendChild(grid);
+  wrap.appendChild(el('hr'));
+  wrap.appendChild(el('div',{class:'small'},'Set a public JSON URL in Models & Settings to enable Live updates (no backend).'));
+  return wrap;
 }
 
 function pagePlanner(){
   const wrap=el('div');
-  wrap.appendChild(el('div',{class:'row'},
-    el('div',{class:'card'},
-      el('h3',null,'PPC Ad Group Plan'),
-      el('div',{id:'agWrap'}),
-      el('div',{class:'small'},'Derived from keyword list + CPL targets')
-    ),
-    el('div',{class:'card'},
-      el('h3',null,'Budget & Conversions Forecast'),
-      el('div',{id:'ppcForecast'})
-    )
-  ));
-  setTimeout(()=> buildPlanner(), 0);
+  const kw = (window.MASTER_PLAN && window.MASTER_PLAN.master && window.MASTER_PLAN.master.topKeywords) || KWSEED;
+  // rough planner
+  const ppcBudget = Math.round(((window.MASTER_PLAN && window.MASTER_PLAN.master && window.MASTER_PLAN.master.budget) || 6000) * 0.35);
+  const avgCPC = Math.round((kw.reduce((s,r)=> s+(r.cpc||10),0) / kw.length) || 10);
+  const clicks = Math.max(1, Math.floor(ppcBudget / Math.max(1,avgCPC)));
+  const conv = 0.10, leads = Math.floor(clicks*conv), cpl = leads? Math.round(ppcBudget/leads): ppcBudget;
+  const tbl=el('table'); tbl.innerHTML='<tr><th>PPC Budget</th><th>Avg CPC</th><th>Clicks</th><th>Conv. Rate</th><th>Leads</th><th>CPL</th></tr>'
+    +'<tr><td>'+fmt.money(ppcBudget)+'</td><td>$'+avgCPC+'</td><td>'+clicks+'</td><td>'+Math.round(conv*100)+'%</td><td>'+leads+'</td><td>$'+cpl+'</td></tr>';
+  wrap.appendChild(el('div',{class:'card'}, el('h3',null,'Budget & Conversion Forecast'), tbl));
   return wrap;
 }
 
-function groupKeywords(kw){
-  const groups={};
-  kw.forEach(k=>{ const g = (k.service||'General Restoration'); (groups[g]=groups[g]||[]).push(k); });
-  return groups;
+function pageMaster(){
+  const wrap=el('div');
+  const M = window.MASTER_PLAN || {master:{budget:0,mix:{}}, merged:{}};
+  wrap.appendChild(el('div',{class:'row'},
+    el('div',{class:'card'}, el('h3',null,'Master Budget (Median)'), el('b',null, fmt.money(M.master.budget||0))),
+    el('div',{class:'card'}, el('h3',null,'Master Mix (Avg)'), el('div',{html:bar(520,160, Object.keys(M.master.mix||{}).map(k=> Math.round((M.master.budget||0)*(M.master.mix[k]||0))), Object.keys(M.master.mix||{}))}))
+  ));
+  const kw = (M.master.topKeywords||[]).slice(0,12);
+  const kwTbl=el('table'); kwTbl.innerHTML='<tr><th>Keyword</th><th>Volume</th><th>CPC</th><th>Intent</th><th>Service</th></tr>';
+  kw.forEach(r=>{ const tr=el('tr'); tr.appendChild(el('td',null,r.keyword)); tr.appendChild(el('td',null,String(r.volume||0))); tr.appendChild(el('td',null,r.cpc? '$'+r.cpc.toFixed(2):'—')); tr.appendChild(el('td',null,r.intent||'')); tr.appendChild(el('td',null,r.service||'')); kwTbl.appendChild(tr); });
+  wrap.appendChild(el('div',{class:'card'}, el('h3',null,'Top Keywords (Merged)'), kwTbl));
+  // Provider provenance
+  const prov=el('table'); prov.innerHTML='<tr><th>Provider</th><th>Status</th></tr>';
+  (PROVIDERS.list).forEach(n=>{ const tr=el('tr'); tr.appendChild(el('td',null,n)); tr.appendChild(el('td',null, (PROVIDERS.cache[n]?'Loaded':'—') )); prov.appendChild(tr); });
+  wrap.appendChild(el('div',{class:'card'}, el('h3',null,'Provider Provenance'), prov));
+  wrap.appendChild(el('div',{class:'small'}, 'Click "Recompile Master Plan" any time — e.g., after updating provider URLs or when you switch to a newer model.'));
+  return wrap;
 }
 
-function buildPlanner(){
-  const kw = window.__KW_CACHE__ || KWSEED;
-  const groups = groupKeywords(kw);
-  const agWrap = document.getElementById('agWrap'); agWrap.innerHTML='';
-  const t=el('table'); t.innerHTML='<tr><th>Ad Group</th><th>Keywords</th><th>Bid Hint</th></tr>';
-  Object.keys(groups).forEach(g=>{
-    const list=groups[g].slice(0,10).map(r=> r.keyword).join(', ');
-    const avgCPC = Math.round((groups[g].reduce((s,r)=> s+(r.cpc||10),0) / groups[g].length) || 10);
-    const tr=el('tr'); tr.appendChild(el('td',null,g)); tr.appendChild(el('td',null,list)); tr.appendChild(el('td',null,'$'+avgCPC));
-    t.appendChild(tr);
-  });
-  agWrap.appendChild(t);
-
-  // Forecast
-  const plan = counterPlanFor(DATA.companies[0]);
-  // Assume 60% of PPC allocation goes to Water Damage group by default
-  const ppcBudget = Math.round(plan.budget * plan.mix.PPC);
-  const avgCPC = Math.round((kw.reduce((s,r)=> s+(r.cpc||10),0) / kw.length) || 10);
-  const estClicks = Math.max(1, Math.floor(ppcBudget / Math.max(1,avgCPC)));
-  const ctr = 0.06, convRate = 0.10; // conservative
-  const estLeads = Math.floor(estClicks * convRate);
-  const cpl = estLeads ? Math.round(ppcBudget/estLeads) : ppcBudget;
-  const fc=el('table'); fc.innerHTML='<tr><th>Budget</th><th>Avg CPC</th><th>Clicks</th><th>Conv. Rate</th><th>Leads</th><th>CPL</th></tr>'
-    +'<tr><td>'+fmt.money(ppcBudget)+'</td><td>$'+avgCPC+'</td><td>'+estClicks+'</td><td>'+Math.round(convRate*100)+'%</td><td>'+estLeads+'</td><td>$'+cpl+'</td></tr>';
-  document.getElementById('ppcForecast').innerHTML=''; document.getElementById('ppcForecast').appendChild(fc);
-}
-
-function pageSettings(){
+function pageModels(){
   const wrap=el('div');
   wrap.appendChild(el('div',{class:'card'},
-    el('h3',null,'Keyword Source (no backend)'),
-    el('div',{class:'small'},'Optionally set a JSON URL (e.g., GitHub raw or Gist). The app will fetch it when Live is ON.'),
-    el('input',{id:'kwUrl',class:'input',placeholder:'https://raw.githubusercontent.com/.../keywords.json'}),
-    el('button',{id:'saveKw',class:'btn',style:'margin-top:8px'},'Save')
+    el('h3',null,'Providers (Gemini, o3, GPT variants) — Backend-free via JSON URLs'),
+    el('div',{class:'small'},'Paste public JSON URLs (e.g., GitHub raw or Gists). Live must be ON to fetch.'),
+    providerForm()
   ));
-  wrap.appendChild(el('div',{class:'card',style:'margin-top:12px'},
-    el('h3',null,'Economics (read-only here — edit assets/config.js to change)'),
-    econTable()
+  wrap.appendChild(el('div',{class:'card', style:'margin-top:12px'},
+    el('h3',null,'Upload Provider JSON'),
+    el('div',{class:'small'},'Choose a provider below, then upload its JSON (stored in browser cache).'),
+    uploader()
+  ));
+  wrap.appendChild(el('div',{class:'card', style:'margin-top:12px'},
+    el('h3',null,'Keyword Source URL'),
+    el('div',{class:'small'},'Optional URL to a JSON list of keywords. Also used when Live is ON.'),
+    el('input',{id:'kwUrl',class:'input', placeholder:'https://raw.githubusercontent.com/.../keywords.json'}),
+    el('button',{id:'saveKw',class:'btn', style:'margin-top:8px'},'Save (session)')
   ));
   return wrap;
 }
 
-// ----- Router -----
+function providerForm(){
+  const box=el('div'); const t=el('table'); t.innerHTML='<tr><th>Provider</th><th>JSON URL</th></tr>';
+  PROVIDERS.list.forEach(name=>{
+    const tr=el('tr');
+    const inp=el('input',{class:'input',id:'url_'+name,placeholder:'https://raw.githubusercontent.com/.../'+name+'.json', value: (PROVIDERS.urls[name]||'')});
+    tr.appendChild(el('td',null,name)); tr.appendChild(el('td',null,inp)); t.appendChild(tr);
+  });
+  box.appendChild(t);
+  const save=el('button',{class:'btn',style:'margin-top:8px'},'Save URLs (session)');
+  save.addEventListener('click', ()=>{
+    PROVIDERS.list.forEach(name=>{ const v=document.getElementById('url_'+name).value.trim(); if(v) PROVIDERS.urls[name]=v; });
+    alert('Saved for this session. To persist, set PROVIDER_URLS in assets/config.js.');
+  });
+  box.appendChild(save);
+  return box;
+}
+
+function uploader(){
+  const box=el('div'); const sel=el('select',{id:'provSel',class:'input'});
+  PROVIDERS.list.forEach(n=> sel.appendChild(el('option',{value:n}, n)));
+  const file=el('input',{type:'file',id:'provFile',accept:'.json', style:'margin-top:8px'});
+  const btn=el('button',{class:'btn',style:'margin-top:8px'},'Upload');
+  btn.addEventListener('click', ()=>{
+    const p=sel.value; const f=file.files[0]; if(!f) return;
+    const r=new FileReader();
+    r.onload=()=>{ try{ const json=JSON.parse(r.result); PROVIDERS.cache[p]=json; localStorage.setItem('provider:'+p, JSON.stringify(json)); alert('Stored '+p+' JSON in browser cache. Recompile to use it.'); }catch(e){ alert('Invalid JSON'); } };
+    r.readAsText(f);
+  });
+  box.appendChild(el('div',null, el('label',null,'Provider: '), sel));
+  box.appendChild(file); box.appendChild(btn);
+  return box;
+}
+
+// ===== Router & Events =====
 function render(page){
   const host=document.getElementById('page'); host.innerHTML='';
-  const routes={dashboard:pageDashboard, competitors:pageCompetitors, keywords:pageKeywords, planner:pagePlanner, settings:pageSettings};
+  const routes={dashboard:pageDashboard, competitors:pageCompetitors, keywords:()=>{pageKeywords().then(n=>{host.appendChild(n);}); return el('div');}, planner:pagePlanner, master:pageMaster, models:pageModels};
   host.appendChild(routes[page||'dashboard']());
 }
 
-// ----- Init & Events -----
 function init(){
-  // Sidebar nav
-  document.querySelectorAll('.side-item').forEach(n=> n.addEventListener('click', ()=> navActivate(n.getAttribute('data-page')) ));
-  // Search
-  document.getElementById('searchBox').addEventListener('input', (e)=>{
-    const s=e.target.value.trim().toLowerCase();
-    const grid=document.querySelector('.row3'); if(!grid) return;
-    if(!s){ return render('competitors'); }
-    const res = DATA.companies.filter(c=> c.name.toLowerCase().includes(s) || (c.city||'').toLowerCase().includes(s));
-    grid.innerHTML=''; res.forEach(c=> grid.appendChild(companyTile(c)));
-  });
-  // Live toggle
+  document.querySelectorAll('.side-item').forEach(n=> n.addEventListener('click', ()=> { document.querySelectorAll('.side-item').forEach(m=>m.classList.remove('active')); n.classList.add('active'); render(n.getAttribute('data-page')); } ));
   document.getElementById('toggleLive').addEventListener('change', (e)=>{ LIVE = !!e.target.checked; });
-  // Add competitor
+  document.getElementById('btnRecompile').addEventListener('click', ()=> recompileMaster() );
+  document.getElementById('btnDownload').addEventListener('click', ()=>{
+    const blob=new Blob([JSON.stringify(window.MASTER_PLAN||{}, null, 2)], {type:'application/json'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='americlean_master_plan.json'; a.click();
+  });
   document.getElementById('btnAdd').addEventListener('click', ()=>{
     const name=document.getElementById('newName').value.trim();
     const city=document.getElementById('newCity').value.trim();
@@ -362,29 +408,12 @@ function init(){
     };
     DATA.companies.push(base); document.getElementById('addMsg').textContent='Added locally.';
   });
-  // Keywords page actions
-  document.addEventListener('click', (e)=>{
-    if(e.target && e.target.id==='btnReload'){ loadKeywordsUI(); }
-  });
-  document.addEventListener('change', (e)=>{
-    if(e.target && e.target.id==='fileInput'){
-      const file=e.target.files[0]; if(!file) return;
-      const reader=new FileReader();
-      reader.onload=()=>{ try{ const parsed=JSON.parse(reader.result); if(Array.isArray(parsed)){ window.__KW_CACHE__=parsed; render('keywords'); } }catch(err){} };
-      reader.readAsText(file);
-    }
-  });
-  document.addEventListener('click', (e)=>{
-    if(e.target && e.target.id==='saveKw'){
-      const v=document.getElementById('kwUrl').value.trim(); if(v){ window.KEYWORD_JSON_URL=v; alert('Saved in this session. To persist, set KEYWORD_JSON_URL in assets/config.js'); }
-    }
+  document.getElementById('saveKw').addEventListener('click', ()=>{
+    const v=document.getElementById('kwUrl').value.trim(); if(v){ window.KEYWORD_JSON_URL=v; alert('Saved for this session. To persist, set KEYWORD_JSON_URL in assets/config.js'); }
   });
   render('dashboard');
 }
 
 window.addEventListener('DOMContentLoaded', init);
 </script>
-
-<!-- Data seeds -->
-</body>
-</html>
+</body></html>
