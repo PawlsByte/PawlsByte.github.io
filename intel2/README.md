@@ -1,10 +1,12 @@
-# AmeriClean Intel Hub — Unified Admin v2 (Backend-free)
+# AmeriClean Intel Hub — Unified Admin v2 (Fixed)
 
-**What’s new**
-- Deep, per-competitor **drilldowns**: Snapshot, **SEO Audit**, **Paid Ads** (keywords + clicks forecast), **Social & Reviews**, **Local Pack & GBP**, **Counter Plan**, and **Action Plan**.
-- **Open Strategy fixed** via hash routing (`#/competitor/<id>`). Cards and buttons now reliably open the detail panel.
-- **Simplified model switching**: a single dropdown (Local Engine / Provider URLs / Upload Files). Click **Recompile Master Plan** to merge provider JSONs.
-- Backend-free keyword sourcing with optional `window.KEYWORD_JSON_URL`.
+**What’s fixed/improved**
+- Fully implemented charts (no truncated code), interactive everywhere.
+- Hash routing ensures **Open Strategy** always loads the competitor detail, even after refresh.
+- Deep competitor drilldowns (Snapshot, SEO Audit, Paid Ads, Social & Reviews, Local Pack & GBP, Counter Plan, Action Plan).
+- **Print / Save PDF** buttons on competitor detail and master strategy (uses print CSS).
+- Simple model modes (Local / Provider URLs / Upload) + **Recompile** button.
+- Backend-free; Pages-friendly; includes `.nojekyll` and `assets/config.js`.
 
 **Deploy**
 1) Upload all files to your repo root.  
@@ -26,4 +28,6 @@
 }
 ```
 
-**Tip**: Anyone on your team can use **Upload Files** mode → drop JSON for Gemini/o3/GPT → **Recompile** → open competitor detail → **Counter Plan**.
+**Printing**
+- Use the **Print Current View** button (top right) or the **Print** buttons inside Competitor and Master pages.  
+- Clean print styles are applied automatically for PDF exports.
